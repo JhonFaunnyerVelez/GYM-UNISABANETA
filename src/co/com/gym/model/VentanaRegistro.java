@@ -19,13 +19,13 @@ public class VentanaRegistro extends JFrame {
 	private JTextField txtUsuario;
 	private JTextField txtNombre;
 	private JTextField txtCed;
-	private JTextField textField_3;
+	private JTextField txtClave;
 	private JTextField txtNum;
 	private JLabel lblNombre;
 	private JLabel lblCedula;
 	private JLabel lblContrasea;
 	private JLabel lblNumero;
-	private JButton btnNewButton;
+	private JButton btnRegistrarse;
 	private JButton btnRegresar;
 
 	/**
@@ -70,10 +70,10 @@ public class VentanaRegistro extends JFrame {
 		contentPane.add(txtCed);
 		txtCed.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(202, 206, 86, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		txtClave = new JTextField();
+		txtClave.setBounds(202, 206, 86, 20);
+		contentPane.add(txtClave);
+		txtClave.setColumns(10);
 		
 		txtNum = new JTextField();
 		txtNum.setBounds(202, 252, 86, 20);
@@ -105,9 +105,9 @@ public class VentanaRegistro extends JFrame {
 		lblNumero.setBounds(101, 254, 62, 14);
 		contentPane.add(lblNumero);
 		
-		btnNewButton = new JButton("Registrarse");
-		btnNewButton.setBounds(170, 299, 89, 29);
-		contentPane.add(btnNewButton);
+		btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setBounds(170, 299, 89, 29);
+		contentPane.add(btnRegistrarse);
 		
 		btnRegresar = new JButton("Regresar");
 		btnRegresar.addActionListener(new ActionListener() {
@@ -117,7 +117,7 @@ public class VentanaRegistro extends JFrame {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(0, 0, 77, 34);
+		btnRegresar.setBounds(0, 0, 112, 34);
 		contentPane.add(btnRegresar);
 	}
 

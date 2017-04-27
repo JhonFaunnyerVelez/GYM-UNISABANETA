@@ -18,7 +18,7 @@ public class VentanaLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JPasswordField txtContraseña;
+	private JPasswordField txtClave;
 
 	/**
 	 * Launch the application.
@@ -60,9 +60,9 @@ public class VentanaLogin extends JFrame {
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(219, 94, 86, 20);
-		contentPane.add(txtContraseña);
+		txtClave = new JPasswordField();
+		txtClave.setBounds(219, 94, 86, 20);
+		contentPane.add(txtClave);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
@@ -77,6 +77,7 @@ public class VentanaLogin extends JFrame {
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ingresar();
+				
 			}
 		});
 		btnIngresar.setBounds(121, 144, 197, 23);
@@ -97,11 +98,11 @@ public class VentanaLogin extends JFrame {
 	protected void ingresar() {
 		// TODO Auto-generated method stub
 		String usuario = txtUsuario.getText();
-		String clave = String.valueOf(txtContraseña.getPassword());
+		String clave = String.valueOf(txtClave.getPassword());
 		GestionUsuario gestionUsuario = new GestionUsuario();
 		usuario usuario2=new usuario();
 		usuario2.setUsuario(usuario);
-		usuario2.setContraseña(clave);
+		usuario2.setClave(clave);
 		
 		usuario usu = gestionUsuario.obtenerUsuario(usuario2);
 		

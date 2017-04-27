@@ -13,7 +13,7 @@ public class GestionUsuario {
 			PreparedStatement pst = conexion.getConnection().prepareStatement(sql);
 			
 			pst.setString(1, usu.getUsuario());
-			pst.setString(2, usu.getContraseña());
+			pst.setString(2, usu.getClave());
 			
 			ResultSet rs = pst.executeQuery();
 			
