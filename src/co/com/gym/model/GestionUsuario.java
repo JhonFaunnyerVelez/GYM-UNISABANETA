@@ -8,9 +8,9 @@ public class GestionUsuario {
 	public usuario obtenerUsuario(usuario usu){
 		usuario Usuario=null;
 		try{
-			Connection conexion =  DriverManager.getConnection("jdbc:mysql://br-cdbr-azure-south-b.cloudapp.net:3306/faunnyerdb?verifyServerCertificate=false&useSSL=true", "bbba202baff517", "43c7dd79");
+			Conexion conexion = new Conexion();
 			String sql = "SELECT * FROM usuario where TBUSUARIO=? and DS= ?";
-			PreparedStatement pst = conexion.prepareStatement(sql);
+			PreparedStatement pst = conexion.getConnection().prepareStatement(sql);
 			
 			pst.setString(1, usu.getUsuario());
 			pst.setString(2, usu.getContraseña());
