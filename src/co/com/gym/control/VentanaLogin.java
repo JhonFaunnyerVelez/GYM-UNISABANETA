@@ -31,6 +31,7 @@ public class VentanaLogin extends JFrame {
 	private Color azul=new Color(20,130,200);
 	
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
+	private JLabel lblSalir;
 
 
 	/**
@@ -56,32 +57,49 @@ public class VentanaLogin extends JFrame {
 	 */
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 250);
+		setUndecorated(true);
+		setBounds(100, 100, 260, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.setBackground(Color.white);
 		
+		lblSalir=new JLabel("Salir");
+		lblSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Salir();
+			}
+		});
+		lblSalir.setBounds(179,353,41,34);
+		Font font=lblSalir.getFont();
+		Map atributos=font.getAttributes();
+		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblSalir.setFont(font.deriveFont(atributos));
+		lblSalir.setForeground(azul);
+		lblSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		contentPane.add(lblSalir);
+		
 		lblImagen=new JLabel();
-		lblImagen.setBounds(10,10,200,200);
-		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/logo.jpg")));
+		lblImagen.setBounds(40,5,200,200);
+		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/logo1.jpg")));
 		contentPane.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setBounds(230, 30, 80, 30);
+		lblUsuario.setBounds(20, 200, 80, 30);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(230, 80, 80, 30);
+		lblContrasea.setBounds(20, 250, 80, 30);
 		contentPane.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(320, 30, 120, 30);
+		txtUsuario.setBounds(100, 200, 120, 30);
 		contentPane.add(txtUsuario);
 		
 		txtClave = new JPasswordField();
-		txtClave.setBounds(320, 80, 120, 30);
+		txtClave.setBounds(100, 250, 120, 30);
 		contentPane.add(txtClave);
 		
 		
@@ -97,13 +115,13 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		btnIngresar.setBounds(240, 120, 190, 30);
+		btnIngresar.setBounds(30, 300, 190, 30);
 		btnIngresar.setBackground(azul);
 		btnIngresar.setForeground(Color.white);
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		contentPane.add(btnIngresar);
 		
-		lblOlvidoContra = new JLabel("Olvidaste tu contrase�a");
+		lblOlvidoContra = new JLabel("Olvidaste tu contrase\u00F1a");
 		lblOlvidoContra.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//VentanaRegistro registro = new VentanaRegistro();
@@ -111,11 +129,11 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		lblOlvidoContra.setBounds(330, 170, 150, 34);
-		Font font=lblOlvidoContra.getFont();
-		Map atributos=font.getAttributes();
-		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		lblOlvidoContra.setFont(font.deriveFont(atributos));
+		lblOlvidoContra.setBounds(19, 353, 150, 34);
+		Font font1=lblOlvidoContra.getFont();
+		Map atributos1=font1.getAttributes();
+		atributos1.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblOlvidoContra.setFont(font1.deriveFont(atributos1));
 		lblOlvidoContra.setForeground(azul);
 		lblOlvidoContra.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		contentPane.add(lblOlvidoContra);
@@ -140,6 +158,10 @@ public class VentanaLogin extends JFrame {
 			JOptionPane.showMessageDialog(contentPane, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
 
 		}
+	}
+	
+	public void Salir(){
+		this.dispose();
 	}
 
 
