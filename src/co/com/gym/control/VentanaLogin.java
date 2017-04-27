@@ -45,6 +45,7 @@ public class VentanaLogin extends JFrame {
 					frame.setVisible(true);
 					frame.setResizable(false);
 					frame.setLocationRelativeTo(null);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,7 +59,7 @@ public class VentanaLogin extends JFrame {
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		setBounds(100, 100, 260, 400);
+		setBounds(100, 100, 240, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,7 +73,7 @@ public class VentanaLogin extends JFrame {
 				Salir();
 			}
 		});
-		lblSalir.setBounds(179,353,41,34);
+		lblSalir.setBounds(180,295,41,34);
 		Font font=lblSalir.getFont();
 		Map atributos=font.getAttributes();
 		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -82,24 +83,24 @@ public class VentanaLogin extends JFrame {
 		contentPane.add(lblSalir);
 		
 		lblImagen=new JLabel();
-		lblImagen.setBounds(40,5,200,200);
+		lblImagen.setBounds(30,-12,170,149);
 		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/logo1.jpg")));
 		contentPane.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setBounds(20, 200, 80, 30);
+		lblUsuario.setBounds(20, 148, 80, 30);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(20, 250, 80, 30);
+		lblContrasea.setBounds(20, 189, 80, 30);
 		contentPane.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(100, 200, 120, 30);
+		txtUsuario.setBounds(100, 148, 120, 30);
 		contentPane.add(txtUsuario);
 		
 		txtClave = new JPasswordField();
-		txtClave.setBounds(100, 250, 120, 30);
+		txtClave.setBounds(100, 189, 120, 30);
 		contentPane.add(txtClave);
 		
 		
@@ -115,7 +116,7 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		btnIngresar.setBounds(30, 300, 190, 30);
+		btnIngresar.setBounds(30, 240, 190, 30);
 		btnIngresar.setBackground(azul);
 		btnIngresar.setForeground(Color.white);
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -129,7 +130,7 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		lblOlvidoContra.setBounds(19, 353, 150, 34);
+		lblOlvidoContra.setBounds(20, 295, 150, 34);
 		Font font1=lblOlvidoContra.getFont();
 		Map atributos1=font1.getAttributes();
 		atributos1.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
