@@ -3,6 +3,7 @@ package co.com.gym.control;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -85,7 +86,12 @@ public class VentanaLogin extends JFrame {
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ingresar();
+				try {
+					ingresar();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -104,7 +110,7 @@ public class VentanaLogin extends JFrame {
 		contentPane.add(btnRegistrarse);
 	}
 
-	protected void ingresar() {
+	protected void ingresar() throws SQLException {
 		// TODO Auto-generated method stub
 		String usuario = txtUsuario.getText();
 		String clave = String.valueOf(txtClave.getPassword());

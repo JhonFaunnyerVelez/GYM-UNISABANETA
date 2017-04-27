@@ -10,7 +10,7 @@ public class UsuarioImpl {
 	
 	UsuarioDao usuarioDao = new UsuarioDao();
 
-	public Usuario obtenerUsuario(Usuario usu){
+	public Usuario obtenerUsuario(Usuario usu) throws SQLException{
 		Usuario Usuario = usuarioDao.obtenerUsuario(usu);
 		return Usuario;
 	}
