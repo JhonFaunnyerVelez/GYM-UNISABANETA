@@ -1,6 +1,5 @@
-package co.com.gym.model;
+package co.com.gym.control;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +14,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaRegistro extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7140290221176595615L;
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtNombre;

@@ -1,6 +1,6 @@
 package co.com.gym.model;
 
-public class usuario {
+public class Usuario {
 
 	private int CDCODIGO;
 	private String TBUSUARIO;
@@ -9,7 +9,7 @@ public class usuario {
 	private String DS;
 	private int NM; 
 
-	public usuario(int cDCODIGO, String tBUSUARIO, String dSNOMBRE, int nMCEDULA, String dS, int nM) {
+	public Usuario(int cDCODIGO, String tBUSUARIO, String dSNOMBRE, int nMCEDULA, String dS, int nM) {
 		super();
 		CDCODIGO = cDCODIGO;
 		TBUSUARIO = tBUSUARIO;
@@ -19,7 +19,7 @@ public class usuario {
 		NM = nM;
 	}
 
-	public usuario() {
+	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,4 +1,4 @@
-package co.com.gym.model;
+package co.com.gym.util;
 
 import java.sql.*;
 
@@ -16,11 +16,11 @@ public class Conexion {
 	      try{
 	         //obtenemos el driver de para mysql
 	         Class.forName("com.mysql.jdbc.Driver");
-	         //obtenemos la conexión
+	         //obtenemos la conexiï¿½n
 	         conn = DriverManager.getConnection(url,login,password);
 	 
 	         if (conn!=null){
-	            //System.out.println("Conección a base de datos "+bd+" OK");
+	            //System.out.println("Conecciï¿½n a base de datos "+bd+" OK");
 	         }
 	      }
 	      catch(SQLException e){
@@ -31,7 +31,7 @@ public class Conexion {
 	         System.out.println(e);
 	      }
 	   }
-	   /**Permite retornar la conexión*/
+	   /**Permite retornar la conexiï¿½n*/
 	   public Connection getConnection(){
 	      return conn;
 	   }

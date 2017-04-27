@@ -1,6 +1,5 @@
-package co.com.gym.model;
+package co.com.gym.control;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +13,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import co.com.gym.impl.UsuarioImpl;
+import co.com.gym.model.Usuario;
+
 public class VentanaLogin extends JFrame {
 
 	/**
@@ -23,6 +25,9 @@ public class VentanaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
+	
+	UsuarioImpl usuarioImpl = new UsuarioImpl();
+
 
 	/**
 	 * Launch the application.
@@ -103,12 +108,11 @@ public class VentanaLogin extends JFrame {
 		// TODO Auto-generated method stub
 		String usuario = txtUsuario.getText();
 		String clave = String.valueOf(txtClave.getPassword());
-		GestionUsuario gestionUsuario = new GestionUsuario();
-		usuario usuario2=new usuario();
+		Usuario usuario2 = new Usuario();
 		usuario2.setUsuario(usuario);
 		usuario2.setClave(clave);
 		
-		usuario usu = gestionUsuario.obtenerUsuario(usuario2);
+		Usuario usu = usuarioImpl.obtenerUsuario(usuario2);
 		
 		if(usu!=null){
 			JOptionPane.showMessageDialog(contentPane, "Bienvenido");
