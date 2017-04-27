@@ -1,17 +1,18 @@
 package co.com.gym.control;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.event.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.font.TextAttribute;
 import java.sql.SQLException;
+import java.util.Map;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
 import co.com.gym.impl.UsuarioImpl;
@@ -26,7 +27,8 @@ public class VentanaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
-
+	private JLabel lblImagen,lblOlvidoContra;
+	private Color azul=new Color(20,130,200);
 	
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
 
@@ -40,6 +42,8 @@ public class VentanaLogin extends JFrame {
 				try {
 					VentanaLogin frame = new VentanaLogin();
 					frame.setVisible(true);
+					frame.setResizable(false);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,37 +56,34 @@ public class VentanaLogin extends JFrame {
 	 */
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 250, 300);//Aqui se supone es el tamaño del frame
+		setBounds(100, 100, 500, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(Color.white);
+		
+		lblImagen=new JLabel();
+		lblImagen.setBounds(10,10,200,200);
+		lblImagen.setIcon(new ImageIcon(getClass().getResource("/co/com/gym/control/Imagen/candado.jpg")));
+		contentPane.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setBounds(140, 55, 46, 14);
+		lblUsuario.setBounds(230, 30, 80, 30);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(121, 97, 65, 14);
+		lblContrasea.setBounds(230, 80, 80, 30);
 		contentPane.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(219, 52, 86, 20);
+		txtUsuario.setBounds(320, 30, 120, 30);
 		contentPane.add(txtUsuario);
-		txtUsuario.setColumns(10);
 		
 		txtClave = new JPasswordField();
-		txtClave.setBounds(219, 94, 86, 20);
+		txtClave.setBounds(320, 80, 120, 30);
 		contentPane.add(txtClave);
 		
-		JButton btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				salir();
-			}
-		});
-		btnSalir.setBounds(323, 216, 89, 34);
-		contentPane.add(btnSalir);
 		
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
@@ -96,19 +97,28 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		btnIngresar.setBounds(121, 144, 197, 23);
+		btnIngresar.setBounds(240, 120, 190, 30);
+		btnIngresar.setBackground(azul);
+		btnIngresar.setForeground(Color.white);
+		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		contentPane.add(btnIngresar);
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaRegistro registro = new VentanaRegistro();
-				registro.setVisible(true);
+		lblOlvidoContra = new JLabel("Olvidaste tu contraseña");
+		lblOlvidoContra.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//VentanaRegistro registro = new VentanaRegistro();
+				//registro.setVisible(true);
 				
 			}
 		});
-		btnRegistrarse.setBounds(25, 216, 120, 34);
-		contentPane.add(btnRegistrarse);
+		lblOlvidoContra.setBounds(330, 170, 150, 34);
+		Font font=lblOlvidoContra.getFont();
+		Map atributos=font.getAttributes();
+		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		lblOlvidoContra.setFont(font.deriveFont(atributos));
+		lblOlvidoContra.setForeground(azul);
+		lblOlvidoContra.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		contentPane.add(lblOlvidoContra);
 	}
 
 	protected void ingresar() throws SQLException {
@@ -123,7 +133,7 @@ public class VentanaLogin extends JFrame {
 		
 		if(usu!=null){
 			JOptionPane.showMessageDialog(contentPane, "Bienvenido");
-			//this.dispose();
+			this.dispose();
 			//frmBienvenido hola = new frmBienvenido();
 			//hola.setVisible(true);
 		}else{
@@ -132,9 +142,5 @@ public class VentanaLogin extends JFrame {
 		}
 	}
 
-	protected void salir() {
-		// TODO Auto-generated method stub
-		System.exit(0);
-	}
 
 }
