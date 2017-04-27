@@ -14,7 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class ventanaLogin extends JFrame {
+public class VentanaLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -27,7 +27,7 @@ public class ventanaLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ventanaLogin frame = new ventanaLogin();
+					VentanaLogin frame = new VentanaLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class ventanaLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ventanaLogin() {
+	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,20 +48,20 @@ public class ventanaLogin extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setBounds(72, 87, 46, 14);
+		lblUsuario.setBounds(140, 55, 46, 14);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(53, 129, 65, 14);
+		lblContrasea.setBounds(121, 97, 65, 14);
 		contentPane.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(151, 84, 86, 20);
+		txtUsuario.setBounds(219, 52, 86, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(151, 126, 86, 20);
+		txtContraseña.setBounds(219, 94, 86, 20);
 		contentPane.add(txtContraseña);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -70,7 +70,7 @@ public class ventanaLogin extends JFrame {
 				salir();
 			}
 		});
-		btnSalir.setBounds(106, 192, 89, 23);
+		btnSalir.setBounds(323, 216, 89, 34);
 		contentPane.add(btnSalir);
 		
 		JButton btnIngresar = new JButton("Ingresar");
@@ -79,8 +79,19 @@ public class ventanaLogin extends JFrame {
 				ingresar();
 			}
 		});
-		btnIngresar.setBounds(257, 192, 89, 23);
+		btnIngresar.setBounds(121, 144, 197, 23);
 		contentPane.add(btnIngresar);
+		
+		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaRegistro registro = new VentanaRegistro();
+				registro.setVisible(true);
+				
+			}
+		});
+		btnRegistrarse.setBounds(25, 216, 120, 34);
+		contentPane.add(btnRegistrarse);
 	}
 
 	protected void ingresar() {
