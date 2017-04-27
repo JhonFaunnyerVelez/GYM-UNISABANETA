@@ -65,7 +65,7 @@ public class VentanaLogin extends JFrame {
 		
 		lblImagen=new JLabel();
 		lblImagen.setBounds(10,10,200,200);
-		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/candado.jpg")));
+		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/logo.jpg")));
 		contentPane.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
