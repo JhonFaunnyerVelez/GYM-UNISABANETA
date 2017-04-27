@@ -31,12 +31,12 @@ public class usuario {
 		this.TBUSUARIO = usuario;
 	}
 
-	public String getContraseña() {
+	public String getClave() {
 		return DS;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.DS = contraseña;
+	public void setClave(String clave) {
+		this.DS = clave;
 	}
 	
 }
