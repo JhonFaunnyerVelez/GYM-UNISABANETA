@@ -65,7 +65,7 @@ public class VentanaLogin extends JFrame {
 		
 		lblImagen=new JLabel();
 		lblImagen.setBounds(10,10,200,200);
-		lblImagen.setIcon(new ImageIcon(getClass().getResource("/co/com/gym/control/Imagen/candado.jpg")));
+		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/candado.jpg")));
 		contentPane.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
@@ -103,7 +103,7 @@ public class VentanaLogin extends JFrame {
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		contentPane.add(btnIngresar);
 		
-		lblOlvidoContra = new JLabel("Olvidaste tu contraseña");
+		lblOlvidoContra = new JLabel("Olvidaste tu contraseï¿½a");
 		lblOlvidoContra.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//VentanaRegistro registro = new VentanaRegistro();
