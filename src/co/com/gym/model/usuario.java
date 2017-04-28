@@ -10,7 +10,7 @@ public class Usuario {
 	private int NM; 
 
 	public Usuario(int cDCODIGO, String tBUSUARIO, String dSNOMBRE, int nMCEDULA, String dS, int nM) {
-		super();
+		
 		CDCODIGO = cDCODIGO;
 		TBUSUARIO = tBUSUARIO;
 		DSNOMBRE = dSNOMBRE;
