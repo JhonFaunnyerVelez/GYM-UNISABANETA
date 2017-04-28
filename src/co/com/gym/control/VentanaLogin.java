@@ -17,91 +17,84 @@ import javax.swing.border.EmptyBorder;
 
 import co.com.gym.impl.UsuarioImpl;
 import co.com.gym.model.Usuario;
+import javax.swing.border.LineBorder;
 
 public class VentanaLogin extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2214898667088555065L;
-	private JPanel contentPane;
+	
+	private JPanel lamina;
+	
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
+	
 	private JLabel lblImagen,lblOlvidoContra;
 	private Color azul=new Color(20,130,200);
 	
-	UsuarioImpl usuarioImpl = new UsuarioImpl();
 	private JLabel lblSalir;
+	
+	UsuarioImpl usuarioImpl = new UsuarioImpl();
+	
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaLogin frame = new VentanaLogin();
-					frame.setVisible(true);
-					frame.setResizable(false);
-					frame.setLocationRelativeTo(null);
+		
+					VentanaLogin Marco = new VentanaLogin();
+					Marco.setVisible(true);
+					Marco.setResizable(false);
+					Marco.setLocationRelativeTo(null);
 					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaLogin() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 240, 330);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.setBackground(Color.white);
+		
+		lamina = new JPanel();
+		lamina.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		getContentPane().add(lamina);
+		lamina.setLayout(null);
+		lamina.setBackground(Color.white);
 		
 		lblSalir=new JLabel("Salir");
 		lblSalir.addMouseListener(new MouseAdapter() {
-			@Override
+
 			public void mouseClicked(MouseEvent e) {
 				Salir();
-			}
-		});
+			}});
+		
+		
 		lblSalir.setBounds(180,295,41,34);
 		Font font=lblSalir.getFont();
 		Map atributos=font.getAttributes();
 		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		
 		lblSalir.setFont(font.deriveFont(atributos));
 		lblSalir.setForeground(azul);
 		lblSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		contentPane.add(lblSalir);
+		lamina.add(lblSalir);
 		
 		lblImagen=new JLabel();
-		lblImagen.setBounds(30,-12,170,149);
+		lblImagen.setBounds(30,3,170,142);
 		lblImagen.setIcon(new ImageIcon(getClass().getResource("/img/logo1.jpg")));
-		contentPane.add(lblImagen);
+		lamina.add(lblImagen);
 		
 		JLabel lblUsuario = new JLabel("Usuario :");
 		lblUsuario.setBounds(20, 148, 80, 30);
-		contentPane.add(lblUsuario);
+		lamina.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setBounds(20, 189, 80, 30);
-		contentPane.add(lblContrasea);
+		lamina.add(lblContrasea);
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(100, 148, 120, 30);
-		contentPane.add(txtUsuario);
+		lamina.add(txtUsuario);
 		
 		txtClave = new JPasswordField();
 		txtClave.setBounds(100, 189, 120, 30);
-		contentPane.add(txtClave);
+		lamina.add(txtClave);
 		
 		
 		JButton btnIngresar = new JButton("Ingresar");
@@ -120,7 +113,7 @@ public class VentanaLogin extends JFrame {
 		btnIngresar.setBackground(azul);
 		btnIngresar.setForeground(Color.white);
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		contentPane.add(btnIngresar);
+		lamina.add(btnIngresar);
 		
 		lblOlvidoContra = new JLabel("Olvidaste tu contrase\u00F1a");
 		lblOlvidoContra.addMouseListener(new MouseAdapter() {
@@ -137,7 +130,7 @@ public class VentanaLogin extends JFrame {
 		lblOlvidoContra.setFont(font1.deriveFont(atributos1));
 		lblOlvidoContra.setForeground(azul);
 		lblOlvidoContra.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		contentPane.add(lblOlvidoContra);
+		lamina.add(lblOlvidoContra);
 	}
 
 	protected void ingresar() throws SQLException {
@@ -151,12 +144,12 @@ public class VentanaLogin extends JFrame {
 		Usuario usu = usuarioImpl.obtenerUsuario(usuario2);
 		
 		if(usu!=null){
-			JOptionPane.showMessageDialog(contentPane, "Bienvenido");
+			JOptionPane.showMessageDialog(lamina, "Bienvenido");
 			this.dispose();
-			//frmBienvenido hola = new frmBienvenido();
-			//hola.setVisible(true);
+			VentanaMenu menu = new VentanaMenu();
+			menu.setVisible(true);
 		}else{
-			JOptionPane.showMessageDialog(contentPane, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(lamina, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
