@@ -4,10 +4,10 @@ import java.sql.*;
 
 public class Conexion {
 
-	static String bd = "faunnyerdb?verifyServerCertificate=false&useSSL=true";
-	   static String login = "bbba202baff517";
-	   static String password = "43c7dd79";
-	   static String url = "jdbc:mysql://br-cdbr-azure-south-b.cloudapp.net:3306/"+bd;
+	static String bd = "gym_unisabaneta?verifyServerCertificate=false&useSSL=true";
+	   static String login = "b6e819a354c16a";
+	   static String password = "39b32930";
+	   static String url = "jdbc:mysql://us-cdbr-azure-central-a.cloudapp.net:3306/"+bd;
 	 
 	   Connection conn = null;
 	 
