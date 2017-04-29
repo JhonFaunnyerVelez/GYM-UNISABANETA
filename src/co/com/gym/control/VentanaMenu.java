@@ -31,12 +31,12 @@ public class VentanaMenu extends JFrame {
 
 	public VentanaMenu() {
 		
-		//TAMAÑO DEL MARCO DE LA VENTANA
+		//TAMAï¿½O DEL MARCO DE LA VENTANA
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit mipantalla =Toolkit.getDefaultToolkit();
-		Dimension tamañoPantalla= mipantalla.getScreenSize();
-		int ancho = tamañoPantalla.width;
+		Dimension tamanoPantalla= mipantalla.getScreenSize();
+		int ancho = tamanoPantalla.width;
 		
 		setSize(ancho/2, 650);
 		setLocation(ancho/4 ,40);
