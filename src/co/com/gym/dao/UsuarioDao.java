@@ -9,12 +9,14 @@ import co.com.gym.util.Conexion;
 public class UsuarioDao {
 
 	public Usuario obtenerUsuario(Usuario usu) throws SQLException{
+		
 		Usuario Usuario=null;
 		Conexion conexion= null;
 		PreparedStatement pst=null; 
 		ResultSet rs =null; 
 		
 		try{
+			
 			conexion = new Conexion();
 			String sql = "SELECT * FROM usuario where TBUSUARIO=? and DS= ?";
 			pst = conexion.getConnection().prepareStatement(sql);
@@ -29,19 +31,12 @@ public class UsuarioDao {
 			}
 		
 		}catch(Exception e){
-		
 			System.out.println("error en obtener usuario");
-		
-		}
-	finally{
-		conexion.desconectar();
-		pst.close();
-		rs.close();
-		
-		
-		}
-		
-		
+		}finally{
+			conexion.desconectar();
+			pst.close();
+			rs.close();		
+		}		
 		return Usuario;
 	}
 	
