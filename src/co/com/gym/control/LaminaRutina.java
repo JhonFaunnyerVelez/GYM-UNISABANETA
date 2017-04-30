@@ -28,6 +28,7 @@ public class LaminaRutina extends JPanel {
 
 		//getContentPane().setLayout(null);
 		setBackground(Color.WHITE);
+		setVisible(false);
 		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Rutina", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setLayout(null);
 		
@@ -143,7 +144,7 @@ class LaminaTbRutina extends JPanel{
 		modelo.addColumn("nacimiento");
 		JTable tabla = new JTable(modelo);
 		JScrollPane scrollCliente = new JScrollPane(tabla);
-		scrollCliente.setBounds(10, 11, 637, 352);
+		scrollCliente.setBounds(10, 11, 1220, 352);
 		add(scrollCliente);
 		
 		

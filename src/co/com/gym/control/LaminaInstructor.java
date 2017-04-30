@@ -25,6 +25,7 @@ public class LaminaInstructor extends JPanel {
 	public LaminaInstructor(){
 		
 		setBounds(24, 20, 629, 180);
+		setVisible(false);
 		setBackground(Color.WHITE);
 		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Instructor", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setLayout(null);
@@ -147,7 +148,7 @@ class laminaTbInstruct extends JPanel{
 	modelo.addColumn("nacimiento");
 	JTable tabla = new JTable(modelo);
 	JScrollPane scrollCliente = new JScrollPane(tabla);
-	scrollCliente.setBounds(10, 11, 637, 352);
+	scrollCliente.setBounds(10, 11, 1220, 352);
 	add(scrollCliente);
 	}
 }

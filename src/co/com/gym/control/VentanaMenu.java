@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 
+
 public class VentanaMenu extends JFrame {
 
 	private static final long serialVersionUID = -7140290221176595615L;
@@ -47,24 +48,30 @@ public class VentanaMenu extends JFrame {
 		Dimension tamanoPantalla= mipantalla.getScreenSize();
 		int ancho = tamanoPantalla.width;
 		
-		setSize(ancho/2, 650);
-		setLocation(ancho/4 ,40);
+		setSize(ancho-100, 650);
+		setLocation((ancho/2-650) ,40);
 		getContentPane().setBackground(Color.white);
 		
 		LaminaCliente laminaCliente = new LaminaCliente();
+		laminaCliente.setBounds(322, 20, 629, 180);
 		LaminaTblClient laminaTblClient = new LaminaTblClient();
+		laminaTblClient.setBounds(10, 211, 1240, 374);
 		//---------------------------------------------------------
 		getContentPane().add(laminaCliente);
 		getContentPane().add(laminaTblClient);
 		
 		LaminaInstructor laminaInstruc = new LaminaInstructor();
+		laminaInstruc.setBounds(322, 20, 629, 180);
 		laminaTbInstruct laminaTbIntruct = new laminaTbInstruct();
+		laminaTbIntruct.setBounds(10, 211, 1240, 374);
 		
 		getContentPane().add(laminaInstruc);
 		getContentPane().add(laminaTbIntruct);
 		
 		LaminaRutina laminaRut = new LaminaRutina();
+		laminaRut.setBounds(322, 20, 629, 180);
 		LaminaTbRutina laminaTbRut = new LaminaTbRutina();
+		laminaTbRut.setBounds(10, 211, 1240, 374);
 		
 		getContentPane().add(laminaRut);
 		getContentPane().add(laminaTbRut);
@@ -83,6 +90,12 @@ public class VentanaMenu extends JFrame {
 		
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				laminaInstruc.setVisible(false);
+				laminaTbIntruct.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaTbServ.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaTbRut.setVisible(false);
 				laminaCliente.setVisible(true);
 				laminaTblClient.setVisible(true);
 			}
@@ -144,7 +157,8 @@ public class VentanaMenu extends JFrame {
 				//LAMINA SERVICIO
 				
 				laminaServ = new JPanel();
-				laminaServ.setBounds(24, 20, 629, 180);
+				laminaServ.setBounds(322, 20, 629, 180);
+				laminaServ.setVisible(false);
 	
 				getContentPane().setLayout(null);
 				laminaServ.setBackground(Color.WHITE);
@@ -250,7 +264,8 @@ public class VentanaMenu extends JFrame {
 				
 				laminaTbServ = new JPanel();
 				laminaTbServ.setBackground(Color.WHITE);
-				laminaTbServ.setBounds(10, 211, 657, 374);
+				laminaTbServ.setBounds(10, 211, 1240, 374);
+				laminaTbServ.setVisible(false);
 				getContentPane().add(laminaTbServ);
 				laminaTbServ.setLayout(null);
 				DefaultTableModel modelo3 = new DefaultTableModel();
@@ -259,7 +274,7 @@ public class VentanaMenu extends JFrame {
 				modelo3.addColumn("nacimiento");
 				tabla = new JTable(modelo3);
 				scrollCliente = new JScrollPane(tabla);
-				scrollCliente.setBounds(10, 11, 637, 352);
+				scrollCliente.setBounds(10, 11, 1220, 352);
 				laminaTbServ.add(scrollCliente);
 				
 				//--------------------------------------------------------
