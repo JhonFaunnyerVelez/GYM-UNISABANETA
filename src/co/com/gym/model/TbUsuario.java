@@ -31,6 +31,12 @@ public class TbUsuario implements java.io.Serializable {
 
 	public TbUsuario() {
 	}
+	
+
+	public TbUsuario(int nmdocumento,String dscontrasena) {
+		this.nmdocumento = nmdocumento;
+		this.dscontrasena = dscontrasena;
+	}
 
 	public TbUsuario(TbInstructor tbInstructor, TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido,
 			int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento) {
@@ -46,7 +52,7 @@ public class TbUsuario implements java.io.Serializable {
 
 	public TbUsuario(TbInstructor tbInstructor, TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido,
 			String dssegundoapellido, int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento,
-			String dscontraseña, String dstelefono, String dsdireccion, String dssexo, String dsocupacion,
+			String dscontrasena, String dstelefono, String dsdireccion, String dssexo, String dsocupacion,
 			String feregistro, Set tbRutinases, Set tbEstadoPagos) {
 		this.tbInstructor = tbInstructor;
 		this.tbTipoUsuario = tbTipoUsuario;
