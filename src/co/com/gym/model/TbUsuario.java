@@ -28,8 +28,6 @@ public class TbUsuario implements java.io.Serializable {
 	private String dssexo;
 	private String dsocupacion;
 	private String feregistro;
-	private Set tbRutinases = new HashSet(0);
-	private Set tbEstadoPagos = new HashSet(0);
 
 	public TbUsuario() {
 	}
@@ -65,8 +63,6 @@ public class TbUsuario implements java.io.Serializable {
 		this.dssexo = dssexo;
 		this.dsocupacion = dsocupacion;
 		this.feregistro = feregistro;
-		this.tbRutinases = tbRutinases;
-		this.tbEstadoPagos = tbEstadoPagos;
 	}
 
 	public Integer getIdTbUsuario() {
@@ -197,20 +193,6 @@ public class TbUsuario implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
-	public Set getTbRutinases() {
-		return this.tbRutinases;
-	}
 
-	public void setTbRutinases(Set tbRutinases) {
-		this.tbRutinases = tbRutinases;
-	}
-
-	public Set getTbEstadoPagos() {
-		return this.tbEstadoPagos;
-	}
-
-	public void setTbEstadoPagos(Set tbEstadoPagos) {
-		this.tbEstadoPagos = tbEstadoPagos;
-	}
 
 }

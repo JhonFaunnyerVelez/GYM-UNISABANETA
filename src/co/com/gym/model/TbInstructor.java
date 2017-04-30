@@ -22,7 +22,6 @@ public class TbInstructor implements java.io.Serializable {
 	private String dscorreo;
 	private Date fefechanacimiento;
 	private Date feregistro;
-	private Set tbUsuarios = new HashSet(0);
 
 	public TbInstructor() {
 	}
@@ -43,7 +42,6 @@ public class TbInstructor implements java.io.Serializable {
 		this.dscorreo = dscorreo;
 		this.fefechanacimiento = fefechanacimiento;
 		this.feregistro = feregistro;
-		this.tbUsuarios = tbUsuarios;
 	}
 
 	public Integer getIdTbInstructor() {
@@ -126,12 +124,5 @@ public class TbInstructor implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
-	public Set getTbUsuarios() {
-		return this.tbUsuarios;
-	}
-
-	public void setTbUsuarios(Set tbUsuarios) {
-		this.tbUsuarios = tbUsuarios;
-	}
 
 }

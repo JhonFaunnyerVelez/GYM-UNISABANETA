@@ -17,7 +17,6 @@ public class TbServicio implements java.io.Serializable {
 	private String dsdescripcion;
 	private String nmcupolimite;
 	private Date feregistro;
-	private Set tbRutinasXTbServicios = new HashSet(0);
 
 	public TbServicio() {
 	}
@@ -28,7 +27,6 @@ public class TbServicio implements java.io.Serializable {
 		this.dsdescripcion = dsdescripcion;
 		this.nmcupolimite = nmcupolimite;
 		this.feregistro = feregistro;
-		this.tbRutinasXTbServicios = tbRutinasXTbServicios;
 	}
 
 	public Integer getIdTbServicio() {
@@ -71,12 +69,5 @@ public class TbServicio implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
-	public Set getTbRutinasXTbServicios() {
-		return this.tbRutinasXTbServicios;
-	}
-
-	public void setTbRutinasXTbServicios(Set tbRutinasXTbServicios) {
-		this.tbRutinasXTbServicios = tbRutinasXTbServicios;
-	}
 
 }

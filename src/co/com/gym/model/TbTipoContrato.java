@@ -16,7 +16,6 @@ public class TbTipoContrato implements java.io.Serializable {
 	private String dsdescripcion;
 	private Integer nmprecio;
 	private Date feregistro;
-	private Set tbEstadoPagos = new HashSet(0);
 
 	public TbTipoContrato() {
 	}
@@ -25,7 +24,6 @@ public class TbTipoContrato implements java.io.Serializable {
 		this.dsdescripcion = dsdescripcion;
 		this.nmprecio = nmprecio;
 		this.feregistro = feregistro;
-		this.tbEstadoPagos = tbEstadoPagos;
 	}
 
 	public Integer getIdTbTipoContrato() {
@@ -60,12 +58,5 @@ public class TbTipoContrato implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
-	public Set getTbEstadoPagos() {
-		return this.tbEstadoPagos;
-	}
-
-	public void setTbEstadoPagos(Set tbEstadoPagos) {
-		this.tbEstadoPagos = tbEstadoPagos;
-	}
 
 }

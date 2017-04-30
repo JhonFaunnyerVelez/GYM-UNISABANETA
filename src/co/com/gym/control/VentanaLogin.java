@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import co.com.gym.impl.UsuarioImpl;
-import co.com.gym.model.Usuario;
+import co.com.gym.model.TbUsuario;
 
 public class VentanaLogin extends JFrame {
 
@@ -140,13 +140,13 @@ public class VentanaLogin extends JFrame {
 
 	protected void ingresar() throws SQLException {
 		// TODO Auto-generated method stub
-		String usuario = txtUsuario.getText();
+		int usuario =  Integer.valueOf(txtUsuario.getText());
 		String clave = String.valueOf(txtClave.getPassword());
-		Usuario usuario2 = new Usuario();
-		usuario2.setUsuario(usuario);
-		usuario2.setClave(clave);
+		TbUsuario usuario2 = new TbUsuario();
+		usuario2.setNmdocumento(usuario);
+		usuario2.setDscontrasena(clave);
 		
-		Usuario usu = usuarioImpl.obtenerUsuario(usuario2);
+		TbUsuario usu = usuarioImpl.obtenerUsuario(usuario2);
 		
 		if(usu!=null){
 			JOptionPane.showMessageDialog(lamina, "Bienvenido");

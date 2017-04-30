@@ -13,14 +13,12 @@ public class TbTipoUsuario implements java.io.Serializable {
 
 	private Integer idTipoUsuario;
 	private String dsdescripcion;
-	private Set tbUsuarios = new HashSet(0);
 
 	public TbTipoUsuario() {
 	}
 
 	public TbTipoUsuario(String dsdescripcion, Set tbUsuarios) {
 		this.dsdescripcion = dsdescripcion;
-		this.tbUsuarios = tbUsuarios;
 	}
 
 	public Integer getIdTipoUsuario() {
@@ -39,12 +37,5 @@ public class TbTipoUsuario implements java.io.Serializable {
 		this.dsdescripcion = dsdescripcion;
 	}
 
-	public Set getTbUsuarios() {
-		return this.tbUsuarios;
-	}
-
-	public void setTbUsuarios(Set tbUsuarios) {
-		this.tbUsuarios = tbUsuarios;
-	}
 
 }

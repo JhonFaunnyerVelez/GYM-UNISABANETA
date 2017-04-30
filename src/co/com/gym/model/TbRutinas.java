@@ -19,7 +19,6 @@ public class TbRutinas implements java.io.Serializable {
 	private Date fefechainicial;
 	private Date fefechafinal;
 	private Date feregistro;
-	private Set tbRutinasXTbServicios = new HashSet(0);
 
 	public TbRutinas() {
 	}
@@ -36,7 +35,6 @@ public class TbRutinas implements java.io.Serializable {
 		this.fefechainicial = fefechainicial;
 		this.fefechafinal = fefechafinal;
 		this.feregistro = feregistro;
-		this.tbRutinasXTbServicios = tbRutinasXTbServicios;
 	}
 
 	public Integer getIdTbRutinas() {
@@ -95,12 +93,5 @@ public class TbRutinas implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
-	public Set getTbRutinasXTbServicios() {
-		return this.tbRutinasXTbServicios;
-	}
-
-	public void setTbRutinasXTbServicios(Set tbRutinasXTbServicios) {
-		this.tbRutinasXTbServicios = tbRutinasXTbServicios;
-	}
 
 }
