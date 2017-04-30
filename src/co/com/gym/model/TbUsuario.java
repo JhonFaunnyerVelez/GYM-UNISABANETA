@@ -22,7 +22,7 @@ public class TbUsuario implements java.io.Serializable {
 	private String dscorreo;
 	private Date fefechanacimiento;
 	private int nmdocumento;
-	private String dscontraseña;
+	private String dscontrasena;
 	private String dstelefono;
 	private String dsdireccion;
 	private String dssexo;
@@ -59,7 +59,7 @@ public class TbUsuario implements java.io.Serializable {
 		this.dscorreo = dscorreo;
 		this.fefechanacimiento = fefechanacimiento;
 		this.nmdocumento = nmdocumento;
-		this.dscontraseña = dscontraseña;
+		this.dscontrasena = dscontrasena;
 		this.dstelefono = dstelefono;
 		this.dsdireccion = dsdireccion;
 		this.dssexo = dssexo;
@@ -149,12 +149,12 @@ public class TbUsuario implements java.io.Serializable {
 		this.nmdocumento = nmdocumento;
 	}
 
-	public String getDscontraseña() {
-		return this.dscontraseña;
+	public String getDscontrasena() {
+		return this.dscontrasena;
 	}
 
-	public void setDscontraseña(String dscontraseña) {
-		this.dscontraseña = dscontraseña;
+	public void setDscontrasena(String dscontrasena) {
+		this.dscontrasena = dscontrasena;
 	}
 
 	public String getDstelefono() {

@@ -18,7 +18,7 @@ public class UsuarioDao {
 		try{
 			
 			conexion = new Conexion();
-			String sql = "SELECT * FROM usuario where TBUSUARIO=? and DS= ?";
+			String sql = "SELECT * FROM TbUsuario where NMDOCUMENTO=? and DSCONTRASENA= ?";
 			pst = conexion.getConnection().prepareStatement(sql);
 			
 			pst.setString(1, usu.getUsuario());
