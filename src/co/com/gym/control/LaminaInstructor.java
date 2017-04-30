@@ -14,6 +14,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class LaminaInstructor extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2100186988241620377L;
 	private JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5,textField_6,textField_7,textField_8;
 	private JButton btnGuardar, btnCancelar;
 	private Color azul=new Color(20,130,200);
@@ -127,6 +131,11 @@ public class LaminaInstructor extends JPanel {
 }
 
 class laminaTbInstruct extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5697487604854229264L;
+
 	public laminaTbInstruct(){
 	setBackground(Color.WHITE);
 	setBounds(10, 211, 657, 374);

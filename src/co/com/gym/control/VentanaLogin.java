@@ -2,22 +2,27 @@ package co.com.gym.control;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.sql.SQLException;
 import java.util.Map;
 
-import javax.swing.*;
 import javax.swing.ImageIcon;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import co.com.gym.impl.UsuarioImpl;
 import co.com.gym.model.Usuario;
-import javax.swing.border.LineBorder;
 
 public class VentanaLogin extends JFrame {
 
