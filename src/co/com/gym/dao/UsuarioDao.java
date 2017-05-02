@@ -1,46 +1,78 @@
 package co.com.gym.dao;
 
-import java.sql.*;
-import java.util.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
-import co.com.gym.model.TbTipoUsuario;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
+import co.com.gym.util.HibernateUtil;
 
 
 public class UsuarioDao {
 
+//	public TbUsuario obtenerUsuario(TbUsuario usu) throws SQLException{
+//		
+//		TbUsuario Usuario=null;
+//		Conexion conexion= null;
+//		PreparedStatement pst=null; 
+//		ResultSet rs =null; 
+//		
+//		Session sesion =  HibernateUtil.getSessionFactory().openSession();
+//		
+//		try{
+//			
+//			conexion = new Conexion();
+//			String sql = "SELECT * FROM tb_usuario where NMDOCUMENTO=? and DSCONTRASENA= ?";
+//			pst = conexion.getConnection().prepareStatement(sql);
+//			
+//			pst.setInt(1, usu.getNmdocumento());
+//			pst.setString(2, usu.getDscontrasena());
+//			
+//			rs = pst.executeQuery();
+//			
+//			
+//			while (rs.next()){
+//				Usuario = new TbUsuario(rs.getInt(8),rs.getString(9));
+//			}
+//
+//		}catch(Exception e){
+//			System.out.println("error en obtener usuario");
+//		}finally{
+//			conexion.desconectar();
+//			pst.close();
+//			rs.close();		
+//		}
+//		return Usuario;	
+//
+//	}
+	
 	public TbUsuario obtenerUsuario(TbUsuario usu) throws SQLException{
 		
-		TbUsuario Usuario=null;
-		Conexion conexion= null;
-		PreparedStatement pst=null; 
-		ResultSet rs =null; 
+		Session sesion =  HibernateUtil.getSessionFactory().openSession();
+		Transaction tr = null;
+		TbUsuario tbUsuario = null;
 		
 		try{
 			
-			conexion = new Conexion();
-			String sql = "SELECT * FROM tb_usuario where NMDOCUMENTO=? and DSCONTRASENA= ?";
-			pst = conexion.getConnection().prepareStatement(sql);
+			tr = sesion.beginTransaction();
 			
-			pst.setInt(1, usu.getNmdocumento());
-			pst.setString(2, usu.getDscontrasena());
-			
-			rs = pst.executeQuery();
-			
-			
-			while (rs.next()){
-				Usuario = new TbUsuario(rs.getInt(8),rs.getString(9));
-			}
+			tbUsuario = (TbUsuario) sesion.createQuery("SELECT * FROM tb_usuario where NMDOCUMENTO = " + usu.getNmdocumento() + " and DSCONTRASENA = " + usu.getDscontrasena() + ";");
+			tr.commit();
 
 		}catch(Exception e){
-			System.out.println("error en obtener usuario");
+			if(tr != null){
+				tr.rollback();
+			}
+			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
-			pst.close();
-			rs.close();		
+			sesion.close();	
 		}
-		return Usuario;	
+		return tbUsuario;		
 
 	}
 	

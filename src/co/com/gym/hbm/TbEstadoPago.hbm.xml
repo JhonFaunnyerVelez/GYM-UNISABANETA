@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-may-2017 13:42:45 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="TbEstadoPago" table="tb_estado_pago" catalog="gym_unisabaneta" optimistic-lock="version">
+        <id name="idTbEstadoPago" type="java.lang.Integer">
+            <column name="idTB_ESTADO_PAGO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tbTipoContrato" class="TbTipoContrato" fetch="select">
+            <column name="TB_TIPO_CONTRATO_idTB_TIPO_CONTRATO" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tbUsuario" class="TbUsuario" fetch="select">
+            <column name="TB_USUARIO_idTB_USUARIO" not-null="true" />
+        </many-to-one>
+        <property name="dstipopago" type="string">
+            <column name="DSTIPOPAGO" length="45" />
+        </property>
+        <property name="nmactivo" type="java.lang.Integer">
+            <column name="NMACTIVO" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-may-2017 13:42:45 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="TbRutinasXTbServicio" table="tb_rutinas_x_tb_servicio" catalog="gym_unisabaneta" optimistic-lock="version">
+<!--         <composite-id name="id" class="TbRutinasXTbServicioId"> -->
+<!--             <key-property name="tbRutinasIdTbRutinas" type="int"> -->
+<!--                 <column name="TB_RUTINAS_idTB_RUTINAS" /> -->
+<!--             </key-property> -->
+<!--             <key-property name="tbServicioIdTbServicio" type="int"> -->
+<!--                 <column name="TB_SERVICIO_idTB_SERVICIO" /> -->
+<!--             </key-property> -->
+<!--         </composite-id> -->
+        <many-to-one name="tbRutinas" class="TbRutinas" update="false" insert="false" fetch="select">
+            <column name="TB_RUTINAS_idTB_RUTINAS" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tbServicio" class="TbServicio" update="false" insert="false" fetch="select">
+            <column name="TB_SERVICIO_idTB_SERVICIO" not-null="true" />
+        </many-to-one>
+        <property name="feregistro" type="timestamp">
+            <column name="FEREGISTRO" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
