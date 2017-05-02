@@ -1,7 +1,9 @@
 package co.com.gym.dao;
 
 import java.sql.*;
+import java.util.Date;
 
+import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 
@@ -43,7 +45,7 @@ public class UsuarioDao {
 	}
 	
 	public void guardarUsuario(TbUsuario usuario){
-		// script para guardar un usuario
+		
+		
 	}
-	
 }

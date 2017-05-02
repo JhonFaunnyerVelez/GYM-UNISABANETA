@@ -1,6 +1,7 @@
 package co.com.gym.control;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -61,12 +62,10 @@ public class VentanaMenu extends JFrame {
 		getContentPane().add(laminaTblClient);
 		
 		LaminaInstructor laminaInstruc = new LaminaInstructor();
-		laminaInstruc.setBounds(322, 20, 629, 180);
-		laminaTbInstruct laminaTbIntruct = new laminaTbInstruct();
-		laminaTbIntruct.setBounds(10, 211, 1240, 374);
 		
 		getContentPane().add(laminaInstruc);
-		getContentPane().add(laminaTbIntruct);
+		
+
 		
 		LaminaRutina laminaRut = new LaminaRutina();
 		laminaRut.setBounds(322, 20, 629, 180);
@@ -91,7 +90,6 @@ public class VentanaMenu extends JFrame {
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaInstruc.setVisible(false);
-				laminaTbIntruct.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaTbServ.setVisible(false);
 				laminaRut.setVisible(false);
@@ -106,8 +104,11 @@ public class VentanaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);
 				laminaTblClient.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaTbRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaTbServ.setVisible(false);
 				laminaInstruc.setVisible(true);
-				laminaTbIntruct.setVisible(true);
 				
 			}
 		});
@@ -121,7 +122,6 @@ public class VentanaMenu extends JFrame {
 				laminaCliente.setVisible(false);
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
-				laminaTbIntruct.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaTbServ.setVisible(false);
 				laminaRut.setVisible(true);
@@ -138,7 +138,6 @@ public class VentanaMenu extends JFrame {
 				laminaCliente.setVisible(false);
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
-				laminaTbIntruct.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaTbRut.setVisible(false);
 				laminaServ.setVisible(true);

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,12 +13,19 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import co.com.gym.model.TbInstructor;
+import co.com.gym.model.TbTipoUsuario;
+import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 
 import java.sql.*;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LaminaCliente extends JPanel {
 	
@@ -25,12 +33,15 @@ public class LaminaCliente extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -6973662628749754810L;
-	private JTextField txtNombre,txtPrmApellido,txtSegApellido,txtAutorizado,txtCorreo,txtNacimiento,txtDoc,txtTel,txtDireccion;
+	private JTextField txtNombre,txtPrmApellido,txtSegApellido,txtCorreo,txtDoc,txtTel,txtDireccion;
 	private JButton btnGuardar, btnCancelar;
 	private Color azul=new Color(20,130,200);
-	private JTextField txtSexo;
 	private JTextField txtOcup;
 	private JTextField txtInstructor;
+	private JTextField txtFecha;
+	private JComboBox cbAutorizado, cbSexo, cbTipo;
+	private JTextField txtClave;
+	private JLabel lblClave;
 
 	
 	public LaminaCliente(){
@@ -57,20 +68,10 @@ public class LaminaCliente extends JPanel {
 				txtSegApellido.setBounds(121, 88, 86, 20);
 				add(txtSegApellido);
 				
-				txtAutorizado = new JTextField();
-				txtAutorizado.setColumns(10);
-				txtAutorizado.setBounds(121, 119, 86, 20);
-				add(txtAutorizado);
-				
 				txtCorreo = new JTextField();
 				txtCorreo.setColumns(10);
 				txtCorreo.setBounds(327, 57, 86, 20);
 				add(txtCorreo);
-				
-				txtNacimiento = new JTextField();
-				txtNacimiento.setColumns(10);
-				txtNacimiento.setBounds(327, 88, 86, 20);
-				add(txtNacimiento);
 				
 				btnGuardar = new JButton("Guardar");
 				btnGuardar.setBounds(222, 149, 89, 20);
@@ -139,11 +140,6 @@ public class LaminaCliente extends JPanel {
 				lblSexo.setBounds(423, 60, 96, 14);
 				add(lblSexo);
 				
-				txtSexo = new JTextField();
-				txtSexo.setColumns(10);
-				txtSexo.setBounds(529, 57, 86, 20);
-				add(txtSexo);
-				
 				JLabel lblOcupacion = new JLabel("Ocupacion:");
 				lblOcupacion.setBounds(423, 91, 96, 14);
 				add(lblOcupacion);
@@ -154,15 +150,25 @@ public class LaminaCliente extends JPanel {
 				add(txtOcup);
 				
 				JLabel lblTipoUsuario = new JLabel("Tipo Usuario:");
-				lblTipoUsuario.setBounds(489, 152, 65, 14);
+				lblTipoUsuario.setBounds(476, 152, 78, 14);
 				add(lblTipoUsuario);
 				
 				JLabel lblInstructor = new JLabel("Instructor:");
 				lblInstructor.setBounds(423, 122, 96, 14);
 				add(lblInstructor);
 				
-				JComboBox cbTipo = new JComboBox();
+				cbTipo = new JComboBox();
+				cbTipo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if(cbTipo.getSelectedItem().equals("1")){
+							lblClave.setVisible(true);
+							txtClave.setVisible(true);
+						}
+					}
+				});
 				cbTipo.setBounds(564, 149, 41, 20);
+				cbTipo.addItem("0");
+				cbTipo.addItem("1");
 				add(cbTipo);
 				
 				txtInstructor = new JTextField();
@@ -170,10 +176,81 @@ public class LaminaCliente extends JPanel {
 				txtInstructor.setBounds(529, 119, 86, 20);
 				add(txtInstructor);
 				
+				cbSexo = new JComboBox();
+				cbSexo.setBounds(529, 57, 46, 20);
+				cbSexo.addItem("M");
+				cbSexo.addItem("F");
+				add(cbSexo);
+				
+				cbAutorizado = new JComboBox();
+				cbAutorizado.setBounds(121, 119, 46, 20);
+				cbAutorizado.addItem("0");
+				cbAutorizado.addItem("1");
+				add(cbAutorizado);
+				
+				txtFecha = new JTextField();
+				txtFecha.setBounds(327, 88, 86, 20);
+				add(txtFecha);
+				txtFecha.setColumns(10);
+				
+				lblClave = new JLabel("Clave:");
+				lblClave.setBounds(10, 152, 46, 14);
+				lblClave.setVisible(false);
+				add(lblClave);
+				
+				txtClave = new JTextField();
+				txtClave.setBounds(121, 149, 86, 20);
+				add(txtClave);
+				txtClave.setVisible(false);
+				txtClave.setColumns(10);
+				
 				//----------------------------------------------------
 				
 				
 	}
+	/*protected void ingresar() throws SQLException {
+		// TODO Auto-generated method stub
+;
+		String dsnombre = String.valueOf(txtNombre.getText());
+		String dsprimerapellido = String.valueOf(txtPrmApellido.getText());
+		String dssegundoapellido = String.valueOf(txtSegApellido.getText());
+		int nmautorizado= Integer.valueOf((String) cbAutorizado.getSelectedItem());
+		String dscorreo= String.valueOf(txtCorreo.getText());
+		Date fefechanacimiento= Date.valueOf(txtFecha.getText());
+		int nmdocumento= Integer.valueOf(txtDoc.getText());
+		String dscontrasena= String.valueOf(txtClave.getText());
+		String dstelefono= String.valueOf(txtTel.getText());
+		String dsdireccion= String.valueOf(txtDireccion.getText());
+		String dssexo= String.valueOf((String) cbSexo.getSelectedItem());
+		String dsocupacion= String.valueOf(txtOcup.getText());
+		String feregistro= String.valueOf("");
+		int tbInstructor= Integer.valueOf(txtInstructor.getText());
+		int tbTipoUsuario= Integer.valueOf((String) cbTipo.getSelectedItem());
+		TbUsuario usuario2 = new TbUsuario();
+		usuario2.setDsnombre(dsnombre);
+		usuario2.setDsprimerapellido(dsprimerapellido);
+		usuario2.setDssegundoapellido(dssegundoapellido);
+		usuario2.setNmautorizado(nmautorizado);
+		usuario2.setDscorreo(dscorreo);
+		usuario2.setFefechanacimiento(fefechanacimiento);
+		usuario2.setDsnombre(dsnombre);
+		usuario2.setDsnombre(dsnombre);
+		usuario2.setDsnombre(dsnombre);
+		usuario2.setDsnombre(dsnombre);
+		usuario2.setDsnombre(dsnombre);
+		
+		TbUsuario usu = usuarioImpl.obtenerUsuario(usuario2);
+		
+		if(usu!=null){
+			JOptionPane.showMessageDialog(lamina, "Bienvenido");
+			this.dispose();
+			VentanaMenu menu = new VentanaMenu();
+			menu.setVisible(true);
+		}else{
+			JOptionPane.showMessageDialog(lamina, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
+
+		}
+	}*/
 }
 
 //LAMINA DE LA TABLA CLIENTES
@@ -207,10 +284,10 @@ modelo.addColumn("Tipo Usuario");
 modelo.addColumn("Instructor");
 JTable tabla = new JTable(modelo);
 JScrollPane scrollCliente = new JScrollPane(tabla);
-scrollCliente.setBounds(10, 11, 1220, 352);
+scrollCliente.setBounds(10, 11, 1220, 300);
 add(scrollCliente);
 
-Conexion conexion= null;
+/*Conexion conexion= null;
 Statement st = null; 
 ResultSet rs =null; 
 
@@ -224,7 +301,7 @@ try{
     
 }catch(Exception e){
     System.out.println("error");
-}
+}*/
 
     }
 	}

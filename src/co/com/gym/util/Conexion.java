@@ -37,9 +37,8 @@ public class Conexion {
 	   }
 	 
 	   public void desconectar(){
-	      conn = null;
-	   }
-	 
+		      conn=null;
 	}
+}
 	
 
