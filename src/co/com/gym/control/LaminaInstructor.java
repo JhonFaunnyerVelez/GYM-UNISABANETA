@@ -117,8 +117,10 @@ public class LaminaInstructor extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				LaminaInstructor lamn = new LaminaInstructor();
 				try {
-					CapturarDatos();
-					instructorImpl.guardarInstructor(instructor1);
+
+					TbInstructor instructor = new TbInstructor(String.valueOf(txtNombre.getText()), String.valueOf(txtPrmApellido.getText()), String.valueOf(txtSegApellido.getText()), Integer.valueOf(txtTel.getText()), String.valueOf(txtDireccion.getText()), Integer.valueOf(txtDoc.getText()), String.valueOf(txtCorreo.getText()), Date.valueOf(txtFechNac.getText()), Date.valueOf(ttxtFechReg.getText()));
+					//CapturarDatos();
+					instructorImpl.guardarInstructor(instructor);
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
