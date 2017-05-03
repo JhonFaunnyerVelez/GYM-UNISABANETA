@@ -61,7 +61,7 @@ public class UsuarioDao {
 			
 			tr = sesion.beginTransaction();
 			
-			tbUsuario = (TbUsuario) sesion.createQuery("SELECT * FROM tb_usuario where NMDOCUMENTO = " + usu.getNmdocumento() + " and DSCONTRASENA = " + usu.getDscontrasena() + ";");
+			tbUsuario = (TbUsuario) sesion.createQuery("SELECT u FROM TbUsuario u where nmdocumento = " + usu.getNmdocumento() + " and dscontrasena = " + usu.getDscontrasena()).uniqueResult();
 			tr.commit();
 
 		}catch(Exception e){

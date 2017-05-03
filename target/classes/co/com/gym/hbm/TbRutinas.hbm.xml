@@ -3,12 +3,12 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 02-may-2017 13:42:45 by Hibernate Tools 4.3.1.Final -->
 <hibernate-mapping>
-    <class name="TbRutinas" table="tb_rutinas" catalog="gym_unisabaneta" optimistic-lock="version">
+    <class name="co.com.gym.model.TbRutinas" table="tb_rutinas" catalog="gym_unisabaneta" optimistic-lock="version">
         <id name="idTbRutinas" type="java.lang.Integer">
             <column name="idTB_RUTINAS" />
             <generator class="identity" />
         </id>
-        <many-to-one name="tbUsuario" class="TbUsuario" fetch="select">
+        <many-to-one name="tbUsuario" class="co.com.gym.model.TbUsuario" fetch="select">
             <column name="TB_USUARIO_idTB_USUARIO" not-null="true" />
         </many-to-one>
         <property name="dsnombrerutina" type="string">
