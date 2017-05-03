@@ -31,8 +31,7 @@ public class TbInstructor implements java.io.Serializable {
 	}
 
 	public TbInstructor(String dsnombre, String dsprimerapellido, String dssegundoapellido, Integer nmtelefono,
-			String dsdireccion, int nmdocumento, String dscorreo, Date fefechanacimiento, Date feregistro,
-			Set tbUsuarios) {
+			String dsdireccion, int nmdocumento, String dscorreo, Date fefechanacimiento, Date feregistro) {
 		this.dsnombre = dsnombre;
 		this.dsprimerapellido = dsprimerapellido;
 		this.dssegundoapellido = dssegundoapellido;
