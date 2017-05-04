@@ -24,6 +24,5 @@ public class UsuarioImpl {
 	
 	public void guardarUsuario(TbUsuario usuario){
 		usuarioDao.guardarUsuario(usuario);
-	}
-		
+	}	
 }

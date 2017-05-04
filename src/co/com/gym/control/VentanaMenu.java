@@ -32,7 +32,34 @@ public class VentanaMenu extends JFrame {
 	private JPanel laminaServ, laminaTbServ;
 	private JScrollPane scrollCliente;
 	private JTable tabla;
+	private JButton btnInstructor;
+	private JButton btnCliente;
+	private JButton btnRutina;
 
+
+	public JButton getBtnRutina() {
+		return btnRutina;
+	}
+
+	public void setBtnRutina(JButton btnRutina) {
+		this.btnRutina = btnRutina;
+	}
+
+	public JButton getBtnCliente() {
+		return btnCliente;
+	}
+
+	public void setBtnCliente(JButton btnCliente) {
+		this.btnCliente = btnCliente;
+	}
+
+	public JButton getBtnInstructor() {
+		return btnInstructor;
+	}
+
+	public void setBtnInstructor(JButton btnInstructor) {
+		this.btnInstructor = btnInstructor;
+	}
 
 	public static void main(String[] args) {
 	
@@ -82,7 +109,7 @@ public class VentanaMenu extends JFrame {
 		menuBar.setBackground(Color.WHITE);
 		setJMenuBar(menuBar);
 		
-		JButton btnCliente = new JButton("Cliente");
+		btnCliente = new JButton("Cliente");
 		btnCliente.setForeground(Color.white);
 		btnCliente.setBackground(azul);
 		menuBar.add(btnCliente);
@@ -99,7 +126,7 @@ public class VentanaMenu extends JFrame {
 			}
 		});
 		
-		JButton btnInstructor = new JButton("Instructor");
+		btnInstructor = new JButton("Instructor");
 		btnInstructor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);
@@ -116,7 +143,7 @@ public class VentanaMenu extends JFrame {
 		btnInstructor.setBackground(azul);
 		menuBar.add(btnInstructor);
 		
-		JButton btnRutina = new JButton("Rutina");
+		btnRutina = new JButton("Rutina");
 		btnRutina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);

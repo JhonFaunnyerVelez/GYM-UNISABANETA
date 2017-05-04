@@ -2,6 +2,7 @@ package co.com.gym.control;
 
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -31,24 +32,12 @@ public class LaminaInstructor extends JPanel{
 	InstructorImpl instructorImpl = new InstructorImpl();
 	TbInstructor instructor1 = new TbInstructor();
 	private JTable tabla;
-	private JTextField txtNombre;
-	private JTextField txtDireccion;
-	private JTextField txtCorreo;
-	private JTextField txtTel;
-	private JTextField txtPrmApellido;
-	private JTextField txtSegApellido;
-	private JTextField txtDoc;
-	private JTextField txtFechNac;
-	private JTextField ttxtFechReg;
+	private JTextField txtBuscar,txtId,txtNombre,txtDireccion,txtCorreo,txtTel,txtPrmApellido,txtSegApellido,txtDoc,txtFechNac,ttxtFechReg;
 	private Color azul=new Color(20,130,200);
 	private DefaultTableModel modelo;
-	private JTextField txtId;
 	private JLabel lblId;
-	private JButton btnModificar;
-	private JButton btnEliminar;
-	private JButton btnGuardar;
-	private JButton btnBuscar;
-	private JTextField txtBuscar;
+	private JButton btnModificar,btnEliminar,btnGuardar,btnBuscar;
+	private JComboBox combo;
 	
 	public LaminaInstructor(){
 
@@ -143,10 +132,8 @@ public class LaminaInstructor extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				LaminaInstructor lamn = new LaminaInstructor();
 				try {
-					int id = Integer.valueOf(txtId.getText());
-					instructor1.setIdTbInstructor(id);
-					CapturarDatos();
-					instructorImpl.modificarInstructor(instructor1);
+					TbInstructor instructor = new TbInstructor(Integer.valueOf(txtId.getText()),String.valueOf(txtNombre.getText()), String.valueOf(txtPrmApellido.getText()), String.valueOf(txtSegApellido.getText()), Integer.valueOf(txtTel.getText()), String.valueOf(txtDireccion.getText()), Integer.valueOf(txtDoc.getText()), String.valueOf(txtCorreo.getText()), Date.valueOf(txtFechNac.getText()), Date.valueOf(ttxtFechReg.getText())); 
+					instructorImpl.modificarInstructor(instructor);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -259,7 +246,6 @@ public class LaminaInstructor extends JPanel{
 				try {
 					int id = Integer.valueOf(txtId.getText());
 					instructor1.setIdTbInstructor(id);
-					CapturarDatos();
 					instructorImpl.eliminarInstructor(instructor1);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -297,10 +283,15 @@ public class LaminaInstructor extends JPanel{
 		btnBuscar.setBounds(356, 202, 89, 20);
 		add(btnBuscar);
 		
-		JLabel lblBuscarInstructorX = new JLabel("Buscar Instructor X Cedular:");
+		JLabel lblBuscarInstructorX = new JLabel("Buscar Instructor X:");
 		lblBuscarInstructorX.setBounds(10, 205, 191, 14);
 		add(lblBuscarInstructorX);
 		
+		combo = new JComboBox();
+		combo.setBounds(130, 203, 100, 20);
+		combo.addItem("Cedula");
+		combo.addItem("Nombre");
+		add(combo);
 		txtBuscar = new JTextField();
 		txtBuscar.setEnabled(false);
 		txtBuscar.setBounds(238, 202, 86, 20);
@@ -315,32 +306,6 @@ public class LaminaInstructor extends JPanel{
 			
 			}
 		});
-	}
-
-	protected void CapturarDatos() throws SQLException {
-		// TODO Auto-generated method stub
-		
-		String nombre =  String.valueOf(txtNombre.getText());
-		String prmApellido = String.valueOf(txtPrmApellido.getText());
-		String sgApellido = String.valueOf(txtSegApellido.getText());
-		int telefono = 	Integer.valueOf(txtTel.getText());
-		String direccion = String.valueOf(txtDireccion.getText());
-		int documento = Integer.valueOf(txtDoc.getText());
-		String correo = String.valueOf(txtCorreo.getText());
-		Date fechaNaci = Date.valueOf(txtFechNac.getText());
-		Date fechaReg = Date.valueOf(ttxtFechReg.getText());
-		
-		instructor1.setDsnombre(nombre);
-		instructor1.setDsprimerapellido(prmApellido);
-		instructor1.setDssegundoapellido(sgApellido);
-		instructor1.setNmtelefono(telefono);
-		instructor1.setDsdireccion(direccion);
-		instructor1.setNmdocumento(documento);
-		instructor1.setDscorreo(correo);
-		instructor1.setFefechanacimiento(fechaNaci);
-		instructor1.setFeregistro(fechaReg);		
-		
-		
 	}
 	public void SeleccionarRegistro(){
 		int fila = tabla.getSelectedRow();
@@ -391,6 +356,10 @@ public class LaminaInstructor extends JPanel{
 			sql = "SELECT * FROM gym_unisabaneta.tb_instructor";
 		}else{
 			sql="SELECT * FROM gym_unisabaneta.tb_instructor WHERE NMDOCUMENTO='"+valor+"'";
+		}
+		if (combo.getSelectedItem().equals("Nombre"))
+		{
+			sql="SELECT * FROM gym_unisabaneta.tb_instructor WHERE DSNOMBRE='"+valor+"'";
 		}
 		try{
 		    conexion = new Conexion();

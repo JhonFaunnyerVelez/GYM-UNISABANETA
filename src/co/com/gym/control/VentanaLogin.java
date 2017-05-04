@@ -149,10 +149,9 @@ public class VentanaLogin extends JFrame {
 		TbUsuario usu = usuarioImpl.obtenerUsuario(usuario2);
 		
 		if(usu!=null){
-			JOptionPane.showMessageDialog(lamina, "Bienvenido");
 			this.dispose();
-			VentanaMenu menu = new VentanaMenu();
-			menu.setVisible(true);
+			JOptionPane.showMessageDialog(lamina, "Bienvenido");
+			
 		}else{
 			JOptionPane.showMessageDialog(lamina, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
 

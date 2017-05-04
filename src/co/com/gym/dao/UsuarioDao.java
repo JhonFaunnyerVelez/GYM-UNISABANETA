@@ -3,10 +3,16 @@ package co.com.gym.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+
+import javax.swing.JButton;
 
 import org.hibernate.*;
 
+import co.com.gym.control.LaminaCliente;
+import co.com.gym.control.LaminaInstructor;
+import co.com.gym.control.VentanaMenu;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 import co.com.gym.util.HibernateUtil;
@@ -49,6 +55,7 @@ public class UsuarioDao {
 //		return Usuario;	
 //
 //	}
+	private int Autorizado =0;
 	
 	public TbUsuario obtenerUsuario(TbUsuario usu) throws SQLException{
 		
@@ -62,6 +69,26 @@ public class UsuarioDao {
 			
 			tbUsuario = (TbUsuario) sesion.createQuery("SELECT u FROM TbUsuario u where nmdocumento = " + usu.getNmdocumento() + " and dscontrasena = " + usu.getDscontrasena()).uniqueResult();
 			tr.commit();
+			Autorizado = tbUsuario.getNmautorizado();
+			System.out.println(Autorizado);
+			VentanaMenu menu = new VentanaMenu();
+		    JButton instructor = new JButton(); 
+		    JButton cliente = new JButton(); 
+		    JButton rutina = new JButton();
+		    if (Autorizado==1){
+			menu.setVisible(true);
+		    }else {
+		    	menu.setVisible(true); 
+		    	instructor=menu.getBtnInstructor();
+		    	instructor.setEnabled(false);
+		    	menu.setBtnInstructor(instructor);
+		    	cliente=menu.getBtnCliente();
+		    	cliente.setEnabled(false);
+		    	menu.setBtnCliente(cliente);
+		    	rutina=menu.getBtnRutina();
+		    	rutina.doClick();
+		    	menu.setBtnRutina(rutina);
+		    }
 
 		}catch(Exception e){
 			if(tr != null){
@@ -79,4 +106,8 @@ public class UsuarioDao {
 		
 		
 	}
-}
+
+	public int permisoUsuario() throws SQLException{
+		return Autorizado;
+	}
+	}
