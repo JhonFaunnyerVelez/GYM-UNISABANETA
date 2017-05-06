@@ -15,13 +15,6 @@ public class UsuarioImpl {
 		return Usuario;
 	}
 	
-	
-	/**
-	 * Metodo que guarda la informacion de un usuario
-	 * @param usu
-	 * @return
-	 */
-	
 	public void guardarUsuario(TbUsuario usuario){
 		usuarioDao.guardarUsuario(usuario);
 	}	

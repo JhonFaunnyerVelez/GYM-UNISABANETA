@@ -13,16 +13,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import co.com.gym.impl.InstructorImpl;
 import co.com.gym.model.TbInstructor;
+import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
+import co.com.gym.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -348,6 +354,36 @@ public class LaminaInstructor extends JPanel{
 		lblId.setVisible(false);
 	}
 	public void LlenarTabla(String valor){
+		
+		Session sesion =  HibernateUtil.getSessionFactory().openSession();
+		Transaction tr = null;
+		TbUsuario tbUsuario = null;
+		
+		try{
+			
+			tr = sesion.beginTransaction();
+			
+			Query q =sesion.createQuery("SELECT i FROM TbInstructor i ");
+            List lista = q.list();
+            lista.toArray();
+
+            for( int i = 0; i < lista.size(); i++ ){
+                TbInstructor usuarioAct = (TbInstructor) lista.get( i );
+    		        modelo.addRow(new Object[] {Integer.valueOf(usuarioAct.getIdTbInstructor()),String.valueOf(usuarioAct.getDsnombre()),String.valueOf(usuarioAct.getDsprimerapellido()),String.valueOf(usuarioAct.getDssegundoapellido()),Integer.valueOf(usuarioAct.getNmtelefono()),String.valueOf(usuarioAct.getDsdireccion()),Integer.valueOf(usuarioAct.getNmdocumento()),String.valueOf(usuarioAct.getDscorreo()),usuarioAct.getFefechanacimiento(),usuarioAct.getFeregistro()});
+
+            }
+
+		}catch(Exception e){
+			if(tr != null){
+				tr.rollback();
+			}
+			e.printStackTrace();
+		}finally{
+			sesion.close();	
+		}
+		
+		
+		/*
 		Conexion conexion= null;
 		Statement st = null; 
 		ResultSet rs =null; 
@@ -388,7 +424,7 @@ public class LaminaInstructor extends JPanel{
 				e.printStackTrace();
 			}; 
 		}
-	}
+	*/}
 	private void Clear_Table1(){
 	       for (int i = 0; i < tabla.getRowCount(); i++) {
 	           modelo.removeRow(i);

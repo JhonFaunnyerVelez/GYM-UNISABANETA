@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 02-may-2017 13:42:45 by Hibernate Tools 4.3.1.Final -->
 <hibernate-mapping>
-    <class name="TbFechaEnvio" table="tb_fecha_envio" catalog="gym_unisabaneta" optimistic-lock="version">
+    <class name="co.com.gym.model.TbFechaEnvio" table="tb_fecha_envio" catalog="gym_unisabaneta" optimistic-lock="version">
         <id name="idTbFechaEnvio" type="java.lang.Integer">
             <column name="idTB_FECHA_ENVIO" />
             <generator class="identity" />

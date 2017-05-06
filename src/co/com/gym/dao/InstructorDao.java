@@ -1,21 +1,9 @@
 package co.com.gym.dao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.swing.JOptionPane;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import co.com.gym.control.LaminaInstructor;
-import co.com.gym.control.VentanaMenu;
 import co.com.gym.model.TbInstructor;
-import co.com.gym.model.TbUsuario;
-import co.com.gym.util.Conexion;
 import co.com.gym.util.HibernateUtil;
 
 public class InstructorDao {
