@@ -31,6 +31,8 @@ import java.sql.Statement;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class LaminaInstructor extends JPanel{
 	
@@ -46,8 +48,9 @@ public class LaminaInstructor extends JPanel{
 	private JComboBox combo;
 	
 	public LaminaInstructor(){
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "INSTRUCTOR", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		setBounds(10, 20, 1230, 580);
+		setBounds(10, 20, 1240, 568);
 		setLayout(null);
 		setBackground(Color.WHITE);
 		setVisible(false);
@@ -228,11 +231,6 @@ public class LaminaInstructor extends JPanel{
 		btnActualizar.setBackground(azul);
 		add(btnActualizar);
 		
-		JLabel lblInstructor = new JLabel("INSTRUCTOR");
-		lblInstructor.setFont(new Font("Microsoft JhengHei UI Light", Font.BOLD, 16));
-		lblInstructor.setBounds(569, 4, 125, 14);
-		add(lblInstructor);
-		
 		txtId = new JTextField();
 		txtId.setEditable(false);
 		txtId.setBounds(159, 57, 86, 20);
@@ -355,7 +353,7 @@ public class LaminaInstructor extends JPanel{
 	}
 	public void LlenarTabla(String valor){
 		
-		Session sesion =  HibernateUtil.getSessionFactory().openSession();
+/*		Session sesion =  HibernateUtil.getSessionFactory().openSession();
 		Transaction tr = null;
 		TbUsuario tbUsuario = null;
 		
@@ -383,7 +381,7 @@ public class LaminaInstructor extends JPanel{
 		}
 		
 		
-		/*
+		*/
 		Conexion conexion= null;
 		Statement st = null; 
 		ResultSet rs =null; 
@@ -424,7 +422,7 @@ public class LaminaInstructor extends JPanel{
 				e.printStackTrace();
 			}; 
 		}
-	*/}
+	}
 	private void Clear_Table1(){
 	       for (int i = 0; i < tabla.getRowCount(); i++) {
 	           modelo.removeRow(i);

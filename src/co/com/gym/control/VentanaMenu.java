@@ -6,18 +6,41 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import co.com.gym.impl.InstructorImpl;
+import co.com.gym.impl.ServicioImpl;
+import co.com.gym.model.TbInstructor;
+import co.com.gym.model.TbServicio;
+import co.com.gym.model.TbUsuario;
+import co.com.gym.util.Conexion;
+import co.com.gym.util.HibernateUtil;
+
+import javax.swing.JComboBox;
 
 
 
@@ -26,15 +49,24 @@ public class VentanaMenu extends JFrame {
 
 	private static final long serialVersionUID = -7140290221176595615L;
 	private JMenuBar menuBar;
-	private JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5,textField_6,textField_7,textField_8;
-	private JButton btnGuardar,btnCancelar;
 	private Color azul=new Color(20,130,200);
-	private JPanel laminaServ, laminaTbServ;
-	private JScrollPane scrollCliente;
-	private JTable tabla;
+	private JPanel laminaServ;
 	private JButton btnInstructor;
 	private JButton btnCliente;
 	private JButton btnRutina;
+	private JTextField txtNombre;
+	private JTextField txtDescripcion;
+	private JTextField txtCupo;
+	private JTextField txtFechReg;
+	private JButton btnEliminar;
+	private JButton btnModificar, btnGuardar, btnLimpiar;
+	private JTextField txtBuscar, txtId;
+	private JLabel lblId;
+	private JTable tabla;
+	private DefaultTableModel modelo;
+	ServicioImpl servicioImpl = new ServicioImpl();
+	TbServicio servicio1 = new TbServicio();
+
 
 
 	public JButton getBtnRutina() {
@@ -86,7 +118,6 @@ public class VentanaMenu extends JFrame {
 		laminaTblClient.setBounds(10, 211, 1240, 374);
 		//---------------------------------------------------------
 		getContentPane().add(laminaCliente);
-		getContentPane().add(laminaTblClient);
 		
 		LaminaInstructor laminaInstruc = new LaminaInstructor();
 		
@@ -96,11 +127,8 @@ public class VentanaMenu extends JFrame {
 		
 		LaminaRutina laminaRut = new LaminaRutina();
 		laminaRut.setBounds(322, 20, 629, 180);
-		LaminaTbRutina laminaTbRut = new LaminaTbRutina();
-		laminaTbRut.setBounds(10, 211, 1240, 374);
 		
 		getContentPane().add(laminaRut);
-		getContentPane().add(laminaTbRut);
 
 		
 		//MENU BAR CON LOS BOTONES AGRAGADOS
@@ -118,9 +146,7 @@ public class VentanaMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				laminaInstruc.setVisible(false);
 				laminaServ.setVisible(false);
-				laminaTbServ.setVisible(false);
 				laminaRut.setVisible(false);
-				laminaTbRut.setVisible(false);
 				laminaCliente.setVisible(true);
 				laminaTblClient.setVisible(true);
 			}
@@ -132,9 +158,7 @@ public class VentanaMenu extends JFrame {
 				laminaCliente.setVisible(false);
 				laminaTblClient.setVisible(false);
 				laminaRut.setVisible(false);
-				laminaTbRut.setVisible(false);
 				laminaServ.setVisible(false);
-				laminaTbServ.setVisible(false);
 				laminaInstruc.setVisible(true);
 				
 			}
@@ -150,9 +174,7 @@ public class VentanaMenu extends JFrame {
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaServ.setVisible(false);
-				laminaTbServ.setVisible(false);
 				laminaRut.setVisible(true);
-				laminaTbRut.setVisible(true);
 			}
 		});
 		btnRutina.setForeground(Color.white);
@@ -166,9 +188,7 @@ public class VentanaMenu extends JFrame {
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaRut.setVisible(false);
-				laminaTbRut.setVisible(false);
 				laminaServ.setVisible(true);
-				laminaTbServ.setVisible(true);
 			}
 		});
 		btnServicio.setForeground(Color.white);
@@ -183,128 +203,319 @@ public class VentanaMenu extends JFrame {
 				//LAMINA SERVICIO
 				
 				laminaServ = new JPanel();
-				laminaServ.setBounds(322, 20, 629, 180);
+				laminaServ.setBounds(10, 11, 1240, 574);
 				laminaServ.setVisible(false);
 	
 				getContentPane().setLayout(null);
 				laminaServ.setBackground(Color.WHITE);
-				laminaServ.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Servicio", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				laminaServ.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "SERVICIO", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 				getContentPane().add(laminaServ);
 				laminaServ.setVisible(false);
 				laminaServ.setLayout(null);
 				
-				textField = new JTextField();
-				textField.setBounds(101, 26, 86, 20);
-				laminaServ.add(textField);
-				textField.setColumns(10);
+				JLabel label = new JLabel("Nombre:");
+				label.setBounds(408, 28, 83, 14);
+				laminaServ.add(label);
 				
-				textField_1 = new JTextField();
-				textField_1.setColumns(10);
-				textField_1.setBounds(101, 57, 86, 20);
-				laminaServ.add(textField_1);
+				JLabel label_1 = new JLabel("Descripcion");
+				label_1.setBounds(408, 59, 86, 14);
+				laminaServ.add(label_1);
 				
-				textField_2 = new JTextField();
-				textField_2.setColumns(10);
-				textField_2.setBounds(101, 88, 86, 20);
-				laminaServ.add(textField_2);
+				txtNombre = new JTextField();
+				txtNombre.setColumns(10);
+				txtNombre.setBounds(537, 28, 86, 20);
+				laminaServ.add(txtNombre);
 				
-				textField_3 = new JTextField();
-				textField_3.setColumns(10);
-				textField_3.setBounds(313, 26, 86, 20);
-				laminaServ.add(textField_3);
+				txtDescripcion = new JTextField();
+				txtDescripcion.setColumns(10);
+				txtDescripcion.setBounds(537, 59, 86, 20);
+				laminaServ.add(txtDescripcion);
 				
-				textField_4 = new JTextField();
-				textField_4.setColumns(10);
-				textField_4.setBounds(313, 57, 86, 20);
-				laminaServ.add(textField_4);
+				JLabel lblFechaDeRegistro = new JLabel("Fecha de Registro:");
+				lblFechaDeRegistro.setBounds(633, 59, 113, 14);
+				laminaServ.add(lblFechaDeRegistro);
 				
-				textField_5 = new JTextField();
-				textField_5.setColumns(10);
-				textField_5.setBounds(313, 88, 86, 20);
-				laminaServ.add(textField_5);
+				JLabel label_3 = new JLabel("Cupo:");
+				label_3.setBounds(633, 28, 67, 14);
+				laminaServ.add(label_3);
 				
 				btnGuardar = new JButton("Guardar");
-				btnGuardar.setBounds(222, 130, 89, 23);
-				btnGuardar.setForeground(Color.white);
-				btnGuardar.setBackground(azul);
+				btnGuardar.setForeground(Color.WHITE);
+				btnGuardar.setBackground(new Color(20, 130, 200));
+				btnGuardar.setBounds(439, 149, 89, 20);
 				laminaServ.add(btnGuardar);
+				btnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+
+							TbServicio servicio = new TbServicio(String.valueOf(txtNombre.getText()), String.valueOf(txtDescripcion.getText()), String.valueOf(txtCupo.getText()), Date.valueOf(txtFechReg.getText()));
+							//CapturarDatos();
+							servicioImpl.guardarServicio(servicio);
+							
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						Clear_Table1();
+						LlenarTabla("");
+						limpiarCampos();
+						JOptionPane.showMessageDialog(null, "Servicio Guardado");
+					}
+				});
 				
-				btnCancelar = new JButton("Cancelar");
-				btnCancelar.setBounds(337, 130, 89, 23);
-				btnCancelar.setBackground(azul);
-				btnCancelar.setForeground(Color.white);
-				laminaServ.add(btnCancelar);
+				btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.setForeground(Color.WHITE);
+				btnLimpiar.setBackground(new Color(20, 130, 200));
+				btnLimpiar.setBounds(538, 149, 89, 20);
+				laminaServ.add(btnLimpiar);
+				btnLimpiar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						limpiarCampos();
+					}
+				});
 				
-				textField_6 = new JTextField();
-				textField_6.setColumns(10);
-				textField_6.setBounds(506, 26, 86, 20);
-				laminaServ.add(textField_6);
+				txtCupo = new JTextField();
+				txtCupo.setColumns(10);
+				txtCupo.setBounds(768, 28, 86, 20);
+				laminaServ.add(txtCupo);
 				
-				textField_7 = new JTextField();
-				textField_7.setColumns(10);
-				textField_7.setBounds(506, 57, 86, 20);
-				laminaServ.add(textField_7);
+				txtFechReg = new JTextField();
+				txtFechReg.setColumns(10);
+				txtFechReg.setBounds(768, 59, 86, 20);
+				laminaServ.add(txtFechReg);
 				
-				textField_8 = new JTextField();
-				textField_8.setColumns(10);
-				textField_8.setBounds(506, 88, 86, 20);
-				laminaServ.add(textField_8);
+				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setForeground(Color.WHITE);
+				btnEliminar.setEnabled(false);
+				btnEliminar.setBackground(new Color(20, 130, 200));
+				btnEliminar.setBounds(738, 149, 89, 20);
+				laminaServ.add(btnEliminar);
+				btnEliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							int id = Integer.valueOf(txtId.getText());
+						    servicio1.setIdTbServicio(id);
+							servicioImpl.eliminarServicio(servicio1);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						limpiarCampos();
+						Clear_Table1();
+						LlenarTabla("");
+						JOptionPane.showMessageDialog(null, "Instructor Eliminado");
+						btnGuardar.setEnabled(true);
+					
+					}
+				});
 				
-				JLabel lbLbel = new JLabel("New label");
-				lbLbel.setBounds(30, 29, 46, 14);
-				laminaServ.add(lbLbel);
+				btnModificar = new JButton("Modificar");
+				btnModificar.setForeground(Color.WHITE);
+				btnModificar.setEnabled(false);
+				btnModificar.setBackground(new Color(20, 130, 200));
+				btnModificar.setBounds(639, 149, 89, 20);
+				laminaServ.add(btnModificar);
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							TbServicio servicio = new TbServicio(Integer.valueOf(txtId.getText()),String.valueOf(txtNombre.getText()), String.valueOf(txtDescripcion.getText()), String.valueOf(txtCupo.getText()), Date.valueOf(txtFechReg.getText()));
+							servicioImpl.modificarServicio(servicio);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						limpiarCampos();
+						Clear_Table1();
+						LlenarTabla("");
+						JOptionPane.showMessageDialog(null, "Servicio Modificado");
+						btnGuardar.setEnabled(true);
+					}
+				});
 				
-				JLabel lbLbel_1 = new JLabel("New label");
-				lbLbel_1.setBounds(30, 60, 46, 14);
-				laminaServ.add(lbLbel_1);
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(10, 233, 1220, 288);
+				laminaServ.add(scrollPane);
 				
-				JLabel lbLbel_2 = new JLabel("New label");
-				lbLbel_2.setBounds(30, 91, 46, 14);
-				laminaServ.add(lbLbel_2);
+				JLabel lblBuscarServicioX = new JLabel("Buscar Servicio X Nombre:");
+				lblBuscarServicioX.setBounds(10, 213, 159, 14);
+				laminaServ.add(lblBuscarServicioX);
 				
-				JLabel lb3 = new JLabel("New label");
-				lb3.setBounds(240, 29, 46, 14);
-				laminaServ.add(lb3);
+				txtBuscar = new JTextField();
+				txtBuscar.setEnabled(false);
+				txtBuscar.setColumns(10);
+				txtBuscar.setBounds(171, 207, 86, 20);
+				laminaServ.add(txtBuscar);
 				
-				JLabel lb_1 = new JLabel("New label");
-				lb_1.setBounds(240, 60, 46, 14);
-				laminaServ.add(lb_1);
+				JButton btnBuscar = new JButton("Buscar");
+				btnBuscar.setForeground(Color.WHITE);
+				btnBuscar.setEnabled(false);
+				btnBuscar.setBackground(new Color(20, 130, 200));
+				btnBuscar.setBounds(289, 207, 89, 20);
+				laminaServ.add(btnBuscar);
+				btnBuscar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try{
+						Clear_Table1();
+						LlenarTabla(txtBuscar.getText());
+						}catch(Exception e){
+							JOptionPane.showMessageDialog(null, "No hay un Servicio asociado a ese Nombre");
+						}
+					}
+				});
 				
-				JLabel lb_2 = new JLabel("New label");
-				lb_2.setBounds(240, 91, 46, 14);
-				laminaServ.add(lb_2);
+				JButton btnActualizar = new JButton("Actualizar");
+				btnActualizar.setForeground(Color.WHITE);
+				btnActualizar.setBackground(new Color(20, 130, 200));
+				btnActualizar.setBounds(569, 540, 106, 23);
+				laminaServ.add(btnActualizar);
+				btnActualizar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Clear_Table1();
+						LlenarTabla("");
+						btnBuscar.setEnabled(true);
+						txtBuscar.setEnabled(true);
+					
+					}
+				});
 				
-				JLabel lb_3 = new JLabel("New label");
-				lb_3.setBounds(437, 32, 46, 14);
-				laminaServ.add(lb_3);
+				txtId = new JTextField();
+				txtId.setEditable(false);
+				txtId.setBounds(279, 38, 86, 20);
+				txtId.setVisible(false);
+				laminaServ.add(txtId);
+				txtId.setColumns(10);
 				
-				JLabel lb_4 = new JLabel("New label");
-				lb_4.setBounds(437, 63, 46, 14);
-				laminaServ.add(lb_4);
+				lblId = new JLabel("ID");
+				lblId.setBounds(245, 41, 24, 14);
+				lblId.setVisible(false);;
+				laminaServ.add(lblId);
 				
-				JLabel lb_5 = new JLabel("New label");
-				lb_5.setBounds(437, 94, 46, 14);
-				laminaServ.add(lb_5);
 		
-				//LAMINA DE LA TABLA INSTRUCTOR
+				modelo = new DefaultTableModel();
+				modelo.addColumn("ID");
+				modelo.addColumn("Nombre");
+				modelo.addColumn("Descripcion");
+				modelo.addColumn("Cupo");
+				modelo.addColumn("Fech Registro");
+				tabla = new JTable(modelo);
+				JPopupMenu menu = new JPopupMenu();
+				tabla.setComponentPopupMenu(menu);
+				JMenuItem Modificar;
+				menu.add(Modificar = new JMenuItem("Seleccionar"));
+				Modificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+							SeleccionarRegistro();
+					}
+				});
+				scrollPane.setViewportView(tabla);
 				
-				laminaTbServ = new JPanel();
-				laminaTbServ.setBackground(Color.WHITE);
-				laminaTbServ.setBounds(10, 211, 1240, 374);
-				laminaTbServ.setVisible(false);
-				getContentPane().add(laminaTbServ);
-				laminaTbServ.setLayout(null);
-				DefaultTableModel modelo3 = new DefaultTableModel();
-				modelo3.addColumn("idServ");
-				modelo3.addColumn("nombre");
-				modelo3.addColumn("nacimiento");
-				tabla = new JTable(modelo3);
-				scrollCliente = new JScrollPane(tabla);
-				scrollCliente.setBounds(10, 11, 1220, 352);
-				laminaTbServ.add(scrollCliente);
-				
-				//--------------------------------------------------------
-		
 		
 	}
+
+public void SeleccionarRegistro(){
+	int fila = tabla.getSelectedRow();
+	if(fila>=0){
+		txtId.setText(tabla.getValueAt(fila, 0).toString());
+		txtNombre.setText(tabla.getValueAt(fila, 1).toString());
+		txtDescripcion.setText(tabla.getValueAt(fila, 2).toString());
+		txtCupo.setText(tabla.getValueAt(fila, 3).toString());
+		txtFechReg.setText(tabla.getValueAt(fila, 4).toString());
+		txtId.setVisible(true);
+		lblId.setVisible(true);
+		btnGuardar.setEnabled(false);
+		btnModificar.setEnabled(true);
+		btnEliminar.setEnabled(true);
+	}else{
+		JOptionPane.showMessageDialog(null, "no selecciono fila");
+	}
+}
+public void limpiarCampos(){
+	btnEliminar.setEnabled(false);
+	btnModificar.setEnabled(false);
+	btnGuardar.setEnabled(true);
+	txtBuscar.setText("");
+	txtId.setText("");
+	txtNombre.setText("");
+	txtDescripcion.setText("");
+	txtCupo.setText("");
+	txtFechReg.setText("");
+	txtId.setVisible(false);
+	lblId.setVisible(false);
+}
+public void LlenarTabla(String valor){
+	
+	Conexion conexion= null;
+	Statement st = null; 
+	ResultSet rs =null; 
+	String sql="";
+	if (valor.equals("")){
+		sql = "SELECT * FROM gym_unisabaneta.tb_servicio";
+	}else
+	{
+		sql="SELECT * FROM gym_unisabaneta.tb_servicio WHERE DSNOMBRE='"+valor+"'";
+	}
+	try{
+	    conexion = new Conexion();
+	    st = conexion.getConnection().createStatement();
+	    rs = st.executeQuery(sql);
+	    while(rs.next()){
+	        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5)});
+	    }
+	    
+	}catch(Exception e){
+	    System.out.println("error");
+	    e.printStackTrace();
+	}
+	finally{
+		conexion.desconectar();
+		try {
+			st.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}; 
+	}
+}
+	
+	/*Session sesion =  HibernateUtil.getSessionFactory().openSession();
+	Transaction tr = null;
+	TbServicio TbServicio = null;
+	
+	try{
+		
+		tr = sesion.beginTransaction();
+		
+		Query q =sesion.createQuery("SELECT s FROM TbServicio s ");
+        List lista = q.list();
+        lista.toArray();
+
+        for( int i = 0; i < lista.size(); i++ ){
+            TbServicio servicioAct = (TbServicio) lista.get( i );
+		        modelo.addRow(new Object[] {Integer.valueOf(servicioAct.getIdTbServicio()),String.valueOf(servicioAct.getDsnombre()),String.valueOf(servicioAct.getDsdescripcion()),String.valueOf(servicioAct.getNmcupolimite()),servicioAct.getFeregistro()});
+
+        }
+
+	}catch(Exception e){
+		if(tr != null){
+			tr.rollback();
+		}
+		e.printStackTrace();
+	}finally{
+		sesion.close();	
+	}*/
+
+private void Clear_Table1(){
+       for (int i = 0; i < tabla.getRowCount(); i++) {
+           modelo.removeRow(i);
+           i-=1;
+       }
+   }
+
 }

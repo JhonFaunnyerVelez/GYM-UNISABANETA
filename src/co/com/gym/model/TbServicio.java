@@ -18,11 +18,20 @@ public class TbServicio implements java.io.Serializable {
 	private String nmcupolimite;
 	private Date feregistro;
 
+	public TbServicio(Integer idTbServicio, String dsnombre, String dsdescripcion, String nmcupolimite,
+			Date feregistro) {
+		super();
+		this.idTbServicio = idTbServicio;
+		this.dsnombre = dsnombre;
+		this.dsdescripcion = dsdescripcion;
+		this.nmcupolimite = nmcupolimite;
+		this.feregistro = feregistro;
+	}
+
 	public TbServicio() {
 	}
 
-	public TbServicio(String dsnombre, String dsdescripcion, String nmcupolimite, Date feregistro,
-			Set tbRutinasXTbServicios) {
+	public TbServicio(String dsnombre, String dsdescripcion, String nmcupolimite, Date feregistro) {
 		this.dsnombre = dsnombre;
 		this.dsdescripcion = dsdescripcion;
 		this.nmcupolimite = nmcupolimite;
