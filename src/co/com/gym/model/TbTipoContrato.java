@@ -13,6 +13,14 @@ import java.util.Set;
 public class TbTipoContrato implements java.io.Serializable {
 
 	private Integer idTbTipoContrato;
+	public TbTipoContrato(Integer idTbTipoContrato, String dsdescripcion, Integer nmprecio, Date feregistro) {
+		super();
+		this.idTbTipoContrato = idTbTipoContrato;
+		this.dsdescripcion = dsdescripcion;
+		this.nmprecio = nmprecio;
+		this.feregistro = feregistro;
+	}
+
 	private String dsdescripcion;
 	private Integer nmprecio;
 	private Date feregistro;
@@ -20,7 +28,7 @@ public class TbTipoContrato implements java.io.Serializable {
 	public TbTipoContrato() {
 	}
 
-	public TbTipoContrato(String dsdescripcion, Integer nmprecio, Date feregistro, Set tbEstadoPagos) {
+	public TbTipoContrato(String dsdescripcion, Integer nmprecio, Date feregistro) {
 		this.dsdescripcion = dsdescripcion;
 		this.nmprecio = nmprecio;
 		this.feregistro = feregistro;

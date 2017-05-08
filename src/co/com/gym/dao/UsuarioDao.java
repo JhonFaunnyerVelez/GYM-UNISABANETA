@@ -33,6 +33,7 @@ public class UsuarioDao {
 		    JButton instructor = new JButton(); 
 		    JButton cliente = new JButton(); 
 		    JButton rutina = new JButton();
+		    JButton contrato = new JButton();
 		    if (Autorizado==1){
 			menu.setVisible(true);
 		    }else {
@@ -46,6 +47,9 @@ public class UsuarioDao {
 		    	rutina=menu.getBtnRutina();
 		    	rutina.doClick();
 		    	menu.setBtnRutina(rutina);
+		    	contrato = menu.getBtnTpContrato();
+		    	contrato.setEnabled(false);
+		    	menu.setBtnTpContrato(contrato);
 		    }
 
 		}catch(Exception e){

@@ -51,15 +51,17 @@ public class VentanaMenu extends JFrame {
 	private JMenuBar menuBar;
 	private Color azul=new Color(20,130,200);
 	private JPanel laminaServ;
-	private JButton btnInstructor;
-	private JButton btnCliente;
-	private JButton btnRutina;
-	private JTextField txtNombre;
-	private JTextField txtDescripcion;
-	private JTextField txtCupo;
-	private JTextField txtFechReg;
-	private JButton btnEliminar;
-	private JButton btnModificar, btnGuardar, btnLimpiar;
+	private JButton btnInstructor, btnCliente, btnRutina, btnTpContrato;
+	public JButton getBtnTpContrato() {
+		return btnTpContrato;
+	}
+
+	public void setBtnTpContrato(JButton btnTpContrato) {
+		this.btnTpContrato = btnTpContrato;
+	}
+
+	private JTextField txtNombre, txtDescripcion, txtCupo, txtFechReg;
+	private JButton btnEliminar,btnModificar, btnGuardar, btnLimpiar;
 	private JTextField txtBuscar, txtId;
 	private JLabel lblId;
 	private JTable tabla;
@@ -129,6 +131,10 @@ public class VentanaMenu extends JFrame {
 		laminaRut.setBounds(322, 20, 629, 180);
 		
 		getContentPane().add(laminaRut);
+		
+		LaminaTpContrato laminaCont = new LaminaTpContrato();
+		getContentPane().add(laminaCont);
+
 
 		
 		//MENU BAR CON LOS BOTONES AGRAGADOS
@@ -147,6 +153,7 @@ public class VentanaMenu extends JFrame {
 				laminaInstruc.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaRut.setVisible(false);
+				laminaCont.setVisible(false);
 				laminaCliente.setVisible(true);
 				laminaTblClient.setVisible(true);
 			}
@@ -159,6 +166,7 @@ public class VentanaMenu extends JFrame {
 				laminaTblClient.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaServ.setVisible(false);
+				laminaCont.setVisible(false);
 				laminaInstruc.setVisible(true);
 				
 			}
@@ -174,6 +182,7 @@ public class VentanaMenu extends JFrame {
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaServ.setVisible(false);
+				laminaCont.setVisible(false);
 				laminaRut.setVisible(true);
 			}
 		});
@@ -188,12 +197,28 @@ public class VentanaMenu extends JFrame {
 				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaRut.setVisible(false);
+				laminaCont.setVisible(false);
 				laminaServ.setVisible(true);
 			}
 		});
 		btnServicio.setForeground(Color.white);
 		btnServicio.setBackground(azul);
 		menuBar.add(btnServicio);
+		
+		btnTpContrato = new JButton("Contrato");
+		btnTpContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				laminaCliente.setVisible(false);
+				laminaTblClient.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaCont.setVisible(true);
+			}
+		});
+		btnTpContrato.setForeground(Color.WHITE);
+		btnTpContrato.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnTpContrato);
 		
 		//------------------------------------------------------
 		
@@ -203,7 +228,7 @@ public class VentanaMenu extends JFrame {
 				//LAMINA SERVICIO
 				
 				laminaServ = new JPanel();
-				laminaServ.setBounds(10, 11, 1240, 574);
+				laminaServ.setBounds(10, 20, 1240, 568);
 				laminaServ.setVisible(false);
 	
 				getContentPane().setLayout(null);
@@ -517,5 +542,4 @@ private void Clear_Table1(){
            i-=1;
        }
    }
-
 }
