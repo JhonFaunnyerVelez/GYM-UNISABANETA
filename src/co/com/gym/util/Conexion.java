@@ -5,9 +5,9 @@ import java.sql.*;
 public class Conexion {
 
 	static String bd = "gym_unisabaneta?verifyServerCertificate=false&useSSL=true";
-	   static String login = "b6e819a354c16a";
-	   static String password = "39b32930";
-	   static String url = "jdbc:mysql://us-cdbr-azure-central-a.cloudapp.net:3306/"+bd;
+	   static String login = "b0431bfa507395";
+	   static String password = "799363b9";
+	   static String url = "jdbc:mysql://br-cdbr-azure-south-b.cloudapp.net:3306/"+bd;
 	 
 	   Connection conn = null;
 	 
