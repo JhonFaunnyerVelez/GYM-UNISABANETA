@@ -1,7 +1,6 @@
 package co.com.gym.control;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,23 +22,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import co.com.gym.impl.InstructorImpl;
 import co.com.gym.impl.ServicioImpl;
-import co.com.gym.model.TbInstructor;
 import co.com.gym.model.TbServicio;
-import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
-import co.com.gym.util.HibernateUtil;
-
-import javax.swing.JComboBox;
 
 
 
