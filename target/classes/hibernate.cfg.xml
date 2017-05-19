@@ -17,7 +17,7 @@
   <mapping resource="co/com/gym/hbm/TbFechaEnvio.hbm.xml"/>
   <mapping resource="co/com/gym/hbm/TbInstructor.hbm.xml"/>
   <mapping resource="co/com/gym/hbm/TbRutinas.hbm.xml"/>
-  <!--         <mapping resource="co/com/gym/hbm/TbRutinasXTbServicio.hbm.xml" /> -->
+  <mapping resource="co/com/gym/hbm/TbRutinasXTbServicio.hbm.xml" />
   <mapping resource="co/com/gym/hbm/TbTipoContrato.hbm.xml"/>
   <mapping resource="co/com/gym/hbm/TbServicio.hbm.xml"/>
  </session-factory>
