@@ -17,8 +17,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import co.com.gym.impl.InstructorImpl;
-import co.com.gym.model.TbInstructor;
+import co.com.gym.impl.UsuarioImpl;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 import co.com.gym.util.HibernateUtil;
@@ -37,8 +36,8 @@ import javax.swing.UIManager;
 public class LaminaInstructor extends JPanel{
 	
 
-	InstructorImpl instructorImpl = new InstructorImpl();
-	TbInstructor instructor1 = new TbInstructor();
+	UsuarioImpl usuarioImpl = new UsuarioImpl();
+	TbUsuario instructor1 = new TbUsuario();
 	private JTable tabla;
 	private JTextField txtBuscar,txtId,txtNombre,txtDireccion,txtCorreo,txtTel,txtPrmApellido,txtSegApellido,txtDoc,txtFechNac,ttxtFechReg;
 	private Color azul=new Color(20,130,200);
@@ -114,16 +113,9 @@ public class LaminaInstructor extends JPanel{
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LaminaInstructor lamn = new LaminaInstructor();
-				try {
-
-					TbInstructor instructor = new TbInstructor(String.valueOf(txtNombre.getText()), String.valueOf(txtPrmApellido.getText()), String.valueOf(txtSegApellido.getText()), Integer.valueOf(txtTel.getText()), String.valueOf(txtDireccion.getText()), Integer.valueOf(txtDoc.getText()), String.valueOf(txtCorreo.getText()), Date.valueOf(txtFechNac.getText()), Date.valueOf(ttxtFechReg.getText()));
-					//CapturarDatos();
-					instructorImpl.guardarInstructor(instructor);
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				TbUsuario instructor =  new TbUsuario();
+				instructor.setNmdocumento( Integer.valueOf(txtDoc.getText()));
+				usuarioImpl.guardarUsuario(instructor);
 				Clear_Table1();
 				LlenarTabla("");
 				limpiarCampos();
@@ -140,13 +132,9 @@ public class LaminaInstructor extends JPanel{
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LaminaInstructor lamn = new LaminaInstructor();
-				try {
-					TbInstructor instructor = new TbInstructor(Integer.valueOf(txtId.getText()),String.valueOf(txtNombre.getText()), String.valueOf(txtPrmApellido.getText()), String.valueOf(txtSegApellido.getText()), Integer.valueOf(txtTel.getText()), String.valueOf(txtDireccion.getText()), Integer.valueOf(txtDoc.getText()), String.valueOf(txtCorreo.getText()), Date.valueOf(txtFechNac.getText()), Date.valueOf(ttxtFechReg.getText())); 
-					instructorImpl.modificarInstructor(instructor);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				TbUsuario instructor =  new TbUsuario();
+				instructor.setNmdocumento( Integer.valueOf(txtDoc.getText()));
+				usuarioImpl.guardarUsuario(instructor);				
 				limpiarCampos();
 				Clear_Table1();
 				LlenarTabla("");
@@ -247,14 +235,9 @@ public class LaminaInstructor extends JPanel{
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LaminaInstructor lamn = new LaminaInstructor();
-				try {
-					int id = Integer.valueOf(txtId.getText());
-					instructor1.setIdTbInstructor(id);
-					instructorImpl.eliminarInstructor(instructor1);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				int id = Integer.valueOf(txtId.getText());
+				instructor1.setIdTbUsuario(id);
+//					usuarioImpl.eliminarUsuario(instructor1);
 				limpiarCampos();
 				Clear_Table1();
 				LlenarTabla("");

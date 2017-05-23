@@ -145,8 +145,11 @@ public class LaminaTpContrato extends JPanel{
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					TbTipoContrato tbtpcon = new TbTipoContrato(Integer.valueOf(txtId.getText()), String.valueOf(txtDescripcion.getText()), Integer.valueOf(txtPrecio.getText()), Date.valueOf(txtFechReg.getText()));
-					tipocontratoImpl.modificartpcon(tbtpcon);
+					
+					TbTipoContrato tbTipoContrato = new TbTipoContrato();
+					tbTipoContrato.setDsdescripcion(txtDescripcion.getText());
+
+					tipocontratoImpl.modificartpcon(tbTipoContrato);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

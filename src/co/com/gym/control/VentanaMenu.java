@@ -330,8 +330,9 @@ public class VentanaMenu extends JFrame {
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							TbServicio servicio = new TbServicio(Integer.valueOf(txtId.getText()),String.valueOf(txtNombre.getText()), String.valueOf(txtDescripcion.getText()), String.valueOf(txtCupo.getText()), Date.valueOf(txtFechReg.getText()));
-							servicioImpl.modificarServicio(servicio);
+							TbServicio tbServicio = new TbServicio();
+							tbServicio.setDsnombre(txtNombre.getText());
+							servicioImpl.modificarServicio(tbServicio);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
