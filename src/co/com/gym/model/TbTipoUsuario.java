@@ -1,7 +1,7 @@
 package co.com.gym.model;
 
 // default package
-// Generated 29-abr-2017 19:04:13 by Hibernate Tools 4.3.1.Final
+// Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,7 @@ public class TbTipoUsuario implements java.io.Serializable {
 	public TbTipoUsuario() {
 	}
 
-	public TbTipoUsuario(String dsdescripcion, Set tbUsuarios) {
+	public TbTipoUsuario(String dsdescripcion) {
 		this.dsdescripcion = dsdescripcion;
 	}
 

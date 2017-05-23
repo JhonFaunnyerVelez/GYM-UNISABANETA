@@ -1,7 +1,7 @@
 package co.com.gym.model;
 
 // default package
-// Generated 29-abr-2017 19:04:13 by Hibernate Tools 4.3.1.Final
+// Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class TbRutinasXTbServicio implements java.io.Serializable {
 
-	private TbRutinasXTbServicioId id;
+	private Integer cdcodigo;
 	private TbRutinas tbRutinas;
 	private TbServicio tbServicio;
 	private Date feregistro;
@@ -18,26 +18,23 @@ public class TbRutinasXTbServicio implements java.io.Serializable {
 	public TbRutinasXTbServicio() {
 	}
 
-	public TbRutinasXTbServicio(TbRutinasXTbServicioId id, TbRutinas tbRutinas, TbServicio tbServicio) {
-		this.id = id;
+	public TbRutinasXTbServicio(TbRutinas tbRutinas, TbServicio tbServicio) {
 		this.tbRutinas = tbRutinas;
 		this.tbServicio = tbServicio;
 	}
 
-	public TbRutinasXTbServicio(TbRutinasXTbServicioId id, TbRutinas tbRutinas, TbServicio tbServicio,
-			Date feregistro) {
-		this.id = id;
+	public TbRutinasXTbServicio(TbRutinas tbRutinas, TbServicio tbServicio, Date feregistro) {
 		this.tbRutinas = tbRutinas;
 		this.tbServicio = tbServicio;
 		this.feregistro = feregistro;
 	}
 
-	public TbRutinasXTbServicioId getId() {
-		return this.id;
+	public Integer getCdcodigo() {
+		return this.cdcodigo;
 	}
 
-	public void setId(TbRutinasXTbServicioId id) {
-		this.id = id;
+	public void setCdcodigo(Integer cdcodigo) {
+		this.cdcodigo = cdcodigo;
 	}
 
 	public TbRutinas getTbRutinas() {

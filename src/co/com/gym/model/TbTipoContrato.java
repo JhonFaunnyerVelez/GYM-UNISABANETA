@@ -1,7 +1,7 @@
 package co.com.gym.model;
 
 // default package
-// Generated 29-abr-2017 19:04:13 by Hibernate Tools 4.3.1.Final
+// Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,14 +13,6 @@ import java.util.Set;
 public class TbTipoContrato implements java.io.Serializable {
 
 	private Integer idTbTipoContrato;
-	public TbTipoContrato(Integer idTbTipoContrato, String dsdescripcion, Integer nmprecio, Date feregistro) {
-		super();
-		this.idTbTipoContrato = idTbTipoContrato;
-		this.dsdescripcion = dsdescripcion;
-		this.nmprecio = nmprecio;
-		this.feregistro = feregistro;
-	}
-
 	private String dsdescripcion;
 	private Integer nmprecio;
 	private Date feregistro;

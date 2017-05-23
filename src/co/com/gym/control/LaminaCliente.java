@@ -13,7 +13,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import co.com.gym.model.TbInstructor;
 import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;

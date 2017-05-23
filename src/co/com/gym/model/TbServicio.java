@@ -1,7 +1,7 @@
 package co.com.gym.model;
 
 // default package
-// Generated 29-abr-2017 19:04:13 by Hibernate Tools 4.3.1.Final
+// Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -17,16 +17,6 @@ public class TbServicio implements java.io.Serializable {
 	private String dsdescripcion;
 	private String nmcupolimite;
 	private Date feregistro;
-
-	public TbServicio(Integer idTbServicio, String dsnombre, String dsdescripcion, String nmcupolimite,
-			Date feregistro) {
-		super();
-		this.idTbServicio = idTbServicio;
-		this.dsnombre = dsnombre;
-		this.dsdescripcion = dsdescripcion;
-		this.nmcupolimite = nmcupolimite;
-		this.feregistro = feregistro;
-	}
 
 	public TbServicio() {
 	}
@@ -77,6 +67,5 @@ public class TbServicio implements java.io.Serializable {
 	public void setFeregistro(Date feregistro) {
 		this.feregistro = feregistro;
 	}
-
 
 }

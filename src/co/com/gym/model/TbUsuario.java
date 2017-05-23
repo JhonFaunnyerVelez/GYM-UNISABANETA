@@ -1,7 +1,7 @@
 package co.com.gym.model;
 
 // default package
-// Generated 29-abr-2017 19:04:13 by Hibernate Tools 4.3.1.Final
+// Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,7 +13,6 @@ import java.util.Set;
 public class TbUsuario implements java.io.Serializable {
 
 	private Integer idTbUsuario;
-	private TbInstructor tbInstructor;
 	private TbTipoUsuario tbTipoUsuario;
 	private String dsnombre;
 	private String dsprimerapellido;
@@ -28,19 +27,17 @@ public class TbUsuario implements java.io.Serializable {
 	private String dssexo;
 	private String dsocupacion;
 	private String feregistro;
+	private Integer fktipoUsuario;
+	private String dsestadocivil;
+	private String deespecialidad;
+	private Integer nmedad;
+	private Integer nmcelular;
 
 	public TbUsuario() {
 	}
-	
 
-	public TbUsuario(int nmdocumento,String dscontrasena) {
-		this.nmdocumento = nmdocumento;
-		this.dscontrasena = dscontrasena;
-	}
-
-	public TbUsuario(TbInstructor tbInstructor, TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido,
-			int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento) {
-		this.tbInstructor = tbInstructor;
+	public TbUsuario(TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido, int nmautorizado,
+			String dscorreo, Date fefechanacimiento, int nmdocumento) {
 		this.tbTipoUsuario = tbTipoUsuario;
 		this.dsnombre = dsnombre;
 		this.dsprimerapellido = dsprimerapellido;
@@ -50,11 +47,10 @@ public class TbUsuario implements java.io.Serializable {
 		this.nmdocumento = nmdocumento;
 	}
 
-	public TbUsuario(TbInstructor tbInstructor, TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido,
-			String dssegundoapellido, int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento,
-			String dscontrasena, String dstelefono, String dsdireccion, String dssexo, String dsocupacion,
-			String feregistro, Set tbRutinases, Set tbEstadoPagos) {
-		this.tbInstructor = tbInstructor;
+	public TbUsuario(TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido, String dssegundoapellido,
+			int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento, String dscontrasena,
+			String dstelefono, String dsdireccion, String dssexo, String dsocupacion, String feregistro,
+			Integer fktipoUsuario, String dsestadocivil, String deespecialidad, Integer nmedad, Integer nmcelular) {
 		this.tbTipoUsuario = tbTipoUsuario;
 		this.dsnombre = dsnombre;
 		this.dsprimerapellido = dsprimerapellido;
@@ -69,6 +65,11 @@ public class TbUsuario implements java.io.Serializable {
 		this.dssexo = dssexo;
 		this.dsocupacion = dsocupacion;
 		this.feregistro = feregistro;
+		this.fktipoUsuario = fktipoUsuario;
+		this.dsestadocivil = dsestadocivil;
+		this.deespecialidad = deespecialidad;
+		this.nmedad = nmedad;
+		this.nmcelular = nmcelular;
 	}
 
 	public Integer getIdTbUsuario() {
@@ -77,14 +78,6 @@ public class TbUsuario implements java.io.Serializable {
 
 	public void setIdTbUsuario(Integer idTbUsuario) {
 		this.idTbUsuario = idTbUsuario;
-	}
-
-	public TbInstructor getTbInstructor() {
-		return this.tbInstructor;
-	}
-
-	public void setTbInstructor(TbInstructor tbInstructor) {
-		this.tbInstructor = tbInstructor;
 	}
 
 	public TbTipoUsuario getTbTipoUsuario() {
@@ -199,6 +192,45 @@ public class TbUsuario implements java.io.Serializable {
 		this.feregistro = feregistro;
 	}
 
+	public Integer getFktipoUsuario() {
+		return this.fktipoUsuario;
+	}
+
+	public void setFktipoUsuario(Integer fktipoUsuario) {
+		this.fktipoUsuario = fktipoUsuario;
+	}
+
+	public String getDsestadocivil() {
+		return this.dsestadocivil;
+	}
+
+	public void setDsestadocivil(String dsestadocivil) {
+		this.dsestadocivil = dsestadocivil;
+	}
+
+	public String getDeespecialidad() {
+		return this.deespecialidad;
+	}
+
+	public void setDeespecialidad(String deespecialidad) {
+		this.deespecialidad = deespecialidad;
+	}
+
+	public Integer getNmedad() {
+		return this.nmedad;
+	}
+
+	public void setNmedad(Integer nmedad) {
+		this.nmedad = nmedad;
+	}
+
+	public Integer getNmcelular() {
+		return this.nmcelular;
+	}
+
+	public void setNmcelular(Integer nmcelular) {
+		this.nmcelular = nmcelular;
+	}
 
 
 }
