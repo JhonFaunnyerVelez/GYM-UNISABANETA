@@ -3,15 +3,15 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final -->
 <hibernate-mapping>
-    <class name="TbRutinasXTbServicio" table="tb_rutinas_x_tb_servicio" catalog="gym_unisabaneta" optimistic-lock="version">
+    <class name="co.com.gym.model.TbRutinasXTbServicio" table="tb_rutinas_x_tb_servicio" catalog="gym_unisabaneta" optimistic-lock="version">
         <id name="cdcodigo" type="java.lang.Integer">
             <column name="CDCODIGO" />
             <generator class="identity" />
         </id>
-        <many-to-one name="tbRutinas" class="TbRutinas" fetch="select">
+        <many-to-one name="tbRutinas" class="co.com.gym.model.TbRutinas" fetch="select">
             <column name="TB_RUTINAS_idTB_RUTINAS" not-null="true" />
         </many-to-one>
-        <many-to-one name="tbServicio" class="TbServicio" fetch="select">
+        <many-to-one name="tbServicio" class="co.com.gym.model.TbServicio" fetch="select">
             <column name="TB_SERVICIO_idTB_SERVICIO" not-null="true" />
         </many-to-one>
         <property name="feregistro" type="timestamp">

@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final -->
 <hibernate-mapping>
-    <class name="TbTipoContrato" table="tb_tipo_contrato" catalog="gym_unisabaneta" optimistic-lock="version">
+    <class name="co.com.gym.model.TbTipoContrato" table="tb_tipo_contrato" catalog="gym_unisabaneta" optimistic-lock="version">
         <id name="idTbTipoContrato" type="java.lang.Integer">
             <column name="idTB_TIPO_CONTRATO" />
             <generator class="identity" />

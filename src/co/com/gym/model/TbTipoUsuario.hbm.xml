@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 22-may-2017 20:46:06 by Hibernate Tools 4.3.1.Final -->
 <hibernate-mapping>
-    <class name="TbTipoUsuario" table="tb_tipo_usuario" catalog="gym_unisabaneta" optimistic-lock="version">
+    <class name="co.com.gym.model.TbTipoUsuario" table="tb_tipo_usuario" catalog="gym_unisabaneta" optimistic-lock="version">
         <id name="idTipoUsuario" type="java.lang.Integer">
             <column name="idTIPO_USUARIO" />
             <generator class="identity" />

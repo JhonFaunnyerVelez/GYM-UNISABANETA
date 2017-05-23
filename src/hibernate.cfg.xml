@@ -10,5 +10,13 @@
         <property name="hibernate.connection.username">b0431bfa507395</property>
         <property name="hibernate.default_schema">b0431bfa507395</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping resource="co/com/gym/model/TbUsuario.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbEstadoPago.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbTipoUsuario.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbFechaEnvio.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbRutinas.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbRutinasXTbServicio.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbTipoContrato.hbm.xml" />
+        <mapping resource="co/com/gym/model/TbServicio.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
