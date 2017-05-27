@@ -39,6 +39,7 @@ public class VentanaLogin extends JFrame {
 	private JLabel lblSalir;
 	
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
+	VentanaMenu menu = new VentanaMenu();
 	
 
 	public static void main(String[] args) {
@@ -107,6 +108,7 @@ public class VentanaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ingresar();
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -151,6 +153,7 @@ public class VentanaLogin extends JFrame {
 		if(usu!=null){
 			this.dispose();
 			JOptionPane.showMessageDialog(lamina, "Bienvenido");
+			menu.setVisible(true);
 			
 		}else{
 			JOptionPane.showMessageDialog(lamina, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);

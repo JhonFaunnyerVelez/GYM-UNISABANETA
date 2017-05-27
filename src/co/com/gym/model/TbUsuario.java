@@ -21,37 +21,12 @@ public class TbUsuario implements java.io.Serializable {
 	private String dscorreo;
 	private Date fefechanacimiento;
 	private int nmdocumento;
-	private String dscontrasena;
-	private String dstelefono;
-	private String dsdireccion;
-	private String dssexo;
-	private String dsocupacion;
-	private String feregistro;
-	private Integer fktipoUsuario;
-	private String dsestadocivil;
-	private String deespecialidad;
-	private Integer nmedad;
-	private Integer nmcelular;
-
-	public TbUsuario() {
-	}
-
-	public TbUsuario(TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido, int nmautorizado,
-			String dscorreo, Date fefechanacimiento, int nmdocumento) {
-		this.tbTipoUsuario = tbTipoUsuario;
-		this.dsnombre = dsnombre;
-		this.dsprimerapellido = dsprimerapellido;
-		this.nmautorizado = nmautorizado;
-		this.dscorreo = dscorreo;
-		this.fefechanacimiento = fefechanacimiento;
-		this.nmdocumento = nmdocumento;
-	}
-
-	public TbUsuario(TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido, String dssegundoapellido,
+	public TbUsuario(int idTbUsuario, String dsnombre, String dsprimerapellido, String dssegundoapellido,
 			int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento, String dscontrasena,
 			String dstelefono, String dsdireccion, String dssexo, String dsocupacion, String feregistro,
 			Integer fktipoUsuario, String dsestadocivil, String deespecialidad, Integer nmedad, Integer nmcelular) {
-		this.tbTipoUsuario = tbTipoUsuario;
+		super();
+		this.idTbUsuario = idTbUsuario;
 		this.dsnombre = dsnombre;
 		this.dsprimerapellido = dsprimerapellido;
 		this.dssegundoapellido = dssegundoapellido;
@@ -70,6 +45,45 @@ public class TbUsuario implements java.io.Serializable {
 		this.deespecialidad = deespecialidad;
 		this.nmedad = nmedad;
 		this.nmcelular = nmcelular;
+	}
+
+	private String dscontrasena;
+	private String dstelefono;
+	private String dsdireccion;
+	private String dssexo;
+	private String dsocupacion;
+	private String feregistro;
+	private Integer fktipoUsuario;
+	private String dsestadocivil;
+	private String deespecialidad;
+	private Integer nmedad;
+	private Integer nmcelular;
+
+	public TbUsuario(TbTipoUsuario tbTipoUsuario, String dsnombre, String dsprimerapellido,
+			String dssegundoapellido, int nmautorizado, String dscorreo, Date fefechanacimiento, int nmdocumento,
+			String dstelefono, String dsdireccion, String dssexo, String dsocupacion, String feregistro,
+			String dsestadocivil, String deespecialidad, Integer nmedad, Integer nmcelular) {
+		super();
+		this.tbTipoUsuario = tbTipoUsuario;
+		this.dsnombre = dsnombre;
+		this.dsprimerapellido = dsprimerapellido;
+		this.dssegundoapellido = dssegundoapellido;
+		this.nmautorizado = nmautorizado;
+		this.dscorreo = dscorreo;
+		this.fefechanacimiento = fefechanacimiento;
+		this.nmdocumento = nmdocumento;
+		this.dstelefono = dstelefono;
+		this.dsdireccion = dsdireccion;
+		this.dssexo = dssexo;
+		this.dsocupacion = dsocupacion;
+		this.feregistro = feregistro;
+		this.dsestadocivil = dsestadocivil;
+		this.deespecialidad = deespecialidad;
+		this.nmedad = nmedad;
+		this.nmcelular = nmcelular;
+	}
+
+	public TbUsuario() {
 	}
 
 	public Integer getIdTbUsuario() {

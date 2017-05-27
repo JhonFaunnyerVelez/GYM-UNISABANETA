@@ -102,14 +102,9 @@ public class VentanaMenu extends JFrame {
 		getContentPane().setBackground(Color.white);
 		
 		LaminaCliente laminaCliente = new LaminaCliente();
-		laminaCliente.setBounds(322, 20, 629, 180);
-		LaminaTblClient laminaTblClient = new LaminaTblClient();
-		laminaTblClient.setBounds(10, 211, 1240, 374);
-		//---------------------------------------------------------
 		getContentPane().add(laminaCliente);
 		
-		LaminaInstructor laminaInstruc = new LaminaInstructor();
-		
+		LaminaInstructor laminaInstruc = new LaminaInstructor();	
 		getContentPane().add(laminaInstruc);
 		
 
@@ -121,7 +116,11 @@ public class VentanaMenu extends JFrame {
 		
 		LaminaTpContrato laminaCont = new LaminaTpContrato();
 		getContentPane().add(laminaCont);
+		
+		LaminaAdmin laminaAdm = new LaminaAdmin();
+		getContentPane().add(laminaAdm);
 
+		
 
 		
 		//MENU BAR CON LOS BOTONES AGRAGADOS
@@ -141,8 +140,8 @@ public class VentanaMenu extends JFrame {
 				laminaServ.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaCont.setVisible(false);
+				laminaAdm.setVisible(false);
 				laminaCliente.setVisible(true);
-				laminaTblClient.setVisible(true);
 			}
 		});
 		
@@ -150,10 +149,10 @@ public class VentanaMenu extends JFrame {
 		btnInstructor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);
-				laminaTblClient.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaCont.setVisible(false);
+				laminaAdm.setVisible(false);
 				laminaInstruc.setVisible(true);
 				
 			}
@@ -166,13 +165,29 @@ public class VentanaMenu extends JFrame {
 		btnRutina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);
-				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaCont.setVisible(false);
+				laminaAdm.setVisible(false);
 				laminaRut.setVisible(true);
 			}
 		});
+		
+		JButton btnAdmin = new JButton("Administrador");
+		btnAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				laminaCliente.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaCont.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaAdm.setVisible(false);
+				laminaAdm.setVisible(true);
+			}
+		});
+		btnAdmin.setForeground(Color.WHITE);
+		btnAdmin.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnAdmin);
 		btnRutina.setForeground(Color.white);
 		btnRutina.setBackground(azul);
 		menuBar.add(btnRutina);
@@ -181,11 +196,12 @@ public class VentanaMenu extends JFrame {
 		btnServicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				laminaCliente.setVisible(false);
-				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaCont.setVisible(false);
+				laminaAdm.setVisible(false);
 				laminaServ.setVisible(true);
+
 			}
 		});
 		btnServicio.setForeground(Color.white);
@@ -196,10 +212,10 @@ public class VentanaMenu extends JFrame {
 		btnTpContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				laminaCliente.setVisible(false);
-				laminaTblClient.setVisible(false);
 				laminaInstruc.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaServ.setVisible(false);
+				laminaAdm.setVisible(false);
 				laminaCont.setVisible(true);
 			}
 		});
@@ -271,7 +287,6 @@ public class VentanaMenu extends JFrame {
 						Clear_Table1();
 						LlenarTabla("");
 						limpiarCampos();
-						JOptionPane.showMessageDialog(null, "Servicio Guardado");
 					}
 				});
 				
@@ -315,7 +330,6 @@ public class VentanaMenu extends JFrame {
 						limpiarCampos();
 						Clear_Table1();
 						LlenarTabla("");
-						JOptionPane.showMessageDialog(null, "Instructor Eliminado");
 						btnGuardar.setEnabled(true);
 					
 					}
@@ -330,9 +344,12 @@ public class VentanaMenu extends JFrame {
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							TbServicio tbServicio = new TbServicio();
-							tbServicio.setDsnombre(txtNombre.getText());
-							servicioImpl.modificarServicio(tbServicio);
+							servicio1.setIdTbServicio(Integer.valueOf(txtId.getText()));
+							servicio1.setDsnombre(txtNombre.getText());
+							servicio1.setDsdescripcion(txtDescripcion.getText());
+							servicio1.setNmcupolimite(txtCupo.getText());
+							servicio1.setFeregistro(Date.valueOf(txtFechReg.getText()));
+							servicioImpl.modificarServicio(servicio1);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -340,7 +357,6 @@ public class VentanaMenu extends JFrame {
 						limpiarCampos();
 						Clear_Table1();
 						LlenarTabla("");
-						JOptionPane.showMessageDialog(null, "Servicio Modificado");
 						btnGuardar.setEnabled(true);
 					}
 				});

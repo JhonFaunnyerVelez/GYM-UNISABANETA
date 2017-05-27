@@ -88,7 +88,6 @@ public class LaminaTpContrato extends JPanel{
 				Clear_Table1();
 				LlenarTabla();
 				limpiarCampos();
-				JOptionPane.showMessageDialog(null, "Contrato Guardado");
 			}
 		});
 
@@ -129,7 +128,6 @@ public class LaminaTpContrato extends JPanel{
 			limpiarCampos();
 			Clear_Table1();
 			LlenarTabla();
-			JOptionPane.showMessageDialog(null, "Contrato Eliminado");
 			btnGuardar.setEnabled(true);
 		
 		}
@@ -147,8 +145,10 @@ public class LaminaTpContrato extends JPanel{
 				try {
 					
 					TbTipoContrato tbTipoContrato = new TbTipoContrato();
+					tbTipoContrato.setIdTbTipoContrato(Integer.valueOf(txtId.getText()));
 					tbTipoContrato.setDsdescripcion(txtDescripcion.getText());
-
+					tbTipoContrato.setNmprecio(Integer.valueOf(txtPrecio.getText()));
+					tbTipoContrato.setFeregistro(Date.valueOf(txtFechReg.getText()));
 					tipocontratoImpl.modificartpcon(tbTipoContrato);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -157,7 +157,6 @@ public class LaminaTpContrato extends JPanel{
 				limpiarCampos();
 				Clear_Table1();
 				LlenarTabla();
-				JOptionPane.showMessageDialog(null, "Contrato Modificado");
 				btnGuardar.setEnabled(true);
 			}
 		});

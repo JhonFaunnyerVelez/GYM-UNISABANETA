@@ -1,6 +1,12 @@
 package co.com.gym.control;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,36 +17,16 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import co.com.gym.impl.UsuarioImpl;
 import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
-import co.com.gym.util.HibernateUtil;
 
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-
-public class LaminaInstructor extends JPanel{
-	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class LaminaAdmin extends JPanel {
 	private JTextField txtNombre,txtPrmApellido,txtSegApellido,txtCorreo,txtDoc,txtTel,txtDireccion;
 	private JButton btnGuardar, btnLimpiar, btnBuscar, btnEliminar, btnModificar;
 	private Color azul=new Color(20,130,200);
@@ -60,8 +46,8 @@ public class LaminaInstructor extends JPanel{
 	TbUsuario usuario = new TbUsuario();
 	private JTextField txtClave;
 	
-	public LaminaInstructor(){
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "INSTRUCTOR", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	public LaminaAdmin(){
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "ADMINISTRADOR", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
 		setBounds(10, 20, 1240, 568);
 		setLayout(null);
@@ -118,7 +104,7 @@ public class LaminaInstructor extends JPanel{
 					usuario.setDeespecialidad(txtEspec.getText());
 					usuario.setNmedad(Integer.valueOf(txtEdad.getText()));
 					usuario.setNmcelular(Integer.valueOf(txtCel.getText()));
-					usuarioImpl.guardarInstructor(usuario);
+					usuarioImpl.guardarUsuario(usuario);
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -327,7 +313,7 @@ public class LaminaInstructor extends JPanel{
 				TbUsuario usu = new TbUsuario();
 				usu.setIdTbUsuario(Integer.valueOf(txtId.getText()));
 				try {
-					usuarioImpl.eliminarInstructor(usu);
+					usuarioImpl.eliminarUsuario(usu);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -412,7 +398,7 @@ public class LaminaInstructor extends JPanel{
 					usuario.setDeespecialidad(txtEspec.getText());
 					usuario.setNmedad(Integer.valueOf(txtEdad.getText()));
 					usuario.setNmcelular(Integer.valueOf(txtCel.getText()));
-					usuarioImpl.modificarInstructor(usuario);
+					usuarioImpl.modificarUsuario(usuario);
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -436,7 +422,7 @@ public class LaminaInstructor extends JPanel{
 		add(txtClave);
 		
 		txtTipoUsuario = new JTextField();
-		txtTipoUsuario.setText("3");
+		txtTipoUsuario.setText("1");
 		
 	}
 	public void SeleccionarRegistro(){
@@ -460,7 +446,6 @@ public class LaminaInstructor extends JPanel{
 			txtEspec.setText(tabla.getValueAt(fila, 15).toString());
 			txtEdad.setText(tabla.getValueAt(fila, 16).toString());
 			txtCel.setText(tabla.getValueAt(fila, 17).toString());
-			txtClave.setText("");
 			txtId.setVisible(true);
 			lblId.setVisible(true);
 			btnGuardar.setEnabled(false);
@@ -492,6 +477,7 @@ public class LaminaInstructor extends JPanel{
 		txtEspec.setText("");
 		txtEdad.setText("");
 		txtCel.setText("");
+		txtClave.setText("");
 		txtId.setVisible(false);
 		lblId.setVisible(false);
 	}

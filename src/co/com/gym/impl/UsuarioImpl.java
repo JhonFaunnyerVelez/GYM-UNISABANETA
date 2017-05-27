@@ -20,7 +20,22 @@ public class UsuarioImpl {
 		return Usuario;
 	}
 	
-	public void guardarUsuario(TbUsuario usuario){
+	public void guardarUsuario(TbUsuario usuario) throws SQLException{
 		usuarioDao.guardarUsuario(usuario);
-	}	
+	}
+	public void modificarUsuario(TbUsuario usuario) throws SQLException{
+		usuarioDao.modificarUsuario(usuario);
+	}
+	public void eliminarUsuario(TbUsuario usuario) throws SQLException{
+		usuarioDao.eliminarUsuario(usuario);
+	}
+	public void guardarInstructor(TbUsuario usuario) throws SQLException{
+		usuarioDao.guardarInstructor(usuario);
+	}
+	public void modificarInstructor(TbUsuario usuario) throws SQLException{
+		usuarioDao.modificarInstructor(usuario);
+	}
+	public void eliminarInstructor(TbUsuario usuario) throws SQLException{
+		usuarioDao.eliminarInstructor(usuario);
+	}
 }
