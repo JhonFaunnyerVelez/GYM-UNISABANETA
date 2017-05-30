@@ -20,6 +20,17 @@ public class TbRutinas implements java.io.Serializable {
 	private Date fefechafinal;
 	private Date feregistro;
 
+	public TbRutinas(TbUsuario tbUsuario, String dsnombrerutina, String dsdescripcion, Date fefechainicial,
+			Date fefechafinal, Date feregistro) {
+		super();
+		this.tbUsuario = tbUsuario;
+		this.dsnombrerutina = dsnombrerutina;
+		this.dsdescripcion = dsdescripcion;
+		this.fefechainicial = fefechainicial;
+		this.fefechafinal = fefechafinal;
+		this.feregistro = feregistro;
+	}
+
 	public TbRutinas() {
 	}
 
@@ -27,8 +38,9 @@ public class TbRutinas implements java.io.Serializable {
 		this.tbUsuario = tbUsuario;
 	}
 
-	public TbRutinas(TbUsuario tbUsuario, String dsnombrerutina, String dsdescripcion, Date fefechainicial,
+	public TbRutinas(Integer idTbRutinas, TbUsuario tbUsuario, String dsnombrerutina, String dsdescripcion, Date fefechainicial,
 			Date fefechafinal, Date feregistro) {
+		this.idTbRutinas = idTbRutinas;
 		this.tbUsuario = tbUsuario;
 		this.dsnombrerutina = dsnombrerutina;
 		this.dsdescripcion = dsdescripcion;

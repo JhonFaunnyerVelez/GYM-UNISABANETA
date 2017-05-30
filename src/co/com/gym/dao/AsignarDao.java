@@ -1,42 +1,36 @@
 package co.com.gym.dao;
 
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.swing.JOptionPane;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.swing.JPanel;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import co.com.gym.model.TbServicio;
-import co.com.gym.model.TbTipoContrato;
+import co.com.gym.model.TbRutinasXTbServicio;
 import co.com.gym.util.Conexion;
-import co.com.gym.util.HibernateUtil;
 
-public class ServicioDao {
+public class AsignarDao extends JPanel{
 
-	public  TbServicio guardarServicio(TbServicio serv) throws SQLException{
+public  TbRutinasXTbServicio guardarAsignar(TbRutinasXTbServicio asig) throws SQLException{
 		
-		TbServicio servicio=null;
+	    TbRutinasXTbServicio asignar=null;
 		Conexion conexion= null;
 		PreparedStatement pst=null; 
 		
 		try{
 
 			conexion = new Conexion();
-			String sql = "INSERT INTO tb_servicio (DSNOMBRE,DSDESCRIPCION,NMCUPOLIMITE,FEREGISTRO) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO tb_rutinas_x_tb_servicio (TB_RUTINAS_idTB_RUTINAS, TB_SERVICIO_idTB_SERVICIO, FEREGISTRO) VALUES (?,?,?)";
 			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			
-			pst.setString(1, serv.getDsnombre());
-			pst.setString(2, serv.getDsdescripcion());
-			pst.setString(3, serv.getNmcupolimite());
-			pst.setDate(4, (java.sql.Date) serv.getFeregistro());
+			pst.setInt(1, asig.getTbRutinas().getIdTbRutinas());
+			pst.setInt(2, asig.getTbServicio().getIdTbServicio());
+			pst.setDate(3, (java.sql.Date) asig.getFeregistro());
 			pst.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Asignacion Guardada", "Guardar", 1);
 
-			JOptionPane.showMessageDialog(null, "registro guardado", "Guardar", 1);
-
+			
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se pudo Guardar El registro", "Guardar", 0);
 			e.printStackTrace();
@@ -45,22 +39,21 @@ public class ServicioDao {
 			pst.close();
 	
 		}
-		return servicio;	
+		return asignar;	
 
 		}
 
-	public TbServicio modificarServicio(TbServicio serv) throws SQLException{
+	public TbRutinasXTbServicio modificarAsignar(TbRutinasXTbServicio asig) throws SQLException{
 		
-		TbServicio servicio=null;
+		TbRutinasXTbServicio asignar=null;
 		Conexion conexion= null;
 		PreparedStatement pst = null;
-		String sql = "UPDATE tb_servicio SET DSNOMBRE='"+serv.getDsnombre()+"', DSDESCRIPCION='"+serv.getDsdescripcion()+"', NMCUPOLIMITE="+serv.getNmcupolimite()+", FEREGISTRO='"+serv.getFeregistro()+"'WHERE idTB_SERVICIO='"+serv.getIdTbServicio()+"'";
+		String sql = "UPDATE tb_rutinas_x_tb_servicio SET TB_RUTINAS_idTB_RUTINAS='"+asig.getTbRutinas().getIdTbRutinas()+"', TB_SERVICIO_idTB_SERVICIO='"+asig.getTbServicio().getIdTbServicio()+"', FEREGISTRO='"+asig.getFeregistro()+"',  WHERE CDCODIGO='"+asig.getCdcodigo()+"'";
 		try {
 			conexion = new Conexion();
 			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.executeUpdate();
-			JOptionPane.showMessageDialog(null, "registro modificado", "Modificar", 1);
-
+			
 		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "No se pudo Modificar El registro", "Modificar", 0);
 			e1.printStackTrace();
@@ -74,23 +67,24 @@ public class ServicioDao {
 				e1.printStackTrace();
 			}
 		}
+		JOptionPane.showMessageDialog(null, "Registro Modificado", "Modificar", 1);
 
-		return serv;	
+		return asignar;	
 	}
 
-	public TbServicio eliminarServicio(TbServicio serv) throws SQLException{
+	public TbRutinasXTbServicio eliminarAsignar(TbRutinasXTbServicio asig) throws SQLException{
 		
 		
-		TbServicio servicio=null;
+		TbRutinasXTbServicio asignar=null;
 		Conexion conexion= null;
 		PreparedStatement pst = null;
-		String sql = "DELETE FROM gym_unisabaneta.tb_servicio WHERE idTB_SERVICIO='"+serv.getIdTbServicio()+"'";
+		String sql = "DELETE FROM tb_rutinas_x_tb_servicio WHERE CDCODIGO='"+asig.getCdcodigo()+"'";
 		try {
 			conexion = new Conexion();
 			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.executeUpdate();
-			
-			JOptionPane.showMessageDialog(null, "Registro Eliminado", "Eliminar", 1);
+			JOptionPane.showMessageDialog(null, "registro Eliminado", "Eliminar", 1);
+
 
 			
 		} catch (SQLException e1) {
@@ -107,7 +101,7 @@ public class ServicioDao {
 			}
 		}
 		
-		return serv;
+		return asignar;
 	}
 	
 }

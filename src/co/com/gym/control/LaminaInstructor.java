@@ -24,6 +24,8 @@ import co.com.gym.util.Conexion;
 import co.com.gym.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,16 +74,40 @@ public class LaminaInstructor extends JPanel{
 		txtNombre.setBounds(330, 28, 86, 20);
 		add(txtNombre);
 		txtNombre.setColumns(10);
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtPrmApellido = new JTextField();
 		txtPrmApellido.setColumns(10);
 		txtPrmApellido.setBounds(330, 59, 86, 20);
 		add(txtPrmApellido);
+		txtPrmApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtSegApellido = new JTextField();
 		txtSegApellido.setColumns(10);
 		txtSegApellido.setBounds(330, 90, 86, 20);
 		add(txtSegApellido);
+		txtSegApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
@@ -146,11 +172,27 @@ public class LaminaInstructor extends JPanel{
 		txtDoc.setColumns(10);
 		txtDoc.setBounds(738, 28, 86, 20);
 		add(txtDoc);
+		txtDoc.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		txtTel = new JTextField();
 		txtTel.setColumns(10);
 		txtTel.setBounds(536, 121, 86, 20);
 		add(txtTel);
+		txtTel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
@@ -162,8 +204,12 @@ public class LaminaInstructor extends JPanel{
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Primer Apellido:");
-		lblNewLabel_1.setBounds(219, 62, 86, 14);
+		lblNewLabel_1.setBounds(219, 62, 119, 14);
 		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
+		lblNewLabel_3.setBounds(928, 208, 290, 14);
+		add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Apellido:");
 		lblNewLabel_2.setBounds(219, 93, 106, 14);
@@ -205,9 +251,17 @@ public class LaminaInstructor extends JPanel{
 		txtOcup.setColumns(10);
 		txtOcup.setBounds(738, 90, 86, 20);
 		add(txtOcup);
+		txtOcup.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		JLabel lblInstructor = new JLabel("Fecha de Registro:");
-		lblInstructor.setBounds(632, 124, 96, 14);
+		lblInstructor.setBounds(632, 124, 119, 14);
 		add(lblInstructor);
 		
 		txtFechReg = new JTextField();
@@ -276,13 +330,21 @@ public class LaminaInstructor extends JPanel{
 		txtEstadoC.setColumns(10);
 		txtEstadoC.setBounds(946, 28, 86, 20);
 		add(txtEstadoC);
+		txtEstadoC.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
 		lblEstadoCivil.setBounds(834, 31, 91, 14);
 		add(lblEstadoCivil);
 		
 		JLabel lblEdad = new JLabel("Especialidad:");
-		lblEdad.setBounds(834, 62, 67, 14);
+		lblEdad.setBounds(834, 62, 91, 14);
 		add(lblEdad);
 		
 		JLabel lblEdad_1 = new JLabel("Edad:");
@@ -293,11 +355,27 @@ public class LaminaInstructor extends JPanel{
 		txtEspec.setColumns(10);
 		txtEspec.setBounds(946, 59, 86, 20);
 		add(txtEspec);
+		txtEspec.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtEdad = new JTextField();
 		txtEdad.setColumns(10);
 		txtEdad.setBounds(946, 90, 86, 20);
 		add(txtEdad);
+		txtEdad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		JLabel lblCelular = new JLabel("Celular:");
 		lblCelular.setBounds(835, 124, 106, 14);
@@ -307,6 +385,14 @@ public class LaminaInstructor extends JPanel{
 		txtCel.setColumns(10);
 		txtCel.setBounds(946, 121, 86, 20);
 		add(txtCel);
+		txtCel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		lblId = new JLabel("ID");
 		lblId.setBounds(57, 79, 24, 14);
@@ -460,7 +546,6 @@ public class LaminaInstructor extends JPanel{
 			txtEspec.setText(tabla.getValueAt(fila, 15).toString());
 			txtEdad.setText(tabla.getValueAt(fila, 16).toString());
 			txtCel.setText(tabla.getValueAt(fila, 17).toString());
-			txtClave.setText("");
 			txtId.setVisible(true);
 			lblId.setVisible(true);
 			btnGuardar.setEnabled(false);
@@ -492,6 +577,7 @@ public class LaminaInstructor extends JPanel{
 		txtEspec.setText("");
 		txtEdad.setText("");
 		txtCel.setText("");
+		txtClave.setText("");
 		txtId.setVisible(false);
 		lblId.setVisible(false);
 	}
@@ -512,7 +598,7 @@ public class LaminaInstructor extends JPanel{
 		}
 		try{
 		    conexion = new Conexion();
-		    st = conexion.getConnection().createStatement();
+		    st = conexion.Conexion().createStatement();
 		    rs = st.executeQuery(sql);
 		    while(rs.next()){
 		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
@@ -523,7 +609,12 @@ public class LaminaInstructor extends JPanel{
 		    e.printStackTrace();
 		}
 		finally{
-			conexion.desconectar();
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			try {
 				st.close();
 			} catch (SQLException e1) {

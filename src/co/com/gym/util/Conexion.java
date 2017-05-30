@@ -12,7 +12,7 @@ public class Conexion {
 	   Connection conn = null;
 	 
 	   /** Constructor de DbConnection */
-	   public Conexion() {
+	   public Connection Conexion() {
 	      try{
 	         //obtenemos el driver de para mysql
 	         Class.forName("com.mysql.jdbc.Driver");
@@ -30,15 +30,8 @@ public class Conexion {
 	      }catch(Exception e){
 	         System.out.println(e);
 	      }
-	   }
-	   /**Permite retornar la conexi�n*/
-	   public Connection getConnection(){
 	      return conn;
 	   }
-	 
-	   public void desconectar(){
-		      conn=null;
-	}
 }
 	
 

@@ -31,6 +31,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LaminaCliente extends JPanel {
 	
@@ -52,6 +54,7 @@ public class LaminaCliente extends JPanel {
 	private JTextField txtEspec;
 	private JTextField txtEdad;
 	private JTextField txtCel, txtId, txtBuscar;
+	private JComboBox cbInstructor;
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
 	TbTipoUsuario tipoUsuario = new TbTipoUsuario();
 	TbUsuario usuario = new TbUsuario();
@@ -70,16 +73,40 @@ public class LaminaCliente extends JPanel {
 		txtNombre.setBounds(330, 28, 86, 20);
 		add(txtNombre);
 		txtNombre.setColumns(10);
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtPrmApellido = new JTextField();
 		txtPrmApellido.setColumns(10);
 		txtPrmApellido.setBounds(330, 59, 86, 20);
 		add(txtPrmApellido);
+		txtPrmApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtSegApellido = new JTextField();
 		txtSegApellido.setColumns(10);
 		txtSegApellido.setBounds(330, 90, 86, 20);
 		add(txtSegApellido);
+		txtSegApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
@@ -95,9 +122,10 @@ public class LaminaCliente extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 
-					
+					int idInstructor = obtenerCliente();
+					TbUsuario usu = new TbUsuario();
 					tipoUsuario.setIdTipoUsuario(Integer.valueOf(txtTipoUsuario.getText()));
-					
+					usuario.setFktipoUsuario(idInstructor);
 					usuario.setTbTipoUsuario(tipoUsuario);
 					usuario.setDsnombre(txtNombre.getText());
 					usuario.setDsprimerapellido(txtPrmApellido.getText());
@@ -122,7 +150,7 @@ public class LaminaCliente extends JPanel {
 					e1.printStackTrace();
 				}
 				Clear_Table1();
-				LlenarTabla("");
+				LlenarTabla(txtTipoUsuario.getText());
 				limpiarCampos();
 			}
 		});
@@ -143,8 +171,24 @@ public class LaminaCliente extends JPanel {
 		txtDoc.setColumns(10);
 		txtDoc.setBounds(738, 28, 86, 20);
 		add(txtDoc);
+		txtDoc.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		txtTel = new JTextField();
+		txtTel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		txtTel.setColumns(10);
 		txtTel.setBounds(536, 121, 86, 20);
 		add(txtTel);
@@ -155,20 +199,24 @@ public class LaminaCliente extends JPanel {
 		add(txtDireccion);
 		
 		JLabel lblNewLabel = new JLabel("Nombre:");
-		lblNewLabel.setBounds(219, 31, 83, 14);
+		lblNewLabel.setBounds(206, 34, 114, 14);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Primer Apellido:");
-		lblNewLabel_1.setBounds(219, 62, 86, 14);
+		lblNewLabel_1.setBounds(206, 65, 114, 14);
 		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Apellido:");
-		lblNewLabel_2.setBounds(219, 93, 106, 14);
+		lblNewLabel_2.setBounds(206, 96, 114, 14);
 		add(lblNewLabel_2);
 		
 		JLabel label = new JLabel("Autorizado:");
-		label.setBounds(219, 124, 86, 14);
+		label.setBounds(206, 127, 114, 14);
 		add(label);
+		
+		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
+		lblNewLabel_3.setBounds(928, 208, 290, 14);
+		add(lblNewLabel_3);
 		
 		JLabel label_1 = new JLabel("Correo:");
 		label_1.setBounds(424, 62, 67, 14);
@@ -202,15 +250,24 @@ public class LaminaCliente extends JPanel {
 		txtOcup.setColumns(10);
 		txtOcup.setBounds(738, 90, 86, 20);
 		add(txtOcup);
+		txtOcup.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		JLabel lblInstructor = new JLabel("Fecha de Registro:");
-		lblInstructor.setBounds(632, 124, 96, 14);
+		lblInstructor.setBounds(632, 124, 125, 14);
 		add(lblInstructor);
 		
 		txtFechReg = new JTextField();
 		txtFechReg.setColumns(10);
 		txtFechReg.setBounds(738, 121, 86, 20);
 		add(txtFechReg);
+
 		
 		cbSexo = new JComboBox();
 		cbSexo.setBounds(738, 59, 86, 20);
@@ -228,6 +285,7 @@ public class LaminaCliente extends JPanel {
 		txtFechNac.setBounds(536, 90, 86, 20);
 		add(txtFechNac);
 		txtFechNac.setColumns(10);
+
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 233, 1220, 288);
@@ -246,6 +304,7 @@ public class LaminaCliente extends JPanel {
 		modelo.addColumn("Sexo");
 		modelo.addColumn("Ocupacion");
 		modelo.addColumn("Fech Registro");
+		modelo.addColumn("Instructor");
 		modelo.addColumn("Estado Civil");
 		modelo.addColumn("Especialidad");
 		modelo.addColumn("Edad");
@@ -273,13 +332,21 @@ public class LaminaCliente extends JPanel {
 		txtEstadoC.setColumns(10);
 		txtEstadoC.setBounds(946, 28, 86, 20);
 		add(txtEstadoC);
+		txtEstadoC.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
 		lblEstadoCivil.setBounds(834, 31, 91, 14);
 		add(lblEstadoCivil);
 		
 		JLabel lblEdad = new JLabel("Especialidad:");
-		lblEdad.setBounds(834, 62, 67, 14);
+		lblEdad.setBounds(834, 62, 91, 14);
 		add(lblEdad);
 		
 		JLabel lblEdad_1 = new JLabel("Edad:");
@@ -290,11 +357,28 @@ public class LaminaCliente extends JPanel {
 		txtEspec.setColumns(10);
 		txtEspec.setBounds(946, 59, 86, 20);
 		add(txtEspec);
+		txtEspec.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
+		
 		
 		txtEdad = new JTextField();
 		txtEdad.setColumns(10);
 		txtEdad.setBounds(946, 90, 86, 20);
 		add(txtEdad);
+		txtEdad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		JLabel lblCelular = new JLabel("Celular:");
 		lblCelular.setBounds(835, 124, 106, 14);
@@ -304,6 +388,14 @@ public class LaminaCliente extends JPanel {
 		txtCel.setColumns(10);
 		txtCel.setBounds(946, 121, 86, 20);
 		add(txtCel);
+		txtCel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
 		
 		lblId = new JLabel("ID");
 		lblId.setBounds(57, 79, 24, 14);
@@ -331,7 +423,7 @@ public class LaminaCliente extends JPanel {
 				}
 				limpiarCampos();
 				Clear_Table1();
-				LlenarTabla("");
+				LlenarTabla(txtTipoUsuario.getText());
 				btnGuardar.setEnabled(true);
 			
 			}
@@ -363,6 +455,10 @@ public class LaminaCliente extends JPanel {
 		lblBuscarInstructorX.setBounds(10, 205, 191, 14);
 		add(lblBuscarInstructorX);
 		
+		cbInstructor = new JComboBox();
+		cbInstructor.setBounds(1105, 28, 125, 20);
+		add(cbInstructor);
+		
 		combo = new JComboBox();
 		combo.setBounds(130, 203, 100, 20);
 		combo.addItem("Cedula");
@@ -388,7 +484,8 @@ public class LaminaCliente extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
-					
+					int idInstructor = obtenerCliente();
+					usuario.setFktipoUsuario(idInstructor);
 					tipoUsuario.setIdTipoUsuario(Integer.valueOf(txtTipoUsuario.getText()));
 					usuario.setIdTbUsuario(Integer.valueOf(txtId.getText()));
 					usuario.setTbTipoUsuario(tipoUsuario);
@@ -416,7 +513,7 @@ public class LaminaCliente extends JPanel {
 				}
 				limpiarCampos();
 				Clear_Table1();
-				LlenarTabla("");
+				LlenarTabla(txtTipoUsuario.getText());
 				btnGuardar.setEnabled(true);
 			}
 		});
@@ -425,6 +522,22 @@ public class LaminaCliente extends JPanel {
 		btnModificar.setBounds(639, 152, 89, 20);
 		btnModificar.setEnabled(false);
 		add(btnModificar);
+		
+		JLabel lblInstructor_1 = new JLabel("Instructor: ");
+		lblInstructor_1.setBounds(1042, 31, 91, 14);
+		add(lblInstructor_1);
+		
+		JButton btnListar = new JButton("Listar");
+		btnListar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			    cbInstructor.removeAllItems();
+				llenarcombo();
+			}
+		});
+		btnListar.setForeground(Color.WHITE);
+		btnListar.setBackground(new Color(20, 130, 200));
+		btnListar.setBounds(1081, 59, 89, 20);
+		add(btnListar);
 		
 		txtTipoUsuario = new JTextField();
 		txtTipoUsuario.setText("2");
@@ -446,10 +559,10 @@ public class LaminaCliente extends JPanel {
 			cbSexo.setSelectedItem(tabla.getValueAt(fila, 10));
 			txtOcup.setText(tabla.getValueAt(fila, 11).toString());
 			txtFechReg.setText(tabla.getValueAt(fila, 12).toString());
-			txtEstadoC.setText(tabla.getValueAt(fila, 13).toString());
-			txtEspec.setText(tabla.getValueAt(fila, 14).toString());
-			txtEdad.setText(tabla.getValueAt(fila, 15).toString());
-			txtCel.setText(tabla.getValueAt(fila, 16).toString());
+			txtEstadoC.setText(tabla.getValueAt(fila, 14).toString());
+			txtEspec.setText(tabla.getValueAt(fila, 15).toString());
+			txtEdad.setText(tabla.getValueAt(fila, 16).toString());
+			txtCel.setText(tabla.getValueAt(fila, 17).toString());
 			txtId.setVisible(true);
 			lblId.setVisible(true);
 			btnGuardar.setEnabled(false);
@@ -501,10 +614,10 @@ public class LaminaCliente extends JPanel {
 		}
 		try{
 		    conexion = new Conexion();
-		    st = conexion.getConnection().createStatement();
+		    st = conexion.Conexion().createStatement();
 		    rs = st.executeQuery(sql);
 		    while(rs.next()){
-		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
+		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
 		    }
 		    
 		}catch(Exception e){
@@ -512,7 +625,12 @@ public class LaminaCliente extends JPanel {
 		    e.printStackTrace();
 		}
 		finally{
-			conexion.desconectar();
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			try {
 				st.close();
 			} catch (SQLException e1) {
@@ -526,6 +644,86 @@ public class LaminaCliente extends JPanel {
 				e.printStackTrace();
 			}; 
 		}
+	}
+	public void llenarcombo(){
+		TbUsuario Usuario=null;
+		Conexion conexion= null;
+		Statement st=null; 
+		ResultSet rs =null; 
+		
+		try{
+			
+			conexion = new Conexion();
+			String sql = "SELECT DSNOMBRE FROM tb_usuario where TIPO_USUARIO_idTIPO_USUARIO=3";
+			st = conexion.Conexion().createStatement();
+			rs = st.executeQuery(sql);
+			
+			
+			cbInstructor.addItem("Seleccione un Instructor:");
+			
+			
+			while (rs.next()){
+				cbInstructor.addItem(rs.getString(1));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				st.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+		}
+	}
+	public int obtenerCliente(){
+		TbUsuario Usuario = new TbUsuario();
+		Conexion conexion= null;
+		Statement st=null; 
+		ResultSet rs =null; 
+		int id=0;
+		
+		try{
+			
+			conexion = new Conexion();
+			String sql = "SELECT idTB_USUARIO FROM tb_usuario where DSNOMBRE='"+cbInstructor.getSelectedItem()+"'";
+			st = conexion.Conexion().createStatement();
+			rs = st.executeQuery(sql);
+			
+			
+			while (rs.next()){
+				id = rs.getInt(1);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				st.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+		}
+		return id;
+		
 	}
 	private void Clear_Table1(){
 	       for (int i = 0; i < tabla.getRowCount(); i++) {

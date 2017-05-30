@@ -31,7 +31,7 @@ public class UsuarioDao {
 			
 			conexion = new Conexion();
 			String sql = "SELECT * FROM tb_usuario where NMDOCUMENTO=? and DSCONTRASENA= ?";
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			
 			pst.setInt(1, usu.getNmdocumento());
 			pst.setString(2, usu.getDscontrasena());
@@ -47,7 +47,7 @@ public class UsuarioDao {
 			System.out.println("error en obtener usuario");
 			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			pst.close();
 			rs.close();		
 		}
@@ -63,8 +63,8 @@ public class UsuarioDao {
 		try{
 
 			conexion = new Conexion();
-			String sql = "INSERT INTO tb_usuario (DSNOMBRE, DSPRIMERAPELLIDO, DSSEGUNDOAPELLIDO, NMAUTORIZADO, DSCORREO, FEFECHANACIMIENTO, NMDOCUMENTO, DSTELEFONO, DSDIRECCION, DSSEXO, DSOCUPACION, FEREGISTRO, TIPO_USUARIO_idTIPO_USUARIO, DSESTADOCIVIL, DEESPECIALIDAD, NMEDAD, NMCELULAR) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);
+			String sql = "INSERT INTO tb_usuario (DSNOMBRE, DSPRIMERAPELLIDO, DSSEGUNDOAPELLIDO, NMAUTORIZADO, DSCORREO, FEFECHANACIMIENTO, NMDOCUMENTO, DSTELEFONO, DSDIRECCION, DSSEXO, DSOCUPACION, FEREGISTRO, TIPO_USUARIO_idTIPO_USUARIO, FKTIPO_USUARIO, DSESTADOCIVIL, DEESPECIALIDAD, NMEDAD, NMCELULAR) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.setString(1, usuario.getDsnombre());
 			pst.setString(2, usuario.getDsprimerapellido());
 			pst.setString(3, usuario.getDssegundoapellido());
@@ -78,10 +78,11 @@ public class UsuarioDao {
 			pst.setString(11, usuario.getDsocupacion());
 			pst.setString(12,usuario.getFeregistro());
 			pst.setInt(13, usuario.getTbTipoUsuario().getIdTipoUsuario());
-			pst.setString(14, usuario.getDsestadocivil());
-			pst.setString(15, usuario.getDeespecialidad());
-			pst.setInt(16, usuario.getNmedad());
-			pst.setInt(17, usuario.getNmcelular());
+			pst.setInt(14, usuario.getFktipoUsuario());
+			pst.setString(15, usuario.getDsestadocivil());
+			pst.setString(16, usuario.getDeespecialidad());
+			pst.setInt(17, usuario.getNmedad());
+			pst.setInt(18, usuario.getNmcelular());
 			pst.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Registro Guardado", "Guardar", 1);
 			
@@ -89,7 +90,7 @@ public class UsuarioDao {
 			JOptionPane.showMessageDialog(null, "No se pudo Guardar el Cliente", "Guardar", 0);
 			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			pst.close();
 		}
 		return usuario;
@@ -109,13 +110,13 @@ public class UsuarioDao {
 		try{
 
 			conexion = new Conexion();
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);;
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);;
 			pst.executeUpdate();			
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se pudo Guardar el Cliente", "Guardar", 0);
 			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			pst.close();
 		}
 		JOptionPane.showMessageDialog(null, "Registro Guardado", "Guardar", 1);
@@ -129,7 +130,7 @@ public class UsuarioDao {
 		String sql = "DELETE FROM tb_usuario  WHERE idTB_USUARIO='"+usuario.getIdTbUsuario()+"'";
 		try {
 			conexion = new Conexion();
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.executeUpdate();
 
 			
@@ -138,7 +139,7 @@ public class UsuarioDao {
 			e1.printStackTrace();
 		} 
 		finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			try {
 				pst.close();
 			} catch (SQLException e1) {
@@ -158,7 +159,7 @@ public class UsuarioDao {
 
 			conexion = new Conexion();
 			String sql = "INSERT INTO tb_usuario (DSNOMBRE, DSPRIMERAPELLIDO, DSSEGUNDOAPELLIDO, NMAUTORIZADO, DSCORREO, FEFECHANACIMIENTO, NMDOCUMENTO, DSCONTRASENA, DSTELEFONO, DSDIRECCION, DSSEXO, DSOCUPACION, FEREGISTRO, TIPO_USUARIO_idTIPO_USUARIO, DSESTADOCIVIL, DEESPECIALIDAD, NMEDAD, NMCELULAR) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.setString(1, usuario.getDsnombre());
 			pst.setString(2, usuario.getDsprimerapellido());
 			pst.setString(3, usuario.getDssegundoapellido());
@@ -181,10 +182,10 @@ public class UsuarioDao {
 			JOptionPane.showMessageDialog(null, "Registro Guardado", "Guardar", 1);
 			
 		}catch(Exception e){
-			JOptionPane.showMessageDialog(null, "No se pudo Guardar el Instructor", "Guardar", 0);
+			JOptionPane.showMessageDialog(null, "No se pudo Guardar el Registro", "Guardar", 0);
 			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			pst.close();
 		}
 		return usuario;
@@ -204,16 +205,17 @@ public class UsuarioDao {
 		try{
 
 			conexion = new Conexion();
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);;
-			pst.executeUpdate();			
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);;
+			pst.executeUpdate();		
+			JOptionPane.showMessageDialog(null, "Registro Modificado", "Guardar", 1);
+
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se pudo modificar el Instructor", "Modificar", 0);
 			e.printStackTrace();
 		}finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			pst.close();
 		}
-		JOptionPane.showMessageDialog(null, "Registro Guardado", "Guardar", 1);
 		return usuario;
 	}
 	public TbUsuario eliminarInstructor(TbUsuario usuario) throws SQLException{
@@ -224,8 +226,9 @@ public class UsuarioDao {
 		String sql = "DELETE FROM tb_usuario  WHERE idTB_USUARIO='"+usuario.getIdTbUsuario()+"'";
 		try {
 			conexion = new Conexion();
-			pst = (PreparedStatement) conexion.getConnection().prepareStatement(sql);
+			pst = (PreparedStatement) conexion.Conexion().prepareStatement(sql);
 			pst.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Registro Eliminado", "Eliminar", 1);
 
 			
 		} catch (SQLException e1) {
@@ -233,7 +236,7 @@ public class UsuarioDao {
 			e1.printStackTrace();
 		} 
 		finally{
-			conexion.desconectar();
+			conexion.Conexion().close();
 			try {
 				pst.close();
 			} catch (SQLException e1) {

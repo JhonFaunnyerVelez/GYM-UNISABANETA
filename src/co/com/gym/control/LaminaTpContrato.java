@@ -3,6 +3,8 @@ package co.com.gym.control;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,11 +60,28 @@ public class LaminaTpContrato extends JPanel{
 		txtDescripcion.setColumns(10);
 		txtDescripcion.setBounds(537, 28, 86, 20);
 		add(txtDescripcion);
+		txtDescripcion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'a' || c>'z') e.consume();
+				
+			}
+		});
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setColumns(10);
 		txtPrecio.setBounds(537, 59, 86, 20);
 		add(txtPrecio);
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(c<'0' || c>'9') e.consume();
+				
+			}
+		});
+
 		
 		JLabel lblFechaDeRegistro = new JLabel("Fecha de Registro:");
 		lblFechaDeRegistro.setBounds(633, 28, 125, 14);
@@ -108,6 +127,10 @@ public class LaminaTpContrato extends JPanel{
 		txtFechReg.setColumns(10);
 		txtFechReg.setBounds(768, 28, 86, 20);
 		add(txtFechReg);
+		
+		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
+		lblNewLabel_3.setBounds(928, 208, 290, 14);
+		add(lblNewLabel_3);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setForeground(Color.WHITE);
@@ -247,7 +270,7 @@ public class LaminaTpContrato extends JPanel{
 		String sql = "SELECT * FROM gym_unisabaneta.tb_tipo_contrato";
 		try{
 		    conexion = new Conexion();
-		    st = conexion.getConnection().createStatement();
+		    st = conexion.Conexion().createStatement();
 		    rs = st.executeQuery(sql);
 		    while(rs.next()){
 		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getInt(3),rs.getDate(4)});
@@ -258,7 +281,12 @@ public class LaminaTpContrato extends JPanel{
 		    e.printStackTrace();
 		}
 		finally{
-			conexion.desconectar();
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			try {
 				st.close();
 			} catch (SQLException e1) {

@@ -33,7 +33,7 @@ public class VentanaLogin extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
 	
-	private JLabel lblImagen,lblOlvidoContra;
+	private JLabel lblImagen;
 	private Color azul=new Color(20,130,200);
 	
 	private JLabel lblSalir;
@@ -71,7 +71,7 @@ public class VentanaLogin extends JFrame {
 			}});
 		
 		
-		lblSalir.setBounds(180,295,41,34);
+		lblSalir.setBounds(189,285,41,34);
 		Font font=lblSalir.getFont();
 		Map atributos=font.getAttributes();
 		atributos.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -121,23 +121,6 @@ public class VentanaLogin extends JFrame {
 		btnIngresar.setForeground(Color.white);
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lamina.add(btnIngresar);
-		
-		lblOlvidoContra = new JLabel("Olvidaste tu contrase\u00F1a");
-		lblOlvidoContra.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				//VentanaRegistro registro = new VentanaRegistro();
-				//registro.setVisible(true);
-				
-			}
-		});
-		lblOlvidoContra.setBounds(20, 295, 150, 34);
-		Font font1=lblOlvidoContra.getFont();
-		Map atributos1=font1.getAttributes();
-		atributos1.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		lblOlvidoContra.setFont(font1.deriveFont(atributos1));
-		lblOlvidoContra.setForeground(azul);
-		lblOlvidoContra.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lamina.add(lblOlvidoContra);
 	}
 
 	protected void ingresar() throws SQLException {

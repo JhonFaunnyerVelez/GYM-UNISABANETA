@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,6 +57,9 @@ public class VentanaMenu extends JFrame {
 	private DefaultTableModel modelo;
 	ServicioImpl servicioImpl = new ServicioImpl();
 	TbServicio servicio1 = new TbServicio();
+	private JButton btnPago;
+	private JButton btnAsignar;
+	private JButton btnInforme;
 
 
 
@@ -110,7 +115,6 @@ public class VentanaMenu extends JFrame {
 
 		
 		LaminaRutina laminaRut = new LaminaRutina();
-		laminaRut.setBounds(322, 20, 629, 180);
 		
 		getContentPane().add(laminaRut);
 		
@@ -119,7 +123,15 @@ public class VentanaMenu extends JFrame {
 		
 		LaminaAdmin laminaAdm = new LaminaAdmin();
 		getContentPane().add(laminaAdm);
+		
+		LaminaPago laminaPago = new LaminaPago();
+		getContentPane().add(laminaPago);
+		
+		LaminaAsignarServicio laminaAsignar = new LaminaAsignarServicio();
+		getContentPane().add(laminaAsignar);
 
+		LaminaInformes laminaInformes = new LaminaInformes();
+		getContentPane().add(laminaInformes);
 		
 
 		
@@ -141,6 +153,9 @@ public class VentanaMenu extends JFrame {
 				laminaRut.setVisible(false);
 				laminaCont.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaCliente.setVisible(true);
 			}
 		});
@@ -153,6 +168,9 @@ public class VentanaMenu extends JFrame {
 				laminaServ.setVisible(false);
 				laminaCont.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaInstruc.setVisible(true);
 				
 			}
@@ -169,6 +187,9 @@ public class VentanaMenu extends JFrame {
 				laminaServ.setVisible(false);
 				laminaCont.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaRut.setVisible(true);
 			}
 		});
@@ -182,6 +203,9 @@ public class VentanaMenu extends JFrame {
 				laminaCont.setVisible(false);
 				laminaRut.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaAdm.setVisible(true);
 			}
 		});
@@ -192,6 +216,10 @@ public class VentanaMenu extends JFrame {
 		btnRutina.setBackground(azul);
 		menuBar.add(btnRutina);
 		
+		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
+		lblNewLabel_3.setBounds(928, 208, 290, 14);
+		add(lblNewLabel_3);
+		
 		JButton btnServicio = new JButton("Servicio");
 		btnServicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,6 +228,9 @@ public class VentanaMenu extends JFrame {
 				laminaRut.setVisible(false);
 				laminaCont.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaServ.setVisible(true);
 
 			}
@@ -216,12 +247,73 @@ public class VentanaMenu extends JFrame {
 				laminaRut.setVisible(false);
 				laminaServ.setVisible(false);
 				laminaAdm.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
 				laminaCont.setVisible(true);
 			}
 		});
 		btnTpContrato.setForeground(Color.WHITE);
 		btnTpContrato.setBackground(new Color(20, 130, 200));
 		menuBar.add(btnTpContrato);
+		
+		btnPago = new JButton("Pago");
+		btnPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				laminaCliente.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaAdm.setVisible(false);
+				laminaCont.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
+				laminaPago.setVisible(true);
+
+			}
+		});
+		btnPago.setForeground(Color.WHITE);
+		btnPago.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnPago);
+		
+		btnAsignar = new JButton("Asignar Servicio");
+		btnAsignar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				laminaCliente.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaAdm.setVisible(false);
+				laminaCont.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaInformes.setVisible(false);
+				laminaAsignar.setVisible(true);
+
+				
+			}
+		});
+		btnAsignar.setForeground(Color.WHITE);
+		btnAsignar.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnAsignar);
+		
+		btnInforme = new JButton("Informes");
+		btnInforme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				laminaCliente.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaAdm.setVisible(false);
+				laminaCont.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(true);
+			}
+		});
+		btnInforme.setForeground(Color.WHITE);
+		btnInforme.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnInforme);
 		
 		//------------------------------------------------------
 		
@@ -253,11 +345,20 @@ public class VentanaMenu extends JFrame {
 				txtNombre.setColumns(10);
 				txtNombre.setBounds(537, 28, 86, 20);
 				laminaServ.add(txtNombre);
+				txtNombre.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						char c = e.getKeyChar();
+						if(c<'a' || c>'z') e.consume();
+						
+					}
+				});
 				
 				txtDescripcion = new JTextField();
 				txtDescripcion.setColumns(10);
 				txtDescripcion.setBounds(537, 59, 86, 20);
 				laminaServ.add(txtDescripcion);
+
 				
 				JLabel lblFechaDeRegistro = new JLabel("Fecha de Registro:");
 				lblFechaDeRegistro.setBounds(633, 59, 113, 14);
@@ -305,6 +406,14 @@ public class VentanaMenu extends JFrame {
 				txtCupo.setColumns(10);
 				txtCupo.setBounds(768, 28, 86, 20);
 				laminaServ.add(txtCupo);
+				txtCupo.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						char c = e.getKeyChar();
+						if(c<'0' || c>'9') e.consume();
+						
+					}
+				});
 				
 				txtFechReg = new JTextField();
 				txtFechReg.setColumns(10);
@@ -486,7 +595,7 @@ public void LlenarTabla(String valor){
 	}
 	try{
 	    conexion = new Conexion();
-	    st = conexion.getConnection().createStatement();
+	    st = conexion.Conexion().createStatement();
 	    rs = st.executeQuery(sql);
 	    while(rs.next()){
 	        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getDate(5)});
@@ -497,7 +606,12 @@ public void LlenarTabla(String valor){
 	    e.printStackTrace();
 	}
 	finally{
-		conexion.desconectar();
+		try {
+			conexion.Conexion().close();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		try {
 			st.close();
 		} catch (SQLException e1) {
