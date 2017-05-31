@@ -24,6 +24,7 @@ import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JComboBox;
@@ -266,6 +267,7 @@ public class LaminaCliente extends JPanel {
 		txtFechReg = new JTextField();
 		txtFechReg.setColumns(10);
 		txtFechReg.setBounds(738, 121, 86, 20);
+		
 		add(txtFechReg);
 
 		
@@ -479,6 +481,16 @@ public class LaminaCliente extends JPanel {
 			}
 		});
 		
+		Date fechaactual;
+/*
+		String pattern = "MM/dd/yyyy";
+	    SimpleDateFormat format = new SimpleDateFormat(pattern);
+        Date date = format.parse(new Date());
+        System.out.println(date);
+        */
+       // date.compareTo(new Date());
+		
+		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -494,7 +506,7 @@ public class LaminaCliente extends JPanel {
 					usuario.setDssegundoapellido(txtSegApellido.getText());
 					usuario.setNmautorizado(Integer.valueOf((String)cbAutorizado.getSelectedItem()));
 					usuario.setDscorreo(txtCorreo.getText());
-					usuario.setFefechanacimiento(java.sql.Date.valueOf(txtFechNac.getText()));
+					usuario.setFefechanacimiento(new Date());
 					usuario.setNmdocumento(Integer.valueOf(txtDoc.getText()));
 					usuario.setDstelefono(txtTel.getText());
 					usuario.setDsdireccion(txtDireccion.getText());

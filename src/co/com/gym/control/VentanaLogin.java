@@ -40,6 +40,7 @@ public class VentanaLogin extends JFrame {
 	
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
 	VentanaMenu menu = new VentanaMenu();
+	TbUsuario usuario2 = new TbUsuario();
 	
 
 	public static void main(String[] args) {
@@ -122,12 +123,11 @@ public class VentanaLogin extends JFrame {
 		btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lamina.add(btnIngresar);
 	}
-
+	
 	protected void ingresar() throws SQLException {
 		// TODO Auto-generated method stub
 		int usuario =  Integer.valueOf(txtUsuario.getText());
 		String clave = String.valueOf(txtClave.getPassword());
-		TbUsuario usuario2 = new TbUsuario();
 		usuario2.setNmdocumento(usuario);
 		usuario2.setDscontrasena(clave);
 		
