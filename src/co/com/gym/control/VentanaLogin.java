@@ -21,7 +21,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import co.com.gym.dao.UsuarioDao;
 import co.com.gym.impl.UsuarioImpl;
+import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
 
 public class VentanaLogin extends JFrame {
@@ -41,7 +43,7 @@ public class VentanaLogin extends JFrame {
 	UsuarioImpl usuarioImpl = new UsuarioImpl();
 	VentanaMenu menu = new VentanaMenu();
 	TbUsuario usuario2 = new TbUsuario();
-	
+
 
 	public static void main(String[] args) {
 		
@@ -109,6 +111,7 @@ public class VentanaLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ingresar();
+	
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -136,14 +139,12 @@ public class VentanaLogin extends JFrame {
 		if(usu!=null){
 			this.dispose();
 			JOptionPane.showMessageDialog(lamina, "Bienvenido");
-			menu.setVisible(true);
-			
+            			
 		}else{
 			JOptionPane.showMessageDialog(lamina, "Datos Invalidos","Error", JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
-	
 	public void Salir(){
 		this.dispose();
 	}

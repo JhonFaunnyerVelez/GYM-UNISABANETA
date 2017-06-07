@@ -2,6 +2,7 @@ package co.com.gym.control;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +43,16 @@ public class VentanaMenu extends JFrame {
 	private JMenuBar menuBar;
 	private Color azul=new Color(20,130,200);
 	private JPanel laminaServ;
-	private JButton btnInstructor, btnCliente, btnRutina, btnTpContrato;
+	private JButton btnInstructor, btnCliente, btnRutina, btnTpContrato, btnAdmin;
+	
+	public JButton getBtnAdmin() {
+		return btnAdmin;
+	}
+
+	public void setBtnAdmin(JButton btnAdmin) {
+		this.btnAdmin = btnAdmin;
+	}
+
 	public JButton getBtnTpContrato() {
 		return btnTpContrato;
 	}
@@ -60,8 +72,17 @@ public class VentanaMenu extends JFrame {
 	private JButton btnPago;
 	private JButton btnAsignar;
 	private JButton btnInforme;
+	private JButton btnCumpleaños;
 
 
+
+	public JButton getBtnPago() {
+		return btnPago;
+	}
+
+	public void setBtnPago(JButton btnPago) {
+		this.btnPago = btnPago;
+	}
 
 	public JButton getBtnRutina() {
 		return btnRutina;
@@ -133,6 +154,8 @@ public class VentanaMenu extends JFrame {
 		LaminaInformes laminaInformes = new LaminaInformes();
 		getContentPane().add(laminaInformes);
 		
+		Cumpleaños cumpleaños = new Cumpleaños();
+		getContentPane().add(cumpleaños);
 
 		
 		//MENU BAR CON LOS BOTONES AGRAGADOS
@@ -156,6 +179,7 @@ public class VentanaMenu extends JFrame {
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaCliente.setVisible(true);
 			}
 		});
@@ -170,6 +194,7 @@ public class VentanaMenu extends JFrame {
 				laminaAdm.setVisible(false);
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaInformes.setVisible(false);
 				laminaInstruc.setVisible(true);
 				
@@ -190,11 +215,12 @@ public class VentanaMenu extends JFrame {
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaRut.setVisible(true);
 			}
 		});
 		
-		JButton btnAdmin = new JButton("Administrador");
+		btnAdmin = new JButton("Administrador");
 		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				laminaCliente.setVisible(false);
@@ -206,6 +232,7 @@ public class VentanaMenu extends JFrame {
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaAdm.setVisible(true);
 			}
 		});
@@ -216,9 +243,7 @@ public class VentanaMenu extends JFrame {
 		btnRutina.setBackground(azul);
 		menuBar.add(btnRutina);
 		
-		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
-		lblNewLabel_3.setBounds(928, 208, 290, 14);
-		add(lblNewLabel_3);
+
 		
 		JButton btnServicio = new JButton("Servicio");
 		btnServicio.addActionListener(new ActionListener() {
@@ -231,6 +256,7 @@ public class VentanaMenu extends JFrame {
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaServ.setVisible(true);
 
 			}
@@ -250,6 +276,7 @@ public class VentanaMenu extends JFrame {
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaCont.setVisible(true);
 			}
 		});
@@ -268,6 +295,7 @@ public class VentanaMenu extends JFrame {
 				laminaCont.setVisible(false);
 				laminaAsignar.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaPago.setVisible(true);
 
 			}
@@ -287,6 +315,7 @@ public class VentanaMenu extends JFrame {
 				laminaCont.setVisible(false);
 				laminaPago.setVisible(false);
 				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaAsignar.setVisible(true);
 
 				
@@ -308,12 +337,32 @@ public class VentanaMenu extends JFrame {
 				laminaCont.setVisible(false);
 				laminaPago.setVisible(false);
 				laminaAsignar.setVisible(false);
+				cumpleaños.setVisible(false);
 				laminaInformes.setVisible(true);
 			}
 		});
 		btnInforme.setForeground(Color.WHITE);
 		btnInforme.setBackground(new Color(20, 130, 200));
 		menuBar.add(btnInforme);
+		
+		btnCumpleaños = new JButton("Cumplea\u00F1os");
+		btnCumpleaños.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				laminaCliente.setVisible(false);
+				laminaInstruc.setVisible(false);
+				laminaRut.setVisible(false);
+				laminaServ.setVisible(false);
+				laminaAdm.setVisible(false);
+				laminaCont.setVisible(false);
+				laminaPago.setVisible(false);
+				laminaAsignar.setVisible(false);
+				laminaInformes.setVisible(false);
+				cumpleaños.setVisible(true);
+			}
+		});
+		btnCumpleaños.setForeground(Color.WHITE);
+		btnCumpleaños.setBackground(new Color(20, 130, 200));
+		menuBar.add(btnCumpleaños);
 		
 		//------------------------------------------------------
 		
@@ -362,7 +411,7 @@ public class VentanaMenu extends JFrame {
 				
 				JLabel lblFechaDeRegistro = new JLabel("Fecha de Registro:");
 				lblFechaDeRegistro.setBounds(633, 59, 113, 14);
-				laminaServ.add(lblFechaDeRegistro);
+				
 				
 				JLabel label_3 = new JLabel("Cupo:");
 				label_3.setBounds(633, 28, 67, 14);
@@ -377,6 +426,7 @@ public class VentanaMenu extends JFrame {
 					public void actionPerformed(ActionEvent arg0) {
 						try {
 
+							txtFechReg.setText(DameFechaRegistro());
 							TbServicio servicio = new TbServicio(String.valueOf(txtNombre.getText()), String.valueOf(txtDescripcion.getText()), String.valueOf(txtCupo.getText()), Date.valueOf(txtFechReg.getText()));
 							//CapturarDatos();
 							servicioImpl.guardarServicio(servicio);
@@ -418,7 +468,7 @@ public class VentanaMenu extends JFrame {
 				txtFechReg = new JTextField();
 				txtFechReg.setColumns(10);
 				txtFechReg.setBounds(768, 59, 86, 20);
-				laminaServ.add(txtFechReg);
+				
 				
 				btnEliminar = new JButton("Eliminar");
 				btnEliminar.setForeground(Color.WHITE);
@@ -453,6 +503,7 @@ public class VentanaMenu extends JFrame {
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
+							txtFechReg.setText(DameFechaRegistro());
 							servicio1.setIdTbServicio(Integer.valueOf(txtId.getText()));
 							servicio1.setDsnombre(txtNombre.getText());
 							servicio1.setDsdescripcion(txtDescripcion.getText());
@@ -479,14 +530,12 @@ public class VentanaMenu extends JFrame {
 				laminaServ.add(lblBuscarServicioX);
 				
 				txtBuscar = new JTextField();
-				txtBuscar.setEnabled(false);
 				txtBuscar.setColumns(10);
 				txtBuscar.setBounds(171, 207, 86, 20);
 				laminaServ.add(txtBuscar);
 				
 				JButton btnBuscar = new JButton("Buscar");
 				btnBuscar.setForeground(Color.WHITE);
-				btnBuscar.setEnabled(false);
 				btnBuscar.setBackground(new Color(20, 130, 200));
 				btnBuscar.setBounds(289, 207, 89, 20);
 				laminaServ.add(btnBuscar);
@@ -653,7 +702,17 @@ public void LlenarTabla(String valor){
 	}finally{
 		sesion.close();	
 	}*/
-
+public String DameFechaRegistro(){
+	Calendar c2 = new GregorianCalendar();
+	int dia = c2.get(Calendar.DATE);
+    int mes = c2.get(Calendar.MONTH)+1;
+    int annio = c2.get(Calendar.YEAR);
+    String dRegistro="";
+    if (mes<10 && dia<10){
+    	dRegistro = ""+annio+""+"-"+"0"+mes+""+"-"+"0"+dia+"";
+    }
+    return dRegistro;
+}
 private void Clear_Table1(){
        for (int i = 0; i < tabla.getRowCount(); i++) {
            modelo.removeRow(i);

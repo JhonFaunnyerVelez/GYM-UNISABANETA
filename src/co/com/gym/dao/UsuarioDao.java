@@ -9,8 +9,10 @@ import org.hibernate.*;
 
 import com.mysql.jdbc.*;
 
+import co.com.gym.control.VentanaLogin;
 import co.com.gym.control.VentanaMenu;
 import co.com.gym.model.TbTipoContrato;
+import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
 import co.com.gym.util.Conexion;
 import co.com.gym.util.HibernateUtil;
@@ -19,9 +21,10 @@ import co.com.gym.util.HibernateUtil;
 public class UsuarioDao {
 
 	
-	
+
+private int permiso;
 	public TbUsuario obtenerUsuario(TbUsuario usu) throws SQLException{
-		
+
 		TbUsuario Usuario=null;
 		Conexion conexion= null;
 		PreparedStatement pst=null; 
@@ -37,11 +40,14 @@ public class UsuarioDao {
 			pst.setString(2, usu.getDscontrasena());
 			
 			rs = pst.executeQuery();
-			
-			
+			VentanaLogin login = new VentanaLogin();
+
 			while (rs.next()){
+			    permiso = rs.getInt(15);
 				Usuario = new TbUsuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getDate(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getInt(16), rs.getString(17), rs.getString(18), rs.getInt(19), rs.getInt(20));
 			}
+			Permisos();
+			
 			
 		}catch(Exception e){
 			System.out.println("error en obtener usuario");
@@ -54,7 +60,6 @@ public class UsuarioDao {
 		return Usuario;	
 
 	}
-	
 	public TbUsuario guardarUsuario(TbUsuario usuario) throws SQLException{
 		TbUsuario Usuario=null;
 		Conexion conexion= null;
@@ -246,5 +251,39 @@ public class UsuarioDao {
 		}
 		JOptionPane.showMessageDialog(null, "Registro Eliminado", "Eliminar", 1);
 		return usuario;
+	}
+	public void Permisos(){
+
+		 VentanaMenu menu = new VentanaMenu();
+        JButton instructor = new JButton(); 
+        JButton cliente = new JButton(); 
+        JButton rutina = new JButton();
+        JButton admin = new JButton();
+        JButton contrato = new JButton();
+        JButton pago = new JButton();
+
+        if (permiso==1){
+        menu.setVisible(true);
+        }else if (permiso==3) {
+            menu.setVisible(true); 
+            instructor=menu.getBtnInstructor();
+            instructor.setEnabled(false);
+            menu.setBtnInstructor(instructor);
+            cliente=menu.getBtnCliente();
+            cliente.setEnabled(false);
+            menu.setBtnCliente(cliente);
+            admin=menu.getBtnAdmin();
+            admin.setEnabled(false);
+            menu.setBtnAdmin(admin);
+            contrato=menu.getBtnTpContrato();
+            contrato.setEnabled(false);
+            menu.setBtnTpContrato(contrato);
+            pago=menu.getBtnPago();
+            pago.setEnabled(false);
+            menu.setBtnPago(pago);
+            rutina=menu.getBtnRutina();
+            rutina.doClick();
+            menu.setBtnRutina(rutina);
+        }
 	}
 }

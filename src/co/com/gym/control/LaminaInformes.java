@@ -27,6 +27,8 @@ import co.com.gym.model.TbRutinas;
 import co.com.gym.model.TbRutinasXTbServicio;
 import co.com.gym.model.TbServicio;
 import co.com.gym.util.Conexion;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class LaminaInformes extends JPanel {
 	
@@ -41,7 +43,7 @@ public class LaminaInformes extends JPanel {
 	private JComboBox cbTipoInforme;
 	private JButton btnVer;
 	Conexion conexion= null;
-	private JButton btnBuscar;
+	private JButton btnBuscar1;
 	
 	
 	public LaminaInformes(){
@@ -69,24 +71,32 @@ public class LaminaInformes extends JPanel {
 		add(lblRutina);
 		
 		cbTipoInforme = new JComboBox();
+		
 		cbTipoInforme.setBounds(348, 65, 209, 20);
 		cbTipoInforme.addItem("Clientes de cada Instructor");
 		cbTipoInforme.addItem("Servicios Mas Usados");
 		cbTipoInforme.addItem("Instructores Mas Solicitados");
+		cbTipoInforme.addItem("Rutina de Usuario");
+		cbTipoInforme.addItem("Servicios de Usuario");
 		cbTipoInforme.addItem("Detalles de Usuario");
 		add(cbTipoInforme);
+	
 		txtBuscar = new JTextField();
 		txtBuscar.setBounds(238, 202, 86, 20);
 		add(txtBuscar);
 		txtBuscar.setColumns(10);
+		txtBuscar.setVisible(false);
 		
-		modelo.addColumn("Campo 1");
-		modelo.addColumn("Campo 2");
-		modelo.addColumn("Campo 3");
-		modelo.addColumn("Campo 4");
-		modelo.addColumn("Campo 5");
-		modelo.addColumn("Campo 6");
-		modelo.addColumn("Campo 7");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		modelo.addColumn("");
+		
 		
 		btnVer = new JButton("Ver");
 		btnVer.addActionListener(new ActionListener() {
@@ -100,21 +110,33 @@ public class LaminaInformes extends JPanel {
 		btnVer.setBounds(620, 65, 89, 20);
 		add(btnVer);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
+		btnBuscar1 = new JButton("Buscar");
+		btnBuscar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Clear_Table1();
 				BuscarCliente(txtBuscar.getText());
+				txtBuscar.setText("");
 				
 			}
 		});
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setBackground(new Color(20, 130, 200));
-		btnBuscar.setBounds(83, 202, 89, 20);
-		add(btnBuscar);
-		
-		
-		
+		btnBuscar1.setForeground(Color.WHITE);
+		btnBuscar1.setBackground(new Color(20, 130, 200));
+		btnBuscar1.setBounds(83, 202, 89, 20);
+		btnBuscar1.setVisible(false);
+		add(btnBuscar1);
+		cbTipoInforme.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if (cbTipoInforme.getSelectedItem().equals("Rutina de Usuario") || cbTipoInforme.getSelectedItem().equals("Servicios de Usuario") || cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+					txtBuscar.setVisible(true);
+					btnBuscar1.setVisible(true);
+					
+				}else
+				{
+					txtBuscar.setVisible(false);
+					btnBuscar1.setVisible(false);
+				}
+			}
+		});
 	}
 
 
@@ -128,24 +150,57 @@ public class LaminaInformes extends JPanel {
 		if (cbTipoInforme.getSelectedItem().equals("Clientes de cada Instructor")){
 			sql = "SELECT tb_usuario.FKTIPO_USUARIO, tb_usuario.DSNOMBRE FROM tb_usuario WHERE tb_usuario.TIPO_USUARIO_idTIPO_USUARIO='2';";
 		}else if (cbTipoInforme.getSelectedItem().equals("Servicios Mas Usados")){
-			sql = "SELECT TB_SERVICIO_idTB_SERVICIO , COUNT( * ) AS num FROM gym_unisabaneta.tb_rutinas_x_tb_servicio GROUP BY tb_rutinas_x_tb_servicio.TB_SERVICIO_idTB_SERVICIO ORDER BY num DESC";
+			sql = "select s.DSNOMBRE, count(TB_SERVICIO_idTB_SERVICIO) 'Cantidad' from tb_rutinas_x_tb_servicio rs , tb_servicio s where s.idTB_SERVICIO = rs.TB_SERVICIO_idTB_SERVICIO group by TB_SERVICIO_idTB_SERVICIO order by count(TB_SERVICIO_idTB_SERVICIO) DESC";
 		}else if (cbTipoInforme.getSelectedItem().equals("Instructores Mas Solicitados")){
-			sql="SELECT tb_usuario.FKTIPO_USUARIO ,COUNT( * ) AS num FROM tb_usuario  WHERE tb_usuario.FKTIPO_USUARIO IS NOT NULL GROUP BY tb_usuario.FKTIPO_USUARIO ORDER BY num DESC";
-		}else if (cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+			sql="select u.DSNOMBRE, u.DSPRIMERAPELLIDO, u.DEESPECIALIDAD , count(idTB_USUARIO) 'Cantidad de solicitudes' from tb_usuario u where u.TIPO_USUARIO_idTIPO_USUARIO = 3 group by idTB_USUARIO order by count(idTB_USUARIO) DESC";
+		}else if (cbTipoInforme.getSelectedItem().equals("Rutina de Usuario")){
 			sql="SELECT tb_usuario.DSNOMBRE, tb_rutinas.DSNOMBRERUTINA FROM tb_usuario, tb_rutinas  WHERE tb_rutinas.TB_USUARIO_idTB_USUARIO = tb_usuario.idTB_USUARIO";
+		}else if (cbTipoInforme.getSelectedItem().equals("Servicios de Usuario")){
+			sql="select u.DSNOMBRE 'nombre cliente' ,  s.DSNOMBRE 'Servicio' from tb_rutinas r, tb_usuario u , tb_servicio s , tb_rutinas_x_tb_servicio rs where r.TB_USUARIO_idTB_USUARIO = u.idTB_USUARIO and s.idTB_SERVICIO = rs.TB_SERVICIO_idTB_SERVICIO and rs.TB_RUTINAS_idTB_RUTINAS = r.idTB_RUTINAS and u.TIPO_USUARIO_idTIPO_USUARIO = 2;";
+		}else if(cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+			sql="select u.DSNOMBRE 'nombre cliente' , u.DSPRIMERAPELLIDO , u.NMDOCUMENTO ,r.DSNOMBRERUTINA 'Rutina', r.DSDESCRIPCION , r.FEFECHAINICIAL,r.FEFECHAFINAL , s.DSNOMBRE 'Servicio' , s.DSDESCRIPCION from tb_rutinas r, tb_usuario u , tb_servicio s , tb_rutinas_x_tb_servicio rs where r.TB_USUARIO_idTB_USUARIO = u.idTB_USUARIO and s.idTB_SERVICIO = rs.TB_SERVICIO_idTB_SERVICIO and rs.TB_RUTINAS_idTB_RUTINAS = r.idTB_RUTINAS and u.TIPO_USUARIO_idTIPO_USUARIO = 2;";
 		}
 		try{
-		    
-		    
-		    
-		    if (cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+
 		    	st2 = conexion.Conexion().createStatement();
 		    	rs2 = st2.executeQuery(sql);
+		    	if (cbTipoInforme.getSelectedItem().equals("Clientes de cada Instructor")){
 		    	while(rs2.next()){
-		        modelo.addRow(new Object[] {rs2.getString(1),rs2.getString(2)});
+		    	modelo.setColumnIdentifiers(new Object[] {"Instructor","Cliente"});
+		        modelo.addRow(new Object[] {TraerNombre(rs2.getString(1)),rs2.getString(2)});
 		    	}
-			}else{
-		    }
+
+		    	}else if (cbTipoInforme.getSelectedItem().equals("Servicios Mas Usados")){
+		    		while(rs2.next()){
+				    	modelo.setColumnIdentifiers(new Object[] {"Servicio","Veces Usado"});
+				        modelo.addRow(new Object[] {TraerNombre(rs2.getString(1)),rs2.getString(2)});
+				    	}
+
+		    	}else if (cbTipoInforme.getSelectedItem().equals("Rutina de Usuario")){
+		    		while(rs2.next()){
+				    	modelo.setColumnIdentifiers(new Object[] {"Cliente","Rutina"});
+				        modelo.addRow(new Object[] {rs2.getString(1),rs2.getString(2)});
+				    	}
+
+		    	}else if (cbTipoInforme.getSelectedItem().equals("Instructores Mas Solicitados")){
+		    		while(rs2.next()){
+				    	modelo.setColumnIdentifiers(new Object[] {"Nombre","Primer Apellido","Especialidad","Numero de Clientes"});
+				        modelo.addRow(new Object[] {TraerNombre(rs2.getString(1)),rs2.getString(2),rs2.getString(3),rs2.getString(4)});
+				    	}
+
+		    	}else if (cbTipoInforme.getSelectedItem().equals("Servicios de Usuario")){
+		    		while(rs2.next()){
+				    	modelo.setColumnIdentifiers(new Object[] {"Cliente","Servicio"});
+				        modelo.addRow(new Object[] {rs2.getString(1),rs2.getString(2)});
+				        
+				    	}
+		    	}else if (cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+		    		while(rs2.next()){
+		    		modelo.setColumnIdentifiers(new Object[] {"Cliente", "PRIMER APELLIDO", "DOCUMENTO", "Rutina", "DESCRIPCION", "FECHA INICIAL", "FECHA FINAL", "Servicio", "DESCRIPCION"});
+			        modelo.addRow(new Object[] {rs2.getString(1),rs2.getString(2),rs2.getInt(3),rs2.getString(4),rs2.getString(5),rs2.getDate(6),rs2.getDate(7),rs2.getString(8),rs2.getString(9)});
+		    		}
+		    	}
+				rs2.close();
 		    
 		}catch(Exception e){
 		    System.out.println("error");
@@ -153,7 +208,6 @@ public class LaminaInformes extends JPanel {
 		}
 		finally{
 			try {
-				rs2.close();
 				conexion.Conexion().close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -161,17 +215,6 @@ public class LaminaInformes extends JPanel {
 			}; 
 		}
 	
-	btnBuscar = new JButton("Buscar");
-	btnBuscar.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			try{
-			Clear_Table1();
-			BuscarCliente(txtBuscar.getText());
-			}catch(Exception e){
-				JOptionPane.showMessageDialog(null, "No hay un Cliente asociado a ese Documento o Nombre");
-			}
-		}
-	});
 
 }
 	
@@ -186,7 +229,7 @@ public class LaminaInformes extends JPanel {
 			sql = "SELECT DSNOMBRE FROM tb_servicio WHERE idTB_SERVICIO='"+id+"';";
 		}else if (cbTipoInforme.getSelectedItem().equals("Instructores Mas Solicitados")){
 			sql = "SELECT DSNOMBRE FROM tb_usuario WHERE idTB_USUARIO='"+id+"';";
-		}else if (cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+		}else if (cbTipoInforme.getSelectedItem().equals("Rutina de Usuario")){
 			sql = "SELECT DSNOMBRE FROM tb_usuario WHERE idTB_USUARIO='"+id+"';";
 		}
 		String nombre="";
@@ -197,6 +240,8 @@ public class LaminaInformes extends JPanel {
 		    while(rs1.next()){
 		        nombre = rs1.getString(1);
 		    }
+			rs1.close();
+
 		    
 		}catch(Exception e){
 		    System.out.println("error");
@@ -204,8 +249,6 @@ public class LaminaInformes extends JPanel {
 		}
 		finally{
 			try {
-				rs1.close();
-		        st.close();
 				conexion.Conexion().close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -220,6 +263,7 @@ public class LaminaInformes extends JPanel {
 	           modelo.removeRow(i);
 	           i-=1;
 	       }
+	       
 		
 	}
 	
@@ -229,14 +273,25 @@ public void BuscarCliente(String valor){
 	Statement st = null; 
 	ResultSet rs =null; 
 	String sql="";
-	
-		sql="SELECT tb_usuario.DSNOMBRE, tb_rutinas.DSNOMBRERUTINA FROM tb_usuario, tb_rutinas  WHERE tb_rutinas.TB_USUARIO_idTB_USUARIO = tb_usuario.idTB_USUARIO and DSNOMBRE like '%"+txtBuscar.getText()+"%'";
+	if(cbTipoInforme.getSelectedItem().equals("Rutina de Usuario")){
+		sql="SELECT tb_usuario.DSNOMBRE, tb_rutinas.DSNOMBRERUTINA FROM tb_usuario, tb_rutinas  WHERE tb_rutinas.TB_USUARIO_idTB_USUARIO = tb_usuario.idTB_USUARIO and DSNOMBRE like '%"+valor+"%'";
+	}else if(cbTipoInforme.getSelectedItem().equals("Servicios de Usuario")){
+		sql="select u.DSNOMBRE 'nombre cliente' ,  s.DSNOMBRE 'Servicio' from tb_rutinas r, tb_usuario u , tb_servicio s , tb_rutinas_x_tb_servicio rs where r.TB_USUARIO_idTB_USUARIO = u.idTB_USUARIO and s.idTB_SERVICIO = rs.TB_SERVICIO_idTB_SERVICIO and rs.TB_RUTINAS_idTB_RUTINAS = r.idTB_RUTINAS and u.TIPO_USUARIO_idTIPO_USUARIO = 2 and u.DSNOMBRE like '%"+valor+"%'";
+	}else if(cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+		sql="select u.DSNOMBRE 'nombre cliente' , u.DSPRIMERAPELLIDO , u.NMDOCUMENTO ,r.DSNOMBRERUTINA 'Rutina', r.DSDESCRIPCION , r.FEFECHAINICIAL,r.FEFECHAFINAL , s.DSNOMBRE 'Servicio' , s.DSDESCRIPCION from tb_rutinas r, tb_usuario u , tb_servicio s , tb_rutinas_x_tb_servicio rs where r.TB_USUARIO_idTB_USUARIO = u.idTB_USUARIO and s.idTB_SERVICIO = rs.TB_SERVICIO_idTB_SERVICIO and rs.TB_RUTINAS_idTB_RUTINAS = r.idTB_RUTINAS and u.TIPO_USUARIO_idTIPO_USUARIO = 2 and u.DSNOMBRE like '%"+valor+"%'";
+	}
 	try{
 	    conexion = new Conexion();
 	    st = conexion.Conexion().createStatement();
 	    rs = st.executeQuery(sql);
+	    if(cbTipoInforme.getSelectedItem().equals("Detalles de Usuario")){
+	    	while(rs.next()){
+	        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getDate(7),rs.getString(8),rs.getString(9)});
+	    	}
+	    }else {
 	    while(rs.next()){
 	        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2)});
+	    }
 	    }
 	    
 	}catch(Exception e){

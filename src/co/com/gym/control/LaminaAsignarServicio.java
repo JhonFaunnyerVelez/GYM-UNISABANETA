@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -59,14 +61,9 @@ public class LaminaAsignarServicio extends JPanel {
 		setBackground(Color.WHITE);
 		setVisible(false);
 		
-		JLabel lblTipoDeContrato = new JLabel("Fecha de Registro:");
-		lblTipoDeContrato.setBounds(381, 31, 119, 14);
-		add(lblTipoDeContrato);
-		
 		txtFechReg = new JTextField();
 		txtFechReg.setColumns(10);
 		txtFechReg.setBounds(498, 28, 86, 20);
-		add(txtFechReg);
 
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setForeground(Color.WHITE);
@@ -77,6 +74,7 @@ public class LaminaAsignarServicio extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 
+					txtFechReg.setText(DameFechaRegistro());
 					int idRutina = obtenerRutina();
 					rutina.setIdTbRutinas(idRutina);
 					int idServicio = obtenerServicio();
@@ -146,6 +144,7 @@ public class LaminaAsignarServicio extends JPanel {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					txtFechReg.setText(DameFechaRegistro());
 					TbRutinasXTbServicio asignar = new TbRutinasXTbServicio();
 					asignar.setFeregistro(Date.valueOf(txtFechReg.getText()));
 					asignar.setCdcodigo(Integer.valueOf(txtId.getText()));
@@ -184,11 +183,6 @@ public class LaminaAsignarServicio extends JPanel {
 		txtId.setBounds(279, 38, 86, 20);
 		txtId.setVisible(false);
 		add(txtId);
-		txtId.setColumns(10);
-		
-		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
-		lblNewLabel_3.setBounds(928, 208, 290, 14);
-		add(lblNewLabel_3);
 		
 		lblId = new JLabel("ID");
 		lblId.setBounds(245, 41, 24, 14);
@@ -480,7 +474,18 @@ public class LaminaAsignarServicio extends JPanel {
 		return id;
 		
 	}
-
+	public String DameFechaRegistro(){
+		Calendar c2 = new GregorianCalendar();
+		int dia = c2.get(Calendar.DATE);
+	    int mes = c2.get(Calendar.MONTH)+1;
+	    int annio = c2.get(Calendar.YEAR);
+	    String dRegistro="";
+	    if (mes<10 && dia<10){
+	    	dRegistro = ""+annio+""+"-"+"0"+mes+""+"-"+"0"+dia+"";
+	    }
+	    return dRegistro;
+	}
+	
 	private void Clear_Table1(){
 	       for (int i = 0; i < tabla.getRowCount(); i++) {
 	           modelo.removeRow(i);

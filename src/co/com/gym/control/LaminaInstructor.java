@@ -17,6 +17,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.toedter.calendar.JCalendar;
+
 import co.com.gym.impl.UsuarioImpl;
 import co.com.gym.model.TbTipoUsuario;
 import co.com.gym.model.TbUsuario;
@@ -30,7 +32,11 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
@@ -47,6 +53,8 @@ public class LaminaInstructor extends JPanel{
 	private JButton btnGuardar, btnLimpiar, btnBuscar, btnEliminar, btnModificar;
 	private Color azul=new Color(20,130,200);
 	private JTextField txtOcup;
+	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+	        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private JTextField txtFechReg;
 	private JTextField txtFechNac;
 	private JComboBox cbAutorizado, cbSexo, combo;
@@ -61,6 +69,7 @@ public class LaminaInstructor extends JPanel{
 	TbTipoUsuario tipoUsuario = new TbTipoUsuario();
 	TbUsuario usuario = new TbUsuario();
 	private JTextField txtClave;
+	private JCalendar calendar;
 	
 	public LaminaInstructor(){
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "INSTRUCTOR", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -70,6 +79,10 @@ public class LaminaInstructor extends JPanel{
 		setBackground(Color.WHITE);
 		setVisible(false);
 		
+		calendar = new JCalendar();
+		calendar.setBounds(956, 59, 184, 136);
+		add(calendar);
+		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(330, 28, 86, 20);
 		add(txtNombre);
@@ -77,8 +90,8 @@ public class LaminaInstructor extends JPanel{
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(c<'a' || c>'z') e.consume();
+				Character c = e.getKeyChar();
+				if(!Character.isLetter(c) && c!=KeyEvent.VK_SPACE) e.consume();
 				
 			}
 		});
@@ -123,7 +136,9 @@ public class LaminaInstructor extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 
-					
+					txtEdad.setText(String.valueOf(calcularEdad()));
+					txtFechReg.setText(DameFechaRegistro());
+					txtFechNac.setText(DameNacimiento());
 					tipoUsuario.setIdTipoUsuario(Integer.valueOf(txtTipoUsuario.getText()));
 					
 					usuario.setTbTipoUsuario(tipoUsuario);
@@ -144,15 +159,21 @@ public class LaminaInstructor extends JPanel{
 					usuario.setDeespecialidad(txtEspec.getText());
 					usuario.setNmedad(Integer.valueOf(txtEdad.getText()));
 					usuario.setNmcelular(Integer.valueOf(txtCel.getText()));
-					usuarioImpl.guardarInstructor(usuario);
-					
+					if (validateEmail(txtCorreo.getText())==true){
+					 if (calcularEdad()>17){
+							usuarioImpl.guardarInstructor(usuario);
+							Clear_Table1();
+							LlenarTabla(txtTipoUsuario.getText());
+							limpiarCampos();
+		                }else{
+		                    JOptionPane.showMessageDialog(null, "Tiene que ser Mayor de 16 años", "Edad", 0);
+		                }
+					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				Clear_Table1();
-				LlenarTabla(txtTipoUsuario.getText());
-				limpiarCampos();
+				
 			}
 		});
 		
@@ -207,8 +228,8 @@ public class LaminaInstructor extends JPanel{
 		lblNewLabel_1.setBounds(219, 62, 119, 14);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_3 = new JLabel("Formato Fechas (A\u00D1O-MES-DIA) ejm: 2017-08-21");
-		lblNewLabel_3.setBounds(928, 208, 290, 14);
+		JLabel lblNewLabel_3 = new JLabel("Fecha Nacimiento:");
+		lblNewLabel_3.setBounds(834, 62, 131, 14);
 		add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Apellido:");
@@ -222,10 +243,6 @@ public class LaminaInstructor extends JPanel{
 		JLabel label_1 = new JLabel("Correo:");
 		label_1.setBounds(424, 62, 67, 14);
 		add(label_1);
-		
-		JLabel label_2 = new JLabel("Fecha Nacimiento:");
-		label_2.setBounds(424, 93, 112, 14);
-		add(label_2);
 		
 		JLabel label_3 = new JLabel("Documento:");
 		label_3.setBounds(632, 31, 96, 14);
@@ -260,14 +277,9 @@ public class LaminaInstructor extends JPanel{
 			}
 		});
 		
-		JLabel lblInstructor = new JLabel("Fecha de Registro:");
-		lblInstructor.setBounds(632, 124, 119, 14);
-		add(lblInstructor);
-		
 		txtFechReg = new JTextField();
 		txtFechReg.setColumns(10);
 		txtFechReg.setBounds(738, 121, 86, 20);
-		add(txtFechReg);
 		
 		cbSexo = new JComboBox();
 		cbSexo.setBounds(738, 59, 86, 20);
@@ -282,7 +294,6 @@ public class LaminaInstructor extends JPanel{
 		
 		txtFechNac = new JTextField();
 		txtFechNac.setBounds(536, 90, 86, 20);
-		add(txtFechNac);
 		txtFechNac.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -328,7 +339,7 @@ public class LaminaInstructor extends JPanel{
 		
 		txtEstadoC = new JTextField();
 		txtEstadoC.setColumns(10);
-		txtEstadoC.setBounds(946, 28, 86, 20);
+		txtEstadoC.setBounds(738, 121, 86, 20);
 		add(txtEstadoC);
 		txtEstadoC.addKeyListener(new KeyAdapter() {
 			@Override
@@ -340,20 +351,16 @@ public class LaminaInstructor extends JPanel{
 		});
 		
 		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
-		lblEstadoCivil.setBounds(834, 31, 91, 14);
+		lblEstadoCivil.setBounds(632, 124, 85, 14);
 		add(lblEstadoCivil);
 		
 		JLabel lblEdad = new JLabel("Especialidad:");
-		lblEdad.setBounds(834, 62, 91, 14);
+		lblEdad.setBounds(834, 31, 91, 14);
 		add(lblEdad);
-		
-		JLabel lblEdad_1 = new JLabel("Edad:");
-		lblEdad_1.setBounds(834, 93, 112, 14);
-		add(lblEdad_1);
 		
 		txtEspec = new JTextField();
 		txtEspec.setColumns(10);
-		txtEspec.setBounds(946, 59, 86, 20);
+		txtEspec.setBounds(946, 28, 86, 20);
 		add(txtEspec);
 		txtEspec.addKeyListener(new KeyAdapter() {
 			@Override
@@ -367,7 +374,7 @@ public class LaminaInstructor extends JPanel{
 		txtEdad = new JTextField();
 		txtEdad.setColumns(10);
 		txtEdad.setBounds(946, 90, 86, 20);
-		add(txtEdad);
+
 		txtEdad.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -378,12 +385,12 @@ public class LaminaInstructor extends JPanel{
 		});
 		
 		JLabel lblCelular = new JLabel("Celular:");
-		lblCelular.setBounds(835, 124, 106, 14);
+		lblCelular.setBounds(426, 93, 106, 14);
 		add(lblCelular);
 		
 		txtCel = new JTextField();
 		txtCel.setColumns(10);
-		txtCel.setBounds(946, 121, 86, 20);
+		txtCel.setBounds(537, 90, 86, 20);
 		add(txtCel);
 		txtCel.addKeyListener(new KeyAdapter() {
 			@Override
@@ -436,7 +443,7 @@ public class LaminaInstructor extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 				Clear_Table1();
-				LlenarTabla(txtBuscar.getText());
+				Buscar(txtBuscar.getText());
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null, "No hay un Cliente asociado a ese Documento o Nombre");
 				}
@@ -477,7 +484,6 @@ public class LaminaInstructor extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				try {
 
-					
 					tipoUsuario.setIdTipoUsuario(Integer.valueOf(txtTipoUsuario.getText()));
 					usuario.setIdTbUsuario(Integer.valueOf(txtId.getText()));
 					usuario.setTbTipoUsuario(tipoUsuario);
@@ -498,16 +504,21 @@ public class LaminaInstructor extends JPanel{
 					usuario.setDeespecialidad(txtEspec.getText());
 					usuario.setNmedad(Integer.valueOf(txtEdad.getText()));
 					usuario.setNmcelular(Integer.valueOf(txtCel.getText()));
-					usuarioImpl.modificarInstructor(usuario);
+					if (Integer.valueOf(txtEdad.getText())>17){
+						usuarioImpl.modificarInstructor(usuario);
+						limpiarCampos();
+						Clear_Table1();
+						LlenarTabla(txtTipoUsuario.getText());
+						btnGuardar.setEnabled(true);
+	                }else{
+	                    JOptionPane.showMessageDialog(null, "Tiene que ser Mayor de 16 años", "Edad", 0);
+	                }
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				limpiarCampos();
-				Clear_Table1();
-				LlenarTabla(txtTipoUsuario.getText());
-				btnGuardar.setEnabled(true);
+				
 			}
 		});
 		btnModificar.setForeground(Color.WHITE);
@@ -581,7 +592,7 @@ public class LaminaInstructor extends JPanel{
 		txtId.setVisible(false);
 		lblId.setVisible(false);
 	}
-	public void LlenarTabla(String valor){
+public void LlenarTabla(String valor){
 		
 		Conexion conexion= null;
 		Statement st = null; 
@@ -592,16 +603,12 @@ public class LaminaInstructor extends JPanel{
 		}else{
 			sql = "SELECT * FROM tb_usuario WHERE TIPO_USUARIO_idTIPO_USUARIO='"+valor+"'";
 		}
-		if (combo.getSelectedItem().equals("Nombre"))
-		{
-			sql="SELECT * FROM tb_usuario WHERE DSNOMBRE='"+valor+"'";
-		}
 		try{
 		    conexion = new Conexion();
 		    st = conexion.Conexion().createStatement();
 		    rs = st.executeQuery(sql);
 		    while(rs.next()){
-		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
+		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
 		    }
 		    
 		}catch(Exception e){
@@ -629,6 +636,103 @@ public class LaminaInstructor extends JPanel{
 			}; 
 		}
 	}
+	public void Buscar(String valor){
+		Conexion conexion= null;
+		Statement st = null; 
+		ResultSet rs =null; 
+		String sql="";
+		if (combo.getSelectedItem().equals("Nombre"))
+		{
+			sql="SELECT * FROM tb_usuario WHERE DSNOMBRE='"+valor+"'";
+		}else if (combo.getSelectedItem().equals("Cedula")){
+			sql="SELECT * FROM tb_usuario WHERE NMDOCUMENTO='"+valor+"'";
+		}
+		try{
+		    conexion = new Conexion();
+		    st = conexion.Conexion().createStatement();
+		    rs = st.executeQuery(sql);
+		    while(rs.next()){
+		        modelo.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getString(8),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getDate(14),rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20)});
+		    }
+		    
+		}catch(Exception e){
+		    System.out.println("error");
+		    e.printStackTrace();
+		}
+		finally{
+			try {
+				conexion.Conexion().close();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			try {
+				st.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}; 
+		}
+	}
+public int calcularEdad(){
+        
+        Calendar c2 = new GregorianCalendar();
+
+        int anioNac = calendar.getCalendar().get(Calendar.YEAR);
+        int mesNac = calendar.getCalendar().get(Calendar.MONTH);
+        int diaNac = calendar.getCalendar().get(Calendar.DATE);
+        int dia = c2.get(Calendar.DATE) - diaNac;
+        int mes = c2.get(Calendar.MONTH)- mesNac;
+        int annio = c2.get(Calendar.YEAR) - anioNac;
+        
+    
+        if (mes < 0 || (mes == 0 && dia < 0)) {
+            annio = annio - 1; 
+        }
+        System.out.println(annio);
+        return annio;
+    }
+public String DameNacimiento(){
+	int anioNac = calendar.getCalendar().get(Calendar.YEAR);
+    int mesNac = calendar.getCalendar().get(Calendar.MONTH)+1;
+    int diaNac = calendar.getCalendar().get(Calendar.DATE);
+    
+    String Nacimiento = ""+anioNac+""+"-"+""+mesNac+""+"-"+""+diaNac+"";
+    return Nacimiento;
+}
+public static boolean validateEmail(String email) {
+
+    // Compiles the given regular expression into a pattern.
+    Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+
+    // Match the given input against this pattern
+    Matcher matcher = pattern.matcher(email);
+    Matcher mather = pattern.matcher(email);
+    
+    if (mather.find() == true) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+public String DameFechaRegistro(){
+	Calendar c2 = new GregorianCalendar();
+	int dia = c2.get(Calendar.DATE);
+    int mes = c2.get(Calendar.MONTH)+1;
+    int annio = c2.get(Calendar.YEAR);
+    String dRegistro="";
+    if (mes<10 && dia<10){
+    	dRegistro = ""+annio+""+"-"+"0"+mes+""+"-"+"0"+dia+"";
+    }
+    return dRegistro;
+}
 	private void Clear_Table1(){
 	       for (int i = 0; i < tabla.getRowCount(); i++) {
 	           modelo.removeRow(i);
